@@ -1,0 +1,170 @@
+﻿<div class="page-title full-width">
+    <div class="title-env">
+        <h1 class="title">Card Variants</h1>
+        <p class="description">Descriptions</p>
+    </div>
+
+    <div class="btn-group pull-right" style="padding-right:30px">
+
+        <button ng-click="vm.goBack()" class="btn btn-info btn-icon btn-gap" style="margin-right:2px">
+            <i class="fa-angle-left"></i>
+            <span>Back</span>
+        </button>
+
+        <button class="btn btn-info btn-icon btn-gap" style="margin-right:2px">
+            <i class="fa-refresh"></i>
+            <span>Refresh</span>
+        </button>
+
+        <button ng-click="vm.gotoAddVariant()" class="btn btn-info btn-icon btn-gap">
+            <i class="fa-plus"></i>
+            <span>Add New Variant</span>
+        </button>
+
+    </div>
+
+</div>
+
+<!-- Tables and Panels -->
+<div class="row">
+    <div class="col-md-6">
+
+        <div class="panel panel-default">
+            <div class="panel-heading">
+
+                <div id="main">
+                    <div class="list-your-property-form">
+                        <h2 class="page-header" style="font-size:24px; margin-top:5px">
+                            {{'Edit ' + vm.class.className + ' Variant' || 'Create New Client'}}
+                        </h2>
+
+                        <div class="container">
+
+                            <div class="row">
+                                <div class="col-md-4 col-sm-12">
+
+                                    <div class="span4">
+
+                                        <div class="input-text form-group">
+                                            <label class="control-label" for="inputLoginPassword">
+                                                Client Name
+                                                <span class="form-required" title="This field is required.">*</span>
+                                            </label>
+
+                                            <select data-ng-options="r.name for r in vm.clients"
+                                                    data-ng-model="vm.variant.client" class="form-control"
+                                                    style="padding:5px"></select>
+
+                                        </div>
+
+                                        <div class="input-text form-group">
+                                            <label class="control-label" for="inputLoginPassword">
+                                                Card Type
+                                                <span class="form-required" title="This field is required.">*</span>
+                                            </label>
+
+                                            <select data-ng-options="r.name for r in vm.sidCardTypes"
+                                                    data-ng-model="vm.variant.cardType" class="form-control"
+                                                    style="padding:5px"></select>
+
+                                        </div>
+
+
+                                        <div class="input-text form-group">
+                                            <label class="control-label" for="inputLoginPassword">
+                                                Variant Name <span style="font-size:11px">(eg: FirstBank)</span>
+                                                <span class="form-required" title="This field is required.">*</span>
+                                            </label>
+                                            <input type="text" name="contact_name"
+                                                   ng-model="vm.variant.name"
+                                                   class="input-name form-control" placeholder="" />
+                                        </div>
+
+                                        <div class="input-text form-group">
+                                            <label class="control-label" for="inputLoginPassword">
+                                                Short Code <span style="font-size:11px">(eg: FirstBank)</span>
+                                                <span class="form-required" title="This field is required.">*</span>
+                                            </label>
+                                            <input type="text" name="contact_name"
+                                                   ng-model="vm.variant.shortCode"
+                                                   class="input-name form-control" placeholder="" />
+                                        </div>
+
+
+                                        <div class="input-text form-group">
+                                            <input type="submit" data-ng-click="vm.save()"
+                                                   value="Submit Entry" class="btn btn-primary btn-large list-your-property arrow-right" />
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="col-md-6">
+
+        <div class="panel panel-flat">
+            <div class="panel-heading">
+
+                <h3 class="panel-title">SecureID Clients List</h3>
+
+                <div class="panel-options">
+                    <a href="">
+                        <i class="linecons-cog"></i>
+                    </a>
+
+                    <a href="" data-toggle="panel">
+                        <span class="collapse-icon">&ndash;</span>
+                        <span class="expand-icon">+</span>
+                    </a>
+
+                    <a href="" data-toggle="reload">
+                        <i class="fa-rotate-right"></i>
+                    </a>
+
+                    <a href="" data-toggle="remove">
+                        &times;
+                    </a>
+                </div>
+            </div>
+
+            <table class="table table-condensed">
+                <thead>
+                    <tr>
+                        <th width="1%">#</th>
+                        <th>Client</th>
+                        <th>Card Type</th>
+                        <th>Variant Name</th>
+                        <th>Short Code</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <tr data-ng-repeat="c in vm.variants"
+                        data-ng-click="vm.gotoVariants(c)">
+                        <td>({{$index +1}})</td>
+                        <td>{{c.sidClient.name}}</td>
+                        <td>{{c.sidCardType.name}}</td>
+                        <td>{{c.variantName}}</td>
+                        <td>{{c.shortCode}}</td>
+                    </tr>
+
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+</div>
+

@@ -1,0 +1,309 @@
+﻿<div class="page-title full-width">
+    <div class="title-env">
+        <h1 class="title">MIS Reports</h1>
+        <p class="description">Descriptions</p>
+    </div>
+
+    <div class="btn-group pull-right" style="padding-right:30px">
+
+        <button ng-click="vm.goBack()" class="btn btn-info btn-icon btn-gap" style="margin-right:2px">
+            <i class="fa-angle-left"></i>
+            <span>Back</span>
+        </button>
+
+        <button class="btn btn-info btn-icon btn-gap" style="margin-right:2px">
+            <i class="fa-refresh"></i>
+            <span>Refresh</span>
+        </button>
+
+        <button ng-click="vm.gotoAddVariant()" class="btn btn-info btn-icon btn-gap">
+            <i class="fa-plus"></i>
+            <span>Add New Variant</span>
+        </button>
+
+    </div>
+
+</div>
+
+<div class="table-wrapper">
+
+    <div class="table-responsive" data-pattern="priority-columns" data-focus-btn-icon="fa-asterisk" data-sticky-table-header="true" data-add-display-all-btn="true" data-add-focus-btn="true">
+
+        <div class="row">
+            <div class="col-md-3">
+                <div>
+                    <div style="padding-top:10px">
+
+                        <input class="input-medium search-query"
+                               style="padding:5px 0 5px 5px; width: 300px" type="text"
+                               placeholder="Search for client"
+                               data-ng-model="vm.clientSearch"
+                               data-ng-keyup="vm.search($event)" />
+
+                        <span data-ng-show="vm.messageVisble"  style="color:red">
+                            <img style="width:30px" src="../../../assets/chargement.gif" />
+                            {{vm.message}}
+                        </span>
+                    </div>
+
+                </div>
+                <table cellspacing="0" class="table table-small-font table-bordered table-striped">
+                    <thead>
+                        <tr>
+                            <th>SN</th>
+                            <th data-priority="1">Client Name</th>
+                            <th data-priority="1">Product Qty</th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        <tr data-ng-repeat="c in vm.filteredClients"
+                            data-ng-click="vm.gotoClientProducts(c)">
+                            <th colspan="1" data-columns="id8c140f573a4de-col-0">
+                                ({{$index +1}})
+                            </th>
+                            <th colspan="1" data-columns="id8c140f573a4de-col-0">
+                                <span class="co-name">
+                                    {{c.name }}
+                                </span>
+                            </th>
+                            <td data-priority="3" colspan="1" data-columns="id8c140f573a4de-col-2">
+                                --<!--{{c.qtyIssued}}-->
+                            </td>
+
+                        </tr>
+
+                    </tbody>
+
+                </table>
+
+                <div>
+
+                    <pagination boundary-links="true"
+                                on-select-page="vm.pageChanged(page)"
+                                total-items="vm.productFilteredCount"
+                                items-per-page="vm.paging.pageSize"
+                                page="vm.paging.currentPage"
+                                max-size="vm.paging.maxPagesToShow"
+                                class="pagination-small"
+                                previous-text="Prev"
+                                next-text="Next"
+                                first-text="First"
+                                last-text="Last"></pagination>
+
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div>
+                    <div style="padding-top:10px">
+
+                        <input class="input-medium search-query"
+                               style="padding:5px 0 5px 5px; width: 300px" type="text"
+                               placeholder="Search for client product"
+                               data-ng-model="vm.serverJobsSearch"
+                               data-ng-keyup="vm.search($event)" />
+                        {{vm.clientInfo}}
+                        <a href="#/in/mis/card/product/{{vm.clientId}}/create" class="btn btn-info btn-icon btn-gap">
+                            <i class="fa-plus"></i>
+                            <span>Add New</span>
+                        </a>
+                       
+                    </div>
+
+                </div>
+                <table cellspacing="0" class="table table-small-font table-bordered table-striped">
+                    <thead>
+                        <tr>
+                            <th>SN</th>
+                            <th data-priority="1">Product Name</th>
+                            <th data-priority="1">Card Type</th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        <tr data-ng-repeat="c in vm.products"
+                            data-ng-click="vm.gotoClientVault(c)">
+                            <th colspan="1" data-columns="id8c140f573a4de-col-0">
+                                ({{$index +1}})
+                            </th>
+                            <th colspan="1" data-columns="id8c140f573a4de-col-0">
+                                <span class="co-name">
+                                    {{c.name }}
+                                </span>
+                            </th>
+                            <td data-priority="3" colspan="1" data-columns="id8c140f573a4de-col-2">
+                                {{c.sidCardType.name}}
+                            </td>
+
+                        </tr>
+
+                    </tbody>
+
+                </table>
+
+                <div>
+
+                    <pagination boundary-links="true"
+                                on-select-page="vm.pageChanged(page)"
+                                total-items="vm.productFilteredCount"
+                                items-per-page="vm.paging.pageSize"
+                                page="vm.paging.currentPage"
+                                max-size="vm.paging.maxPagesToShow"
+                                class="pagination-small"
+                                previous-text="Prev"
+                                next-text="Next"
+                                first-text="First"
+                                last-text="Last"></pagination>
+
+                </div>
+            </div>
+
+            <div class="col-md-5">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+
+                        <div id="main">
+                            <div class="list-your-property-form">
+                                <h2 class="page-header" style="font-size:24px; margin-top:5px">
+                                    Product Details
+                                </h2>
+
+                                <div>
+                                    <!--in/inventory/vault-product-->
+                                    <a href="#/in/inventory/vault-product/{{vm.productId}}">MIS Vault Update - {{vm.productName}}</a>
+                                    <!--<a href="#/in/mis/card/vault-update/{{vm.productId}}">MIS Vault Update - {{vm.productName}}</a>-->
+                                </div>
+
+                                <br />
+                                <table cellspacing="0" class="table table-small-font table-bordered table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th>SN</th>
+                                            <th data-priority="1">Opening</th>
+                                            <th data-priority="1">Closing</th>
+
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+
+                                        <tr data-ng-repeat="c in vm.vaultrepots"
+                                            data-ng-click="vm.gotoReportDetails(c)">
+                                            <th colspan="1" data-columns="id8c140f573a4de-col-0">
+                                                ({{$index +1}})
+                                            </th>
+                                            <th colspan="1" data-columns="id8c140f573a4de-col-0">
+                                                <span class="co-name">
+                                                    {{c.openingStock}}
+                                                </span>
+                                            </th>
+                                            <td data-priority="3" colspan="1" data-columns="id8c140f573a4de-col-2">
+                                                {{c.closingStock}}
+                                            </td>
+
+                                        </tr>
+
+                                    </tbody>
+
+                                </table>
+
+                                <h2 class="page-header" style="font-size:24px; margin-top:5px">
+                                    Stock Report 
+                                </h2>
+
+                                <span style="font:11px"><a href="#/in/mis/card/mis-stockreport/{{vm.productId}}">View Complete Report - {{vm.productName}}</a></span>
+
+                                <br /><br />
+                                <table cellspacing="0" class="table table-small-font table-bordered table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th>FileName</th>
+                                            <th>Issued</th>
+                                            <th>Waste</th>
+                                            <th>Return</th>
+                                            <th data-priority="1">Open</th>
+                                            <th data-priority="1">Close</th>
+
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+
+                                        <tr data-ng-repeat="c in vm.stockreports"
+                                            data-ng-click="vm.gotoStockReportLog(c)">
+                                            <th colspan="1" data-columns="id8c140f573a4de-col-0">
+                                                ({{$index +1}})
+                                                {{c.fileName | limitTo: 20}}
+                                            </th>
+                                            <th>{{c.qtyIssued}}</th>
+                                            <th>{{c.wasteQty}}</th>
+                                            <th>{{c.returnQty}}</th>
+                                            <th colspan="1" data-columns="id8c140f573a4de-col-0">
+                                                <span class="co-name">
+                                                    {{c.openingStock}}
+                                                </span>
+                                            </th>
+                                            <td data-priority="3" colspan="1" data-columns="id8c140f573a4de-col-2">
+                                                {{c.closingStock}}
+                                            </td>
+
+                                        </tr>
+
+                                    </tbody>
+
+                                </table>
+
+                                <div>
+                                    <h2 class="page-header" style="font-size:24px; margin-top:5px">
+                                        Stock Report Log
+                                    </h2>
+                                    <table cellspacing="0" class="table table-small-font table-bordered table-striped">
+                                        <thead>
+                                            <tr>
+                                                <th>FileName</th>
+                                                <th>Issued</th>
+                                                <th data-priority="1">Open</th>
+                                                <th data-priority="1">Close</th>
+
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+
+                                            <tr data-ng-repeat="c in vm.stockreportlogs"
+                                                data-ng-click="vm.gotoReportDetails(c)">
+                                                <th colspan="1" data-columns="id8c140f573a4de-col-0">
+                                                    ({{$index +1}})
+                                                    {{c.cardIssuance.job.jobName | limitTo: 50}}
+                                                </th>
+                                                <th>{{c.issuanceQty}}</th>
+                                                <th colspan="1" data-columns="id8c140f573a4de-col-0">
+                                                    <span class="co-name">
+                                                        {{c.openingStock}}
+                                                    </span>
+                                                </th>
+                                                <td data-priority="3" colspan="1" data-columns="id8c140f573a4de-col-2">
+                                                    {{c.closingStock}}
+                                                </td>
+
+                                            </tr>
+
+                                        </tbody>
+
+                                    </table>
+
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+
+
+        </div>
+
+    </div>
+</div>
+

@@ -1,0 +1,88 @@
+﻿
+<div class="page-title full-width">
+    <div class="title-env">
+        <h1 class="title">Pending Jobs</h1>
+        <p class="description">Retrive all jobs status.</p>
+    </div>
+
+    <div class="btn-group pull-right" style="padding-right:30px">
+
+        <button ng-click="vm.goBack()" class="btn btn-info btn-icon btn-gap" style="margin-right:2px">
+            <i class="fa-angle-left"></i>
+            <span>Back</span>
+        </button>
+
+        <button data-ng-click="vm.refresh()" class="btn btn-info btn-icon btn-gap" style="margin-right:2px">
+            <i class="fa-refresh"></i>
+            <span>Refresh</span>
+        </button>
+
+    </div>
+
+</div>
+
+<div class="row">
+    <div class="col-lg-12">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <i class="fa fa-bell fa-fw"></i> Pending Uploaded Jobs
+            </div>
+
+            <div style="padding-top:10px">
+
+                <input class="input-medium search-query"
+                       style="padding:5px 0 5px 5px; width: 300px" type="text"
+                       placeholder="Search for incoming job on the server"
+                       data-ng-model="vm.serverJobsSearch"
+                       data-ng-keyup="vm.search($event)" />
+
+                &nbsp;&nbsp;
+
+
+                Page {{vm.paging.currentPage}} of {{vm.paging.pageCount}} - Total:{{vm.serverJobCount}} Jobs
+
+            </div>
+
+            <!-- /.panel-heading -->
+            <div class="panel-body">
+                <div class="list-group">
+                    <div class="list-group-item" data-ng-repeat="c in vm.filteredServerJobs">
+                        <div>
+                           
+                            <span data-ng-click="vm.gotoJobDetails(c)">
+                                <a ng-if="vm.currnetRole === 'CardOps'" href="#/co/job-setup/{{c.id}}">{{c.jobName}}</a>
+                                <a ng-if="vm.currnetRole !== 'CardOps'" href="">{{c.jobName}}</a>
+                            </span>
+                            <span class="pull-right text-muted small">
+                                <em>{{c.formattedDate}}</em>
+                                <!--Todo: Only CO can delete-->
+                                <span data-ng-click="vm.markTreated(c)" style="margin-left:20px">
+                                    <i class="fa fa-times fa-5x"></i>
+                                </span>
+                            </span>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <div>
+
+                <pagination boundary-links="true"
+                            on-select-page="vm.pageChanged(page)"
+                            total-items="vm.serverJobFilteredCount"
+                            items-per-page="vm.paging.pageSize"
+                            page="vm.paging.currentPage"
+                            max-size="vm.paging.maxPagesToShow"
+                            class="pagination-small"
+                            previous-text="Prev"
+                            next-text="Next"
+                            first-text="First"
+                            last-text="Last"></pagination>
+
+            </div>
+
+        </div>
+    </div>
+</div>
+

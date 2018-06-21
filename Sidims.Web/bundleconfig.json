@@ -1,0 +1,20 @@
+[
+  {
+    "outputFileName": "app/dashboard/dashboard.min.js",
+    "inputFiles": [
+      "app/dashboard/dashboard.js"
+    ]
+  },
+  {
+    "outputFileName": "app/inventory/job/card-issuance-logdetail.in.min.html",
+    "inputFiles": [
+      "app/inventory/job/card-issuance-logdetail.in.html"
+    ]
+  },
+  {
+    "outputFileName": "app/inventory/job/card-issuance-logdetail.in.min.js",
+    "inputFiles": [
+      "app/inventory/job/card-issuance-logdetail.in.js"
+    ]
+  }
+]

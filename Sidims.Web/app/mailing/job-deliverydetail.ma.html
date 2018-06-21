@@ -1,0 +1,584 @@
+﻿<div class="page-title full-width">
+    <div class="title-env">
+        <h1 class="title">Job Mailing</h1>
+        <p class="description">Descriptions</p>
+    </div>
+
+    <div class="btn-group pull-right" style="padding-right:30px">
+
+        <button ng-click="vm.goBack()" class="btn btn-info btn-icon btn-gap" style="margin-right:2px">
+            <i class="fa-angle-left"></i>
+            <span>Back</span>
+        </button>
+
+        <button class="btn btn-info btn-icon btn-gap" style="margin-right:2px">
+            <i class="fa-refresh"></i>
+            <span>Refresh</span>
+        </button>
+
+        <button ng-click="vm.gotoAddVariant()" class="btn btn-info btn-icon btn-gap">
+            <i class="fa-plus"></i>
+            <span>Add New Variant</span>
+        </button>
+
+    </div>
+
+</div>
+
+<!-- Tables and Panels -->
+<div class="row">
+    <div class="col-md-6">
+
+        <div class="panel panel-default">
+            <div class="panel-heading">
+
+                <div id="main">
+
+                    <div class="list-your-property-form">
+
+                        <h2 class="page-header" style="font-size:24px; margin-top:5px">
+                            Job Split Analysis
+                        </h2>
+
+                        <table class="table table-condensed">
+                            <thead>
+                                <tr style="font-size:14px">
+                                    <th>Machine</th>
+                                    <th>From</th>
+                                    <th>To</th>
+                                    <th>Qty</th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+                                <tr style="font-size:13px" data-ng-repeat="c in vm.newMailingSplits"
+                                    data-ng-click="vm.displayJobSplitDetails(c)">
+                                    <td>{{c.sidMachine.name}}</td>
+                                    <td>{{c.rangeFrom}}</td>
+                                    <td>{{c.rangeTo}}</td>
+                                    <td>{{(c.rangeTo - c.rangeFrom) + 1}}</td>
+                                    <!--<td>
+                                        <p> <i class="fa fa-check-circle-o fa-fw" style="color: green;"></i></p>
+                                    </td>-->
+                                </tr>
+
+                            </tbody>
+                        </table>
+
+                        <!--<div class="input-text form-group">
+                            <input type="submit" data-ng-click="vm.save()"
+                                   value="Complete Perso Process" class="btn btn-primary btn-large list-your-property arrow-right" />
+                        </div>-->
+
+
+                        <br /> <br />
+
+                    </div>
+
+                    <div class="list-your-property-form">
+
+                        <h2 class="page-header" style="font-size:18px; margin-top:5px">
+                            Job Deliverables
+                        </h2>
+
+                        <div>
+
+                            <table>
+
+                                <tr style="font-size:12px">
+
+                                    <td>
+
+                                        <div class="input-text form-group">
+                                            <label class="control-label" for="inputLoginPassword">
+                                                Range From
+                                                <span class="form-required" title="This field is required.">*</span>
+                                            </label>
+                                            <input type="text" name="contact_name" style="width:90% !important"
+                                                   ng-model="vm.del.rangeFrom" ng-focus="vm.clearErrorMessage()"
+                                                   class="input-name form-control" placeholder="" />
+                                        </div>
+
+                                    </td>
+
+                                    <td>
+                                        <div class="input-text form-group">
+                                            <label class="control-label" for="inputLoginPassword">
+                                                To
+                                                <span class="form-required" title="This field is required.">*</span>
+                                            </label>
+                                            <input type="text" name="contact_name" style="width:90% !important"
+                                                   ng-model="vm.del.rangeTo" ng-focus="vm.clearErrorMessage()"
+                                                   class="input-name form-control" placeholder="" />
+                                        </div>
+
+                                    </td>
+
+                                    <td>
+                                        <div class="input-text form-group">
+                                            <label class="control-label" for="inputLoginPassword">
+                                                Box Qty
+                                                <span class="form-required" title="This field is required.">*</span>
+                                            </label>
+                                            <input type="text" name="contact_name" style="width:90% !important"
+                                                   ng-model="vm.del.boxQty" ng-focus="vm.clearErrorMessage()"
+                                                   class="input-name form-control" placeholder="" />
+                                        </div>
+
+                                    </td>
+                                    <td>
+                                        <button ng-click="vm.saveDeliverable()"
+                                                class="btn btn-info btn-icon btn-gap btn-sm">
+                                            <i class="fa fa-check"></i>
+                                            <span>Save</span>
+                                        </button>
+                                    </td>
+                                </tr>
+
+
+                            </table>
+                            <div style="font-size:12px; color:red">
+                                {{vm.errorMessage}}
+                            </div>
+
+                        </div>
+
+                        <table class="table table-condensed">
+                            <thead>
+                                <tr style="font-size:14px">
+                                    <th>From</th>
+                                    <th>To</th>
+                                    <th>Qty</th>
+                                    <th>CreatedBy</th>
+                                    <th>
+                                        <a ng-click="vm.refreshDeliveryLog()">
+                                            <i class="fa-rotate-right"></i>
+                                        </a>
+                                    </th>
+                                    <th>
+                                                            
+                                    </th>
+                                </tr>
+                            </thead>
+                            
+                             
+                            <tfoot>
+                            <tr style="background-color: #efefef; font-size:12px">
+                                <td></td>
+                                <td></td>
+                                <td>
+                                    {{vm.getRangeTotal}} of
+                                    {{vm.cardIssuance.totalQuantityIssued}}
+                                </td>
+                                <td>
+                                    <span style="font-size: 11px">
+                                        {{vm.getQuantityGood}} Good;
+                                        {{vm.getQuantityBad }} Waste;
+                                        {{vm.getQuantityHeld}} Held
+                                    </span>
+                                    
+                                </td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                            </tfoot>
+
+
+                            <tbody>
+                                <tr style="font-size:13px" data-ng-repeat="c in vm.carddeliverylogs">
+                                    <td>{{c.rangeFrom}}</td>
+                                    <td>{{c.rangeTo}}</td>
+                                    <td>{{(c.rangeTo - c.rangeFrom) + 1}} <span style="font-size:10px">({{c.boxQty}} box)</span></td>
+                                    <td>{{c.createdBy.firstName }}</td>
+                                    <td>
+                                        <p><i ng-if="c.isConfirmed" class="fa fa-check-circle-o fa-fw" style="color: green;"></i></p>
+                                        <p><i ng-if="!c.isConfirmed" class="fa fa-circle-o fa-fw" style="color: red;"></i></p>
+                                    </td>
+                                    <td>
+                                        <p><i ng-hide="c.isConfirmed == true" class="fa fa-trash-o" aria-hidden="true" style="color: red;" ng-click="vm.deleteDelivery(c)"></i></p>
+                                    </td>
+                                </tr>
+
+                            </tbody>
+                        </table>
+
+                        <!--<div class="input-text form-group">
+                            <input type="submit" data-ng-click="vm.save()"
+                                   value="Complete Mailing Process" class="btn btn-primary btn-large list-your-property arrow-right" />
+                        </div>-->
+
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="col-md-6">
+
+        <div class="panel panel-flat" ng-show="vm.jobSplitDetail">
+            <div class="panel-heading">
+
+                <h3 class="panel-title">Job Split Details</h3>
+
+                <div class="panel-options">
+                    <a href="">
+                        <i class="linecons-cog"></i>
+                    </a>
+
+                    <a href="" data-toggle="panel">
+                        <span class="collapse-icon">&ndash;</span>
+                        <span class="expand-icon">+</span>
+                    </a>
+
+                    <a href="" data-toggle="reload">
+                        <i class="fa-rotate-right"></i>
+                    </a>
+
+                    <a href="" data-toggle="remove">
+                        &times;
+                    </a>
+                </div>
+            </div>
+
+            <table style="margin-top:10px">
+
+                <tr style="font-size:12px">
+
+                    <td style="width:15%">
+                        {{vm.ceJobSplit.jobSplit.sidMachine.name}} (Machine)
+                    </td>
+
+                    <td style="width: 30%">
+                        Range From: {{vm.ceJobSplit.jobSplit.rangeFrom}} To  {{vm.ceJobSplit.jobSplit.rangeTo}}
+                    </td>
+
+                    <td>
+
+                        <div class="input-text form-group">
+                            <label class="control-label" for="inputLoginPassword">
+                                Bad Cards
+                                <span class="form-required" title="This field is required.">*</span>
+                            </label>
+                            <input type="text" name="contact_name" style="width:90% !important"
+                                   ng-model="vm.ceJobSplit.quantityBad"
+                                   class="input-name form-control" placeholder="" />
+                        </div>
+
+                    </td>
+
+                    <td>
+                        <div class="input-text form-group">
+                            <label class="control-label" for="inputLoginPassword">
+                                Held Cards
+                                <span class="form-required" title="This field is required.">*</span>
+                            </label>
+                            <input type="text" name="contact_name" style="width:90% !important"
+                                   ng-model="vm.ceJobSplit.quantityHeld"
+                                   class="input-name form-control" placeholder="" />
+                        </div>
+
+                    </td>
+                    <td>
+                        <label class="control-label" for="inputLoginPassword">
+                            &nbsp;
+                        </label>
+                        <button ng-click="vm.updateJobSplit()"
+                                class="btn btn-info btn-icon btn-gap btn-sm">
+                            <i class="fa fa-check"></i>
+                            <span>Update</span>
+                        </button>
+
+                    </td>
+                </tr>
+
+
+            </table>
+
+        </div>
+
+        <div class="panel panel-flat" ng-show="vm.jobSplitDetail">
+            <div class="panel-heading">
+
+                <h3 class="panel-title">Selected JobSplit Details</h3>
+
+                <div class="panel-options">
+                    <a href="">
+                        <i class="linecons-cog"></i>
+                    </a>
+
+                    <a href="" data-toggle="panel">
+                        <span class="collapse-icon">&ndash;</span>
+                        <span class="expand-icon">+</span>
+                    </a>
+
+                    <a href="" data-toggle="reload">
+                        <i class="fa-rotate-right"></i>
+                    </a>
+
+                    <a href="" data-toggle="remove">
+                        &times;
+                    </a>
+                </div>
+            </div>
+
+            <table style="margin-top:10px">
+
+                <tr style="font-size:12px">
+
+                    <td style="width:30%; padding-bottom: 5px">
+                        Treated By
+                    </td>
+
+                    <td>
+                        {{vm.ceJobSplit.createdById}}
+                    </td>
+
+                </tr>
+
+                <tr style="font-size:12px">
+
+                    <td>
+                        Created On
+                    </td>
+
+                    <td>
+                        {{vm.ceJobSplit.createdOn}}
+                    </td>
+
+                </tr>
+
+
+            </table>
+
+        </div>
+
+
+        <div class="panel panel-flat">
+            <div class="panel-heading">
+
+                <h3 class="panel-title">QC Deliverables</h3>
+
+                <div class="panel-options">
+                    <a href="">
+                        <i class="linecons-cog"></i>
+                    </a>
+
+                    <a href="" data-toggle="panel">
+                        <span class="collapse-icon">&ndash;</span>
+                        <span class="expand-icon">+</span>
+                    </a>
+
+                    <a ng-click="vm.refreshQCDeliveryLog()" data-toggle="reload">
+                        <i class="fa-rotate-right"></i>
+                    </a>
+
+                    <a href="" data-toggle="remove">
+                        &times;
+                    </a>
+                </div>
+            </div>
+
+            <table class="table table-condensed">
+                <thead>
+                    <tr style="font-size:14px">
+                        <th>From</th>
+                        <th>To</th>
+                        <th></th>
+                        <th>Created By</th>
+                        <th>&nbsp;</th>
+                        <th></th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <tr style="font-size: 13px" data-ng-repeat="c in vm.qcCarddeliverylogs"
+                        data-ng-click="vm.displayJobSplitDetails(c)">
+                        <td>{{c.rangeFrom}}</td>
+                        <td>{{c.rangeTo}}</td>
+                        <td>{{(c.rangeTo - c.rangeFrom) + 1}}</td>
+                        <td>{{c.createdBy.fullName}}</td>
+                        <td>
+                            <p><i ng-if="c.isConfirmed" class="fa fa-check-circle-o fa-fw" style="color: green;"></i></p>
+                            <p><i ng-if="!c.isConfirmed" class="fa fa-circle-o fa-fw" style="color: red;"></i></p>
+                        </td>
+                        <td>
+                            <button ng-click="vm.confirmCEDelivery(c)" style="padding: 2px 5px;"
+                                    class="btn btn-info btn-icon btn-gap btn-sm">
+                                <i class="fa fa-check"></i>
+                                <span>Confirm</span>
+                            </button>
+                        </td>
+                    </tr>
+
+                </tbody>
+            </table>
+
+        </div>
+
+        <div class="panel panel-flat">
+            <div class="panel-heading">
+
+                <h3 class="panel-title">CE Machine Split Analysis</h3>
+
+                <div class="panel-options">
+                    <a href="">
+                        <i class="linecons-cog"></i>
+                    </a>
+
+                    <a href="" data-toggle="panel">
+                        <span class="collapse-icon">&ndash;</span>
+                        <span class="expand-icon">+</span>
+                    </a>
+
+                    <a href="" data-toggle="reload">
+                        <i class="fa-rotate-right"></i>
+                    </a>
+
+                    <a href="" data-toggle="remove">
+                        &times;
+                    </a>
+                </div>
+            </div>
+
+            <table class="table table-condensed">
+                <thead>
+                    <tr style="font-size:14px">
+                        <th>Machine</th>
+                        <th>From</th>
+                        <th>To</th>
+                        <th>TotalQty</th>
+                        <th>Good</th>
+                        <th>Pending</th>
+                        <th>Held</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <tr style="font-size:13px" data-ng-repeat="c in vm.jobSplitCEAnalysis"
+                        data-ng-click="vm.displayJobSplitDetails(c)">
+                        <td>{{c.jobSplit.sidMachine.name}}</td>
+                        <td>{{c.jobSplit.rangeFrom}}</td>
+                        <td>{{c.jobSplit.rangeTo}}</td>
+                        <td>{{(c.jobSplit.rangeTo - c.jobSplit.rangeFrom) + 1}}</td>
+                        <td>{{c.quantityGood }}</td>
+                        <td>{{c.quantityBad}}</td>
+                        <td>{{c.quantityHeld}}</td>
+                        <!--<td>
+                            <p> <i class="fa fa-check-circle-o fa-fw" style="color: green;"></i></p>
+                        </td>-->
+                    </tr>
+
+                </tbody>
+            </table>
+
+        </div>
+
+
+        <div class="panel panel-flat">
+            <div class="panel-heading">
+
+                <h3 class="panel-title">Job Details</h3>
+
+                <div class="panel-options">
+                    <a href="">
+                        <i class="linecons-cog"></i>
+                    </a>
+
+                    <a href="" data-toggle="panel">
+                        <span class="collapse-icon">&ndash;</span>
+                        <span class="expand-icon">+</span>
+                    </a>
+
+                    <a href="" data-toggle="reload">
+                        <i class="fa-rotate-right"></i>
+                    </a>
+
+                    <a href="" data-toggle="remove">
+                        &times;
+                    </a>
+                </div>
+            </div>
+
+            <table class="table table-condensed">
+
+                <tbody>
+                    <tr>
+                        <td>JobName</td>
+                        <td>{{vm.jobTracker.job.jobName}}</td>
+                    </tr>
+                    <tr>
+                        <td>Client:</td>
+                        <td>{{vm.jobTracker.job.sidSector.name}}> {{vm.job.sidClient.name}} > {{vm.job.remark.name}}</td>
+                    </tr>
+                    <tr>
+                        <td>Service Type</td>
+                        <td>{{vm.jobTracker.job.serviceType.name}}</td>
+                    </tr>
+                    <tr>
+                        <td>Quantity</td>
+                        <td>{{vm.jobTracker.job.quantity}}</td>
+                    </tr>
+
+
+                </tbody>
+            </table>
+        </div>
+
+        <div class="panel panel-flat">
+            <div class="panel-heading">
+
+                <h3 class="panel-title">Issuance Log</h3>
+
+                <div class="panel-options">
+                    <a href="">
+                        <i class="linecons-cog"></i>
+                    </a>
+
+                    <a href="" data-toggle="panel">
+                        <span class="collapse-icon">&ndash;</span>
+                        <span class="expand-icon">+</span>
+                    </a>
+
+                    <a href="" data-toggle="reload">
+                        <i class="fa-rotate-right"></i>
+                    </a>
+
+                    <a href="" data-toggle="remove">
+                        &times;
+                    </a>
+                </div>
+            </div>
+
+            <table class="table table-condensed">
+                <thead>
+                    <tr>
+                        <th width="1%">#</th>
+                        <th>Qty Issued</th>
+                        <th>Remain</th>
+                        <th>IssuedBy</th>
+                        <th>IssuedOn</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <tr data-ng-repeat="c in vm.cardissuancelogs"
+                        data-ng-click="vm.gotoCardTypes(c)">
+                        <td>({{$index +1}})</td>
+                        <td>{{c.quantityIssued}}</td>
+                        <td>{{c.quantityRemain}}</td>
+                        <td>{{c.issuance.fullName}}</td>
+                        <td>{{c.issuedDate}}</td>
+                    </tr>
+
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+</div>
+

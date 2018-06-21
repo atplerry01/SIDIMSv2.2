@@ -1,0 +1,95 @@
+﻿<div class="page-title full-width">
+    <div class="title-env">
+        <h1 class="title">SCM Card Request</h1>
+        <p class="description">Descriptions</p>
+    </div>
+
+    <div class="btn-group pull-right" style="padding-right:30px">
+
+        <button ng-click="vm.goBack()" class="btn btn-info btn-icon btn-gap" style="margin-right:2px">
+            <i class="fa-angle-left"></i>
+            <span>Back</span>
+        </button>
+
+        <button class="btn btn-info btn-icon btn-gap" style="margin-right:2px">
+            <i class="fa-refresh"></i>
+            <span>Refresh</span>
+        </button>
+
+        <button ng-click="vm.addCardRequest()" class="btn btn-info btn-icon btn-gap">
+            <i class="fa-plus"></i>
+            <span>Add New Request</span>
+        </button>
+
+    </div>
+
+</div>
+
+<!-- Tables and Panels -->
+<div class="row">
+  
+    <div class="col-md-12">
+
+        <div class="panel panel-flat">
+            <div class="panel-heading">
+
+                <h3 class="panel-title">Embedded Card Request List</h3>
+
+                <div class="panel-options">
+                    <a href="">
+                        <i class="linecons-cog"></i>
+                    </a>
+
+                    <a href="" data-toggle="panel">
+                        <span class="collapse-icon">&ndash;</span>
+                        <span class="expand-icon">+</span>
+                    </a>
+
+                    <a href="" data-toggle="reload">
+                        <i class="fa-rotate-right"></i>
+                    </a>
+
+                    <a href="" data-toggle="remove">
+                        &times;
+                    </a>
+                </div>
+            </div>
+
+            <table class="table table-condensed">
+                <thead>
+                    <tr>
+                        <th width="1%">#</th>
+                        <th>Order Number</th>
+                        <th>Client Name</th>
+                        <th>Variant</th>
+                        <th>Chip Type</th>
+                        <th>Quantity</th>
+                        <th>ReceivedBy</th>
+                        <th>#</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <tr data-ng-repeat="c in vm.cardrequests"
+                        data-ng-click="vm.gotoCardReceiptLogs(c)">
+                        <td>({{$index +1}})</td>
+                        <td>{{c.id}}</td>
+                        <td>{{c.sidVariant.sidClient.name}}</td>
+                        <td>{{c.sidVariant.variantName}}</td>
+                        <td>{{c.sidChipType.name}}</td>
+                        <td>{{c.totalBatchQty}}</td>
+                        <td>{{c.createdById}}</td>
+                        <td>
+                            <a href="" data-ng-click="vm.gotoCardRequests(c)" class="btn btn-warning btn-sm">
+                                <i class="fa fa-pencil"></i>
+                            </a>
+                        </td>
+                    </tr>
+
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+</div>
+

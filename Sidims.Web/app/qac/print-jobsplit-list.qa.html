@@ -1,0 +1,76 @@
+﻿<div class="page-title full-width">
+    <div class="title-env">
+        <h1 class="title">Split Print List</h1>
+        <p class="description">Descriptions</p>
+    </div>
+
+    <div class="btn-group pull-right" style="padding-right:30px">
+
+        <button ng-click="vm.goBack()" class="btn btn-info btn-icon btn-gap" style="margin-right:2px">
+            <i class="fa-angle-left"></i>
+            <span>Back</span>
+        </button>
+
+        <button class="btn btn-info btn-icon btn-gap" style="margin-right:2px">
+            <i class="fa-refresh"></i>
+            <span>Refresh</span>
+        </button>
+
+        <button ng-click="vm.gotoAddVariant()" class="btn btn-info btn-icon btn-gap">
+            <i class="fa-plus"></i>
+            <span>Add New Variant</span>
+        </button>
+
+    </div>
+
+</div>
+
+<div class="table-wrapper">
+
+    <div class="table-responsive" data-pattern="priority-columns" data-focus-btn-icon="fa-asterisk" data-sticky-table-header="true" data-add-display-all-btn="true" data-add-focus-btn="true">
+
+
+        <table cellspacing="0" class="table table-small-font table-bordered table-striped">
+            <thead>
+                <tr>
+                    <th>File Name</th>
+                    <th data-priority="3">Machine</th>
+                    <th data-priority="1">RangeFrom</th>
+                    <th data-priority="3">Range To</th>
+                    <th data-priority="3">Process Status</th>
+                </tr>
+            </thead>
+            <tbody>
+
+                <tr data-ng-repeat="c in vm.jobSplits"
+                    data-ng-click="vm.gotoJobDetails(c)">
+                    <th colspan="1" data-columns="id8c140f573a4de-col-0">
+                        ({{$index +1}})
+                        <span class="co-name">
+                            {{c.jobTracker.job.jobName }}
+                        </span>
+                    </th>
+                    <td data-priority="3" colspan="1" data-columns="id8c140f573a4de-col-2">
+                        {{c.sidMachine.name}}
+                    </td>
+                    <td data-priority="1" colspan="1" data-columns="id8c140f573a4de-col-3">
+                        {{c.rangeFrom}}
+                    </td>
+                    <td data-priority="3" colspan="1" data-columns="id8c140f573a4de-col-4">
+                        {{c.rangeTo}}
+                    </td>
+                    <td data-priority="3" colspan="1" data-columns="id8c140f573a4de-col-5">
+                        <i ng-if="c.isQACompleted == true" class="fa fa-check-circle-o fa-fw" style="color: green;"></i>
+                        <i ng-if="c.isQACompleted == false" class="fa fa-dot-circle-o fa-fw" style="color: red;"></i>
+                        {{c.isQACompleted}}
+                    </td>
+                   
+
+                </tr>
+
+
+            </tbody>
+        </table>
+
+    </div>
+</div>

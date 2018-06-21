@@ -1,0 +1,64 @@
+﻿
+
+
+        public int countme(DateTime date)
+        {
+            //var test01 = _repository.DateTests.OrderBy(x => x.TransactionDate).GroupBy(y => y.TransactionDate).Select(m => m.FirstOrDefault());
+            var test = _repository.DateTests.Where(x => x.TransactionDate == date).Sum(m => m.Issuance);
+            return test;
+        }
+
+        [HttpGet]
+        public IQueryable<DateTest> DateTestsX(DateTime currentDate)
+        {
+            var testMe = _repo.GetAllDateTest().Count();
+            var result02 = _repository.DateTests; //.Count(); //.Select(c => c.Issuance).Sum();
+            //var count = result02.Count();
+            return null;
+        }
+
+        [HttpGet]
+        public IQueryable<DateTest2> DateTests()
+        {
+            // The Month, 3Month ...
+            // for each of the items in the array, then query out the items in the day
+
+            // get items not in the tablelists
+            var test01 = _repo.GetAllDateTest().OrderBy(x => x.TransactionDate).GroupBy(y => y.TransactionDate).Select(m => m.FirstOrDefault());
+
+            List<DateTest2> dateLists = new List<DateTest2>();
+
+            foreach (var v in test01)
+            {
+                var countx = _repo.GetAllDateTest().Where(m => m.TransactionDate == v.TransactionDate).Count();
+                var sum = _repo.GetAllDateTest().Where(m => m.TransactionDate == v.TransactionDate).AsEnumerable().Sum(x => x.Issuance);
+                
+                // Create the daily report // Create the new Model
+                Console.WriteLine(v.TransactionDate.ToString(), countx, sum); //, currentIssuanceSum, currentIssuanCount
+            }
+            
+            return null; //_repository.SidProducts.Where(a => a.SidClientId == ClientId);
+        }
+
+
+===============================================================================================
+
+		
+        public List<DateTest> GetAllDateTest()
+        {
+            return _ctx.DateTests.ToList();
+        }
+
+        public List<DateTest2> GetAllDateTest2()
+        {
+            return _ctx.DateTest2s.ToList();
+        }
+
+
+		=============
+
+		
+        public IQueryable<DateTest> DateTests
+        {
+            get { return Context.DateTests; }
+        }

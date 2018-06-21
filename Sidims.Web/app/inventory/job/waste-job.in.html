@@ -1,0 +1,75 @@
+﻿<div class="page-title full-width">
+    <div class="title-env">
+        <h1 class="title">Waste Jobs Queue</h1>
+        <p class="description">Descriptions</p>
+    </div>
+
+    <div class="btn-group pull-right" style="padding-right:30px">
+
+        <button ng-click="vm.goBack()" class="btn btn-info btn-icon btn-gap" style="margin-right:2px">
+            <i class="fa-angle-left"></i>
+            <span>Back</span>
+        </button>
+
+        <button class="btn btn-info btn-icon btn-gap" style="margin-right:2px">
+            <i class="fa-refresh"></i>
+            <span>Refresh</span>
+        </button>
+
+        <button ng-click="vm.gotoAddVariant()" class="btn btn-info btn-icon btn-gap">
+            <i class="fa-plus"></i>
+            <span>Add New Variant</span>
+        </button>
+
+    </div>
+
+</div>
+
+
+
+<div class="table-wrapper">
+
+    <div class="table-responsive" data-pattern="priority-columns" data-focus-btn-icon="fa-asterisk" data-sticky-table-header="true" data-add-display-all-btn="true" data-add-focus-btn="true">
+
+
+        <table cellspacing="0" class="table table-small-font table-bordered table-striped">
+            <thead>
+                <tr>
+                    <th>Job Name</th>
+                    <th data-priority="3">Waste Qty</th>
+                    <th data-priority="1">Unit Responsible</th>
+                    <th data-priority="3">Error Source</th>
+                    <th data-priority="1">Time In</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr data-ng-repeat="c in vm.wastejobs"
+                    data-ng-click="vm.gotoWasteIssuances(c)">
+                    <th colspan="1">
+                        ({{$index +1}})
+                        <span class="co-name">
+                            {{c.jobTracker.job.jobName }}
+                        </span>
+                    </th>
+                    <td data-priority="3" colspan="1">
+                        {{c.quantityBad}}
+                    </td>
+                    <td data-priority="3" colspan="1">
+                        {{c.wasteByUnit.name}}
+                    </td>
+                    <td data-priority="1" colspan="1" data-columns="id8c140f573a4de-col-3">
+                        {{c.wasteErrorSource.name}}
+                    </td>
+                 
+                    <td data-priority="3" colspan="1" data-columns="id8c140f573a4de-col-5">
+                        {{c.createdOn}}
+                    </td>
+
+                </tr>
+
+            </tbody>
+        </table>
+
+
+    </div>
+</div>

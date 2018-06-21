@@ -1,0 +1,297 @@
+﻿<div class="page-title full-width">
+    <div class="title-env">
+        <h1 class="title">New Perso Resume</h1>
+        <p class="description">Descriptions</p>
+    </div>
+
+    <div class="btn-group pull-right" style="padding-right:30px">
+
+        <button ng-click="vm.goBack()" class="btn btn-info btn-icon btn-gap" style="margin-right:2px">
+            <i class="fa-angle-left"></i>
+            <span>Back</span>
+        </button>
+
+        <button class="btn btn-info btn-icon btn-gap" style="margin-right:2px">
+            <i class="fa-refresh"></i>
+            <span>Refresh</span>
+        </button>
+
+        <button ng-click="vm.gotoAddVariant()" class="btn btn-info btn-icon btn-gap">
+            <i class="fa-plus"></i>
+            <span>Add New Variant</span>
+        </button>
+
+    </div>
+
+</div>
+
+<!-- Tables and Panels -->
+<div class="row">
+    <div class="col-md-6">
+
+        <div class="panel panel-default">
+            <div class="panel-heading">
+
+                <div id="main">
+
+                    <div class="list-your-property-form">
+
+                        <h2 class="page-header" style="font-size:24px; margin-top:5px">
+                            Job Split Analysis
+                        </h2>
+
+                        <table class="table table-condensed">
+                            <thead>
+                                <tr style="font-size:14px">
+                                    <th>Mach</th>
+                                    <th>Range</th>
+                                    <th>TQty</th>
+                                    <th>Good</th>
+                                    <th>Pending</th>
+                                    <th>Held</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tfoot>
+                                <tr style="background-color: #efefef; font-size:12px">
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td>
+                                        {{vm.getRangeTotal}}
+                                    </td>
+                                    <td>
+                                        <span style="font-size: 11px">
+                                            <!--{{vm.getQuantityGood}} Good;-->
+                                        </span>
+
+                                    </td>
+                                    <td>
+                                        <!--{{vm.getQuantityBad }} Waste;-->
+                                    </td>
+                                    <td>
+                                        <!--{{vm.getQuantityHeld}} Held-->
+                                    </td>
+                                    <td></td>
+                                </tr>
+                            </tfoot>
+
+                            <tbody>
+                                <tr style="font-size:13px" data-ng-repeat="c in vm.jobSplitCEAnalysis"
+                                    data-ng-click="vm.displayJobSplitDetails(c)">
+                                    <td>{{c.jobSplit.sidMachine.name}}</td>
+                                    <td>{{c.jobSplit.rangeFrom}} - {{c.jobSplit.rangeTo}}</td>
+                                    <td>{{(c.jobSplit.rangeTo - c.jobSplit.rangeFrom) + 1}}</td>
+                                    <td>{{c.quantityGood}}</td>
+                                    <td>{{c.quantityBad}} <span style="font-size:11px">({{c.wasteReturned}})</span></td>
+                                    <td>{{c.quantityHeld}} <span style="font-size:11px">({{c.heldReturned}})</span></td>
+                                    <td>
+                                        <span>
+                                            <i ng-click="vm.letMeHandleJob(c)" ng-if="!c.isJobHandleByQC" class="fa fa-arrow-circle-up fa-fw" style="color: blue;"></i>
+                                            <i ng-if="c.isJobHandleByQC" class="fa fa-check-circle-o fa-fw" style="color: green;"></i>
+                                        </span>
+                                    </td>
+                                   
+                                </tr>
+
+                            </tbody>
+                        </table>
+
+                    </div>
+
+                    <br />
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="col-md-6">
+
+        <div class="panel panel-flat" ng-show="vm.jobSplitDetail">
+            <div class="panel-heading">
+
+                <h3 class="panel-title">Job Split Details</h3>
+
+                <div class="panel-options">
+                    <a href="">
+                        <i class="linecons-cog"></i>
+                    </a>
+
+                    <a href="" data-toggle="panel">
+                        <span class="collapse-icon">&ndash;</span>
+                        <span class="expand-icon">+</span>
+                    </a>
+
+                    <a href="" data-toggle="reload">
+                        <i class="fa-rotate-right"></i>
+                    </a>
+
+                    <a href="" data-toggle="remove">
+                        &times;
+                    </a>
+                </div>
+            </div>
+
+            <table style="margin-top:10px">
+
+                <tr style="font-size:12px">
+
+                    <td style="width:30%">
+                        {{vm.ceJobSplit.jobSplit.sidMachine.name}} (Machine)
+                    </td>
+
+                    <td style="width: 50%">
+                        Range From: {{vm.ceJobSplit.jobSplit.rangeFrom}} To  {{vm.ceJobSplit.jobSplit.rangeTo}}
+                        <br /> <strong>({{((vm.ceJobSplit.jobSplit.rangeTo - vm.ceJobSplit.jobSplit.rangeFrom) + 1) - (vm.ceJobSplit.quantityHeld + vm.ceJobSplit.quantityBad)}}/ {{(vm.ceJobSplit.jobSplit.rangeTo - vm.ceJobSplit.jobSplit.rangeFrom) + 1}})</strong>
+                    </td>
+
+                    <td>
+                        <label class="control-label" for="inputLoginPassword">
+                            &nbsp;
+                        </label>
+                        <button ng-click="vm.updateJobSplit()"
+                                class="btn btn-info btn-icon btn-gap btn-sm">
+                            <i class="fa fa-check"></i>
+                            <span>Update</span>
+                        </button>
+
+                    </td>
+                </tr>
+
+            </table>
+
+            <br />
+
+            <table>
+                <tr>
+                    <td><strong>Created By</strong></td>
+                    <td>{{vm.ceJobSplit.createdBy.fullName}}</td>
+                </tr>
+                <tr>
+                    <td><strong>Created On</strong></td>
+                    <td>{{vm.ceJobSplit.createdOn}}</td>
+                </tr>
+            </table>
+
+            <br />
+
+            <table>
+                <tr>
+                    <td><strong>Modified By</strong></td>
+                    <td>{{vm.ceJobSplit.modifiedBy.fullName}}</td>
+                </tr>
+                <tr>
+                    <td><strong>Modified On</strong></td>
+                    <td>{{vm.ceJobSplit.modifiedOn}}</td>
+                </tr>
+            </table>
+
+        </div>
+
+        <div class="panel panel-flat">
+            <div class="panel-heading">
+
+                <h3 class="panel-title">Job Details</h3>
+
+                <div class="panel-options">
+                    <a href="">
+                        <i class="linecons-cog"></i>
+                    </a>
+
+                    <a href="" data-toggle="panel">
+                        <span class="collapse-icon">&ndash;</span>
+                        <span class="expand-icon">+</span>
+                    </a>
+
+                    <a href="" data-toggle="reload">
+                        <i class="fa-rotate-right"></i>
+                    </a>
+
+                    <a href="" data-toggle="remove">
+                        &times;
+                    </a>
+                </div>
+            </div>
+
+            <table class="table table-condensed">
+
+                <tbody>
+                    <tr>
+                        <td>JobName</td>
+                        <td>{{vm.jobTracker.job.jobName}}</td>
+                    </tr>
+                    <tr>
+                        <td>Client:</td>
+                        <td>{{vm.jobTracker.job.sidSector.name}}> {{vm.job.sidClient.name}} > {{vm.job.remark.name}}</td>
+                    </tr>
+                    <tr>
+                        <td>Service Type</td>
+                        <td>{{vm.jobTracker.job.serviceType.name}}</td>
+                    </tr>
+                    <tr>
+                        <td>Quantity</td>
+                        <td>{{vm.jobTracker.job.quantity}}</td>
+                    </tr>
+
+
+                </tbody>
+            </table>
+        </div>
+
+        <div class="panel panel-flat">
+            <div class="panel-heading">
+
+                <h3 class="panel-title">Issuance Log</h3>
+
+                <div class="panel-options">
+                    <a href="">
+                        <i class="linecons-cog"></i>
+                    </a>
+
+                    <a href="" data-toggle="panel">
+                        <span class="collapse-icon">&ndash;</span>
+                        <span class="expand-icon">+</span>
+                    </a>
+
+                    <a href="" data-toggle="reload">
+                        <i class="fa-rotate-right"></i>
+                    </a>
+
+                    <a href="" data-toggle="remove">
+                        &times;
+                    </a>
+                </div>
+            </div>
+
+            <table class="table table-condensed">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Qty Issued</th>
+                        <th>Remain</th>
+                        <th>IssuedBy</th>
+                        <th>IssuedOn</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <tr data-ng-repeat="c in vm.cardissuancelogs"
+                        data-ng-click="vm.gotoCardTypes(c)">
+                        <td>({{$index +1}})</td>
+                        <td>{{c.quantityIssued}}</td>
+                        <td>{{c.quantityRemain}}</td>
+                        <td>{{c.issuance.fullName}}</td>
+                        <td>{{c.issuedDate}}</td>
+                    </tr>
+
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+</div>
+

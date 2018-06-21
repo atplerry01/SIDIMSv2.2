@@ -1,0 +1,183 @@
+﻿<div class="page-title full-width">
+    <div class="title-env">
+        <h1 class="title">Job Setup</h1>
+        <p class="description">Descriptions</p>
+    </div>
+
+    <div class="btn-group pull-right" style="padding-right:30px">
+
+        <button ng-click="vm.goBack()" class="btn btn-info btn-icon btn-gap" style="margin-right:2px">
+            <i class="fa-angle-left"></i>
+            <span>Back</span>
+        </button>
+
+        <button class="btn btn-info btn-icon btn-gap" style="margin-right:2px">
+            <i class="fa-refresh"></i>
+            <span>Refresh</span>
+        </button>
+
+        <button ng-click="vm.gotoAddVariant()" class="btn btn-info btn-icon btn-gap">
+            <i class="fa-plus"></i>
+            <span>Add New Variant</span>
+        </button>
+
+    </div>
+
+</div>
+
+<!-- Tables and Panels -->
+<div class="row">
+    <div class="col-md-6">
+
+        <div class="panel panel-default">
+            <div class="panel-heading">
+
+                <div id="main">
+                    <div class="list-your-property-form">
+                        <h2 class="page-header" style="font-size:24px; margin-top:5px">
+                            <!--{{'Edit ' + vm.class.className + ' Variant' || 'Create New Client'}}-->
+                            Create a new Job
+                        </h2>
+
+                        <div class="container">
+
+                            <div class="row">
+                                <div class="col-md-4 col-sm-12">
+
+                                    <div class="span4">
+
+                                        <div class="input-text form-group">
+                                            <label class="control-label" for="inputLoginPassword">
+                                                Job Name
+                                                <span class="form-required" title="This field is required.">*</span>
+                                            </label>
+
+                                            <input type="text" name="contact_name" readonly
+                                                   ng-model="vm.jobsetup.jobName"
+                                                   class="input-name form-control" placeholder="" />
+
+                                        </div>
+
+                                        <div class="input-text form-group">
+                                            <label class="control-label" for="inputLoginPassword">
+                                                Product Name
+                                                <span class="form-required" title="This field is required.">*</span>
+                                            </label>
+
+                                            <input type="text" name="contact_name" readonly
+                                                   ng-model="vm.jobsetup.sidProduct.name"
+                                                   class="input-name form-control" placeholder="" />
+
+                                        </div>
+
+                                        <div class="input-text form-group">
+                                            <label class="control-label" for="inputLoginPassword">
+                                                Sector
+                                                <span class="form-required" title="This field is required.">*</span>
+                                            </label>
+
+                                            <input type="text" name="contact_name" readonly
+                                                   ng-model="vm.jobsetup.sidProduct.sidClient.sector.name"
+                                                   class="input-name form-control" placeholder="" />
+
+                                        </div>
+
+                                        <div class="input-text form-group">
+                                            <label class="control-label" for="inputLoginPassword">
+                                                Client
+                                                <span class="form-required" title="This field is required.">*</span>
+                                            </label>
+
+                                            <input type="text" name="contact_name" readonly
+                                                   ng-model="vm.jobsetup.sidProduct.sidClient.name"
+                                                   class="input-name form-control" placeholder="" />
+
+                                        </div>
+
+                                        <div class="input-text form-group">
+                                            <label class="control-label" for="inputLoginPassword">
+                                                Card Types
+                                                <span class="form-required" title="This field is required.">*</span>
+                                            </label>
+
+                                            <input type="text" name="contact_name" readonly
+                                                   ng-model="vm.jobsetup.sidProduct.sidCardType.name"
+                                                   class="input-name form-control" placeholder="" />
+
+                                        </div>
+
+                                        <div class="input-text form-group">
+                                            <label class="control-label" for="inputLoginPassword">
+                                                Service Type
+                                                <span class="form-required" title="This field is required.">*</span>
+                                            </label>
+
+                                            <input type="text" name="contact_name" readonly
+                                                   ng-model="vm.jobsetup.serviceType.name"
+                                                   class="input-name form-control" placeholder="" />
+                                        </div>
+
+                                        <div class="input-text form-group">
+                                            <label class="control-label" for="inputLoginPassword">
+                                                Quantity
+                                                <span class="form-required" title="This field is required.">*</span>
+                                            </label>
+                                            <input type="text" name="contact_name" readonly
+                                                   ng-model="vm.jobsetup.quantity"
+                                                   class="input-name form-control" placeholder="" />
+                                        </div>
+
+                                        <div class="input-text form-group">
+                                            <input type="submit" data-ng-click="vm.save()"
+                                                   value="Submit Entry" class="btn btn-primary btn-large list-your-property arrow-right" />
+                                        </div>
+
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="col-md-6">
+
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <i class="fa fa-bell fa-fw"></i> Recent Uploaded Jobs
+            </div>
+
+            <!-- /.panel-heading -->
+            <div class="panel-body">
+                <div class="list-group">
+
+                    <a href="" data-ng-repeat="c in vm.jobNames"
+                       data-ng-click="vm.gotoJobDetails(c)"
+                       class="list-group-item">
+                        <span>
+                            ({{$index +1}}) <i class="fa fa-download fa-fw"></i>
+                            {{c.jobName}}
+                        </span>
+                        <br />
+                        <span class="pull-left text-muted small">
+                            <em>{{c.createdOn}}1  Hour Ago</em>
+                        </span>
+                    </a>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+</div>
+

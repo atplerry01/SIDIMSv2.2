@@ -1,0 +1,31 @@
+﻿>> Supervisor should be able to init partial job resumption
+>> Job Tracker should have a unit TimeIn & TimeOut For Audit Purpose
+>> Card Issuance 
+
+
+>> Top Header Text to be removed
+
+Sql("DBCC CHECKIDENT ('Job', RESEED, 1000)");
+
+
+>>. Seed ChipType
+>>. Audit Fix for all models
+>>. Edit and Update and delete buttons
+>>. Nullo Dropdown
+>>. Pagination
+>>. Search Query
+
+>> Inventory Card Request: Update selection fix
+>> Flag Receipt and Request If not completed
+>> Create Stationary Variant and WasteVariant
+>> Get Requested Not display the Model Data
+>> Partial Issuance Should only be allowed if partial - http://localhost:55094/index.html#/in/card-issuance-log/2
+
+SEED CONFIGURATION
+>>. Seed Configuration => SidVariant,
+
+
+>>. * On EnbedReceipt Update Stock Information
+>>. When job is created in CO Set the Job Table State to Queue/ Pending
+
+>>. In waste MAnagement, There must be a Reconciliation between waste return and new card collection

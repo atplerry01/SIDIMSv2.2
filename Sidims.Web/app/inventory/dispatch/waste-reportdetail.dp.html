@@ -1,0 +1,167 @@
+﻿<div class="page-title full-width">
+    <div class="title-env">
+        <h1 class="title">Delivery Note</h1>
+        <p class="description">Descriptions</p>
+    </div>
+
+    <div class="btn-group pull-right" style="padding-right:30px">
+
+        <button ng-click="vm.goBack()" class="btn btn-info btn-icon btn-gap" style="margin-right:2px">
+            <i class="fa-angle-left"></i>
+            <span>Back</span>
+        </button>
+
+        <button class="btn btn-info btn-icon btn-gap" style="margin-right:2px">
+            <i class="fa-refresh"></i>
+            <span>Refresh</span>
+        </button>
+
+        <button ng-click="vm.gotoAddVariant()" class="btn btn-info btn-icon btn-gap">
+            <i class="fa-plus"></i>
+            <span>Add New Variant</span>
+        </button>
+    </div>
+</div>
+
+<div class="table-wrapper">
+
+    <!--<button class="btn btn-primary" ng-print print-element-id="printThisElement"><i class="fa fa-print"></i> Print</button>-->
+    <button  ng-click="printToCart('printSectionId')" class="btn btn-primary" ng-print print-element-id="printThisElement"><i class="fa fa-print"></i> Print</button>
+    <!--<button ng-click="printToCart('printSectionId')" class="button">Print</button>-->
+
+    <div class="table-responsive" data-pattern="priority-columns" data-focus-btn-icon="fa-asterisk" data-sticky-table-header="true" data-add-display-all-btn="true" data-add-focus-btn="true">
+        <div class="col-lg-12" id="printSectionId">
+            <table class="table borderless">
+                <thead>
+                    <tr>
+                        <th>
+                            <img src="../../../assets/sidlogo.png" />
+                        </th>
+                        <th class="center"> {{vm.deliveryNote.sidClient.name}} DELIVERY NOTE.</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Date: {{vm.deliveryNote.formattedDate}}</strong></td>
+                        <td></td>
+                        <td>
+                            <strong>Delivery Note Number: </strong> SID/V2/{{vm.deliveryNote.formattedDate}}<br>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <strong>Delivery Address:</strong><br>
+                            <p><b>Address Line 1:</b> {{vm.deliveryProfile.name}}</p>
+                            <p><b>Address Line 2:</b> 	{{vm.deliveryProfile.address}}		</p>
+                            <p><b>State:</b> {{vm.deliveryProfile.state}}</p>
+                            <p><b>Country:</b> {{vm.deliveryProfile.country}}</p>
+                            <p><b>Attention:</b> {{vm.deliveryProfile.contactPerson}}				</p>
+                        </td>
+                        <td></td>
+                        <td>
+                            <strong>Billing Address:</strong><br>
+                            <p><b>Address Line 1:</b> {{vm.deliveryProfile.name}}</p>
+                            <p><b>Address Line 2:</b> 	{{vm.deliveryProfile.address}}		</p>
+                            <p><b>State:</b> {{vm.deliveryProfile.state}}</p>
+                            <p><b>Country:</b> {{vm.deliveryProfile.country}}</p>
+                            <p><b>Attention:</b> {{vm.deliveryProfile.contactPerson}}
+                        </td>
+                    </tr>
+
+                </tbody>
+            </table>
+
+            <table class="table table-bordered test">
+                <thead>
+                    <tr class="table-active" style="background-color: rgba(0,0,0,.0745098)">
+                        <th>Job Name</th>
+                        <th>Quantity Received</th>
+                        <th>Waste Quantity</th>
+                        <!--<th>Omitted</th>
+                        <th>Pending</th>-->
+                        <!--<th>Partial</th>-->
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr data-ng-repeat="c in vm.deliveryNoteLogs">
+                        <td>{{c.cardWasteAnalysis.jobTracker.job.jobName}}</td>
+                        <td>{{c.cardWasteAnalysis.jobTracker.job.quantity}}</td>
+                        <td>{{c.cardWasteAnalysis.quantityBad}}</td>
+                        <!--<td>{{c.ommitted}}</td>-->
+                        <!--<td>{{c.pending}}</td>-->
+                        <!--<td>{{c.isPartial}}</td>-->
+                    </tr>
+                </tbody>
+            </table>
+
+            <table class="table table-bordered test">
+
+                <tbody>
+                    <tr>
+
+                        <td width="20%">
+                            <p>
+                                <strong>DECLARATION</strong> <br>
+                                We declare that the above description and quantity of goods are delivered in good condition
+                            </p>
+                        </td>
+                        <td width="80%">
+                            <table class=" table table-bordered testing">
+                                <tbody>
+                                    <tr>
+                                        <td colspan="2"><strong>Prepared by</strong> <br> For: SecureID Limited</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="width: 50%; height: 50px;">
+                                            {{vm.deliveryNote.createdBy.fullName}}<br />
+                                            <span style="font-size:11px">{{vm.deliveryNote.formattedDate}}</span>
+                                        </td>
+                                        <td style="width: 50%; height: 50px;"></td>
+                                    </tr>
+                                    <tr>
+                                        <td style="width: 50%;">Dispatch Officer</td>
+                                        <td style="width: 50%;">Dispatch Supervisor</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <table class="table table-bordered test">
+
+                <tbody>
+                    <tr>
+
+                        <td width="20%">
+                            <p>
+                                <strong>DECLARATION</strong> <br>
+                                We declare that the above description and quantity of goods are received in good condition
+                            </p>
+                        </td>
+                        <td width="80%">
+                            <table class=" table table-bordered testing">
+                                <tbody>
+                                    <tr>
+                                        <td colspan="2"><strong>Received by</strong> <br> For: Customer</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="width: 50%; height: 50px;"></td>
+                                        <td style="width: 50%; height: 50px;"></td>
+                                    </tr>
+                                    <tr>
+                                        <td style="width: 50%;">Name &amp; Designation</td>
+                                        <td style="width: 50%;">Date &amp; Time</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+
+        </div>
+    </div>
+</div>

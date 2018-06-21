@@ -1,0 +1,31 @@
+﻿############################
+>> Partial Issuance Process
+>> Non Perso Job Process
+>> Flags Process Correction
+
+>> Dont Deliver without Confirming receipt Pr => CE => QC => MA
+>> Card Engr should accept delievry from print
+>> Auto input the number on split and delivery
+>> Indicator for completion of task
+>> MIS Migration Reports
+
+>> QA Validation input
+
+>> Model CleanUps
+>> Conconrrent Delete of delivery items
+>> Weekly Reports Process
+>> Soft Delete and Hard Delete of files
+>> General Interface Clean Ups
+
+>> Unused code cleanups
+>> LastCreatedItem fix
+>> Page fix
+################################
+
+>> Excess Split should not be allowed in Mailing delivery
+>> Mailing: Pending Delivery should be based on the quantity remain
+>> Product Variant
+>> Print Waste Held Fields cleanups
+
+>> Print: Deleting Delivery, cant go back to he previous treated job
+>> Print/CE/QC/MA Footer calculator

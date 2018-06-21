@@ -1,0 +1,62 @@
+﻿>> var count = db.Employees.Sum(x => x.Salary);
+
+
+            HttpClient client = new HttpClient();
+            client.BaseAddress = new Uri("http://localhost:53401");
+            client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            HttpResponseMessage response = client.GetAsync("api/inventory/cardissuancelog/create").Result;
+            if (response.IsSuccessStatusCode)
+            {
+                var data = response.Content.ReadAsAsync<IEnumerable<CardIssuanceLog>>().Result;
+                foreach (var x in data)
+                {
+                    //Call your store method and pass in your own object
+                }
+            }
+            else
+            {
+                //Something has gone wrong, handle it here
+            }
+
+
+	    context.Sites.Attach(_updatedSite);
+        context.Entry(_updatedSite).State = EntityState.Modified;
+        context.SaveChanges();
+        return Find(_updatedSite.ID);
+
+
+>> https://stackoverflow.com/questions/12728226/code-first-entity-framework-inserting-data-with-custom-id
+
+
+function computeDate() {
+            var d2 = new Date();
+            var d = new Date();            
+            d.setHours(d.getHours() - 2);
+            //alert(d);
+            console.log(d2);
+            console.log(d);
+        }
+
+		######################
+
+		  function processSplitJob() {
+            var newObject = [];
+
+            // Compute the slit
+            angular.forEach($scope.inputs, function (todo, key) {
+                console.log(todo);
+                var newObjectX = {
+                    jobTrackerId: vm.jobTracker.id,
+                    departmentId: todo.machine.departmentId,
+                    sidMachineId: todo.machine.id,
+                    rangeFrom: todo.rangeFrom,
+                    rangeTo: todo.rangeTo,
+                    jobBatchTrackerId: $routeParams.batchId
+                };
+
+                newObject.push(newObjectX);
+
+            });
+
+            createEntity(newObject);
+        }

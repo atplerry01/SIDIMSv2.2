@@ -1,0 +1,74 @@
+﻿<div class="page-title full-width">
+    <div class="title-env">
+        <h1 class="title">Job Detail</h1>
+        <p class="description">Descriptions</p>
+    </div>
+
+    <div class="btn-group pull-right" style="padding-right:30px">
+
+        <button ng-click="vm.goBack()" class="btn btn-info btn-icon btn-gap" style="margin-right:2px">
+            <i class="fa-angle-left"></i>
+            <span>Back</span>
+        </button>
+
+        <button class="btn btn-info btn-icon btn-gap" style="margin-right:2px">
+            <i class="fa-refresh"></i>
+            <span>Refresh</span>
+        </button>
+
+        <button ng-click="vm.gotoAddVariant()" class="btn btn-info btn-icon btn-gap">
+            <i class="fa-plus"></i>
+            <span>Add New Variant</span>
+        </button>
+
+    </div>
+
+</div>
+
+<div class="table-wrapper">
+    
+    <div ng-if="vm.jobTracker.stage01CardOps.name !== 'Not Required'">
+        Card Operations
+    </div>
+
+    <div ng-if="vm.jobTracker.stage01CardOps.name !== 'Not Required'">
+        Inventory
+    </div>
+
+    <div ng-if="vm.stateCheck == 'Not Required'">
+        Printing
+    </div>
+
+    <div ng-if="vm.jobTracker.stage09Mailing.name !== 'Not Required'">
+        CE First Job
+    </div>
+
+    <div ng-if="vm.jobTracker.stage09Mailing.name !== 'Not Required'">
+        QA
+    </div>
+
+    <div ng-if="vm.jobTracker.stage09Mailing.name !== 'Not Required'">
+        CE Resume
+    </div>
+
+    <div ng-if="vm.jobTracker.stage09Mailing.name !== 'Not Required'">
+        QC
+    </div>
+
+    <div ng-if="vm.jobTracker.stage09Mailing.name !== 'Not Required'">
+        MA
+    </div>
+    
+    <div ng-if="vm.jobTracker.stage09Mailing.name !== 'Not Required'">
+        DP
+    </div>
+
+    <div ng-if="vm.jobTracker.stage09Mailing.name !== 'Not Required'">
+        CST
+    </div>
+
+    <div>
+        TAT
+    </div>
+
+</div>

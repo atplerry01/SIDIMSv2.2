@@ -1,0 +1,111 @@
+﻿<div class="page-title full-width">
+    <div class="title-env">
+        <h1 class="title">Job Perso Reports</h1>
+        <p class="description">Retrive all jobs status.</p>
+    </div>
+
+    <div class="btn-group pull-right" style="padding-right:30px">
+
+        <button ng-click="vm.goBack()" class="btn btn-info btn-icon btn-gap" style="margin-right:2px">
+            <i class="fa-angle-left"></i>
+            <span>Back</span>
+        </button>
+
+        <button ng-click="vm.refresh()" class="btn btn-info btn-icon btn-gap" style="margin-right:2px">
+            <i class="fa-refresh"></i>
+            <span>Refresh</span>
+        </button>
+
+    </div>
+
+</div>
+
+
+<div>
+
+    <div class="table-wrapper widget-content">
+
+        <div class="table-responsive" data-pattern="priority-columns" data-focus-btn-icon="fa-asterisk" data-sticky-table-header="true" data-add-display-all-btn="true" data-add-focus-btn="true">
+
+            <input class="input-medium search-query"
+                   style="padding:5px 0 5px 5px; width: 300px" type="text"
+                   placeholder="Search for Job on JobTracker Trail"
+                   data-ng-model="vm.jobTrackersSearch"
+                   data-ng-keyup="vm.search($event)" />
+
+            &nbsp;&nbsp;
+
+            Page {{vm.paging.currentPage}} of {{vm.paging.pageCount}} - Total: {{vm.jobTrackerCount}} Trackers
+
+
+            <div class="table-responsive" data-pattern="priority-columns" data-focus-btn-icon="fa-asterisk" data-sticky-table-header="true" data-add-display-all-btn="true" data-add-focus-btn="true">
+
+                <table cellspacing="0" class="table table-small-font table-bordered table-striped">
+                    <thead>
+                        <tr>
+                            <th>File Name</th>
+                            <th data-priority="3">Split Range</th>
+                            <th data-priority="1">Qty Good</th>
+                            <th data-priority="3">Qty Held</th>
+                            <th data-priority="3">Qty Pending</th>
+                            <th data-priority="6">Handle By</th>
+                            <th data-priority="6">Treated On</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        <tr data-ng-repeat="c in vm.splitceanalysis"
+                            data-ng-click="vm.gotoJobDetails(c)">
+                            <th colspan="1" data-columns="id8c140f573a4de-col-0">
+                                ({{$index +1}})
+                                <span class="co-name">
+                                    {{c.jobTracker.job.jobName }}
+                                </span>
+                            </th>
+                            <td data-priority="3" colspan="1" data-columns="id8c140f573a4de-col-2">
+                                {{c.jobSplit.rangeFrom }} - {{c.jobSplit.rangeTo}} ({{(c.jobSplit.rangeTo - c.jobSplit.rangeFrom) + 1}})
+                            </td>
+                            <td data-priority="1" colspan="1" data-columns="id8c140f573a4de-col-3">
+                            {{c.quantityGood}}
+                            </td>
+                            <td data-priority="3" colspan="1" data-columns="id8c140f573a4de-col-4">
+                             {{c.quantityHeld}} 
+                            </td>
+                            <td data-priority="3" colspan="1" data-columns="id8c140f573a4de-col-5">
+                               {{c.quantityBad}}
+                            </td>
+                            <td data-priority="6" colspan="1" data-columns="id8c140f573a4de-col-6">
+                                {{c.modifiedBy.fullName}}
+                            </td>
+                            <td data-priority="6" colspan="1" data-columns="id8c140f573a4de-col-6">
+                                {{c.formattedDate}}
+                            </td>
+                          
+                        </tr>
+
+
+                    </tbody>
+                </table>
+
+            </div>
+            <div>
+
+                <pagination boundary-links="true"
+                            on-select-page="vm.pageChanged(page)"
+                            total-items="vm.jobTrackerFilteredCount"
+                            items-per-page="vm.paging.pageSize"
+                            page="vm.paging.currentPage"
+                            max-size="vm.paging.maxPagesToShow"
+                            class="pagination-small"
+                            previous-text="Prev"
+                            next-text="Next"
+                            first-text="First"
+                            last-text="Last"></pagination>
+
+            </div>
+
+        </div>
+    </div>
+
+
+</div>

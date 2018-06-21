@@ -1,0 +1,188 @@
+﻿<div class="page-title full-width">
+    <div class="title-env">
+        <h1 class="title">Job Archives Report</h1>
+        <p class="description">Retrive all jobs status.</p>
+    </div>
+
+    <div class="btn-group pull-right" style="padding-right:30px">
+
+        <button ng-click="vm.goBack()" class="btn btn-info btn-icon btn-gap" style="margin-right:2px">
+            <i class="fa-angle-left"></i>
+            <span>Back</span>
+        </button>
+
+        <button ng-click="vm.refresh()" class="btn btn-info btn-icon btn-gap" style="margin-right:2px">
+            <i class="fa-refresh"></i>
+            <span>Refresh</span>
+        </button>
+
+    </div>
+
+</div>
+
+
+<div>
+
+    <div class="table-wrapper widget-content">
+
+        <div class="table-responsive" data-pattern="priority-columns" data-focus-btn-icon="fa-asterisk" data-sticky-table-header="true" data-add-display-all-btn="true" data-add-focus-btn="true">
+
+            <input class="input-medium search-query"
+                   style="padding:5px 0 5px 5px; width: 300px" type="text"
+                   placeholder="Search for Job on JobTracker Trail"
+                   data-ng-model="vm.jobTrackersSearch"
+                   data-ng-keyup="vm.search($event)" />
+
+            &nbsp;&nbsp;
+
+            Page {{vm.paging.currentPage}} of {{vm.paging.pageCount}} - Total: {{vm.jobTrackerCount}} Trackers
+
+            <table cellspacing="0" class="table table-small-font table-bordered table-striped">
+                <thead>
+                    <tr>
+                        <th id="id8c140f573a4de-col-0-clone">File Name</th>
+                        <th data-priority="1" id="id8c140f573a4de-col-1-clone">Time In</th>
+                        <th data-priority="3" id="id8c140f573a4de-col-2-clone">CO</th>
+                        <th data-priority="1" id="id8c140f573a4de-col-3-clone">IN</th>
+                        <th data-priority="3" id="id8c140f573a4de-col-4-clone">PR</th>
+                        <th data-priority="3" id="id8c140f573a4de-col-5-clone">CE/1</th>
+                        <th data-priority="6" id="id8c140f573a4de-col-6-clone">QA</th>
+                        <th data-priority="6" id="id8c140f573a4de-col-6-clone">CE/2</th>
+                        <th data-priority="6" id="id8c140f573a4de-col-6-clone">QC</th>
+                        <th data-priority="6" id="id8c140f573a4de-col-6-clone">MA</th>
+                        <th data-priority="6" id="id8c140f573a4de-col-6-clone">DP</th>
+                        <th data-priority="6" id="id8c140f573a4de-col-6-clone">CST</th>
+                        <th data-priority="6" id="id8c140f573a4de-col-6-clone">TAT</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                    <tr data-ng-repeat="c in vm.filteredJobTrackers"
+                        data-ng-click="vm.gotoAuditTrail(c)" class="padd">
+                        <th colspan="1" data-columns="id8c140f573a4de-col-0">
+                            ({{$index +1}})
+                            <span class="co-name">
+                                {{c.job.jobName}}
+                            </span>
+
+                        </th>
+                        <td data-priority="1" colspan="1" data-columns="id8c140f573a4de-col-1">{{c.formattedDate}}</td>
+                        <td data-priority="3" colspan="1" data-columns="id8c140f573a4de-col-2">
+                            <i ng-if="c.stage01CardOps.name == 'Pending'" class="fa fa-circle-o fa-fw" style="color: red;"></i>
+                            <i ng-if="c.stage01CardOps.name == 'Queue'" class="fa fa-arrow-circle-up fa-fw" style="color: blue;"></i>
+                            <i ng-if="c.stage01CardOps.name == 'WIP'" class="fa fa-check-circle-o fa-fw" style="color: yellowgreen;"></i>
+                            <i ng-if="c.stage01CardOps.name == 'Flagged'" class="fa fa-flag fa-fw" style="color: red;"></i>
+                            <i ng-if="c.stage01CardOps.name == 'Completed'" class="fa fa-check-circle-o fa-fw" style="color: green;"></i>
+                            <i ng-if="c.stage01CardOps.name == 'Not Required'" class="fa fa-dot-circle-o fa-fw" style="color: red;"></i>
+                        </td>
+                        <td data-priority="1" colspan="1" data-columns="id8c140f573a4de-col-3">
+                            <i ng-if="c.stage02Inventory.name == 'Pending'" class="fa fa-circle-o fa-fw" style="color: red;"></i>
+                            <i ng-if="c.stage02Inventory.name == 'Queue'" class="fa fa-arrow-circle-up fa-fw" style="color: blue;"></i>
+                            <i ng-if="c.stage02Inventory.name == 'WIP'" class="fa fa-check-circle-o fa-fw" style="color: yellowgreen;"></i>
+                            <i ng-if="c.stage02Inventory.name == 'Flagged'" class="fa fa-flag fa-fw" style="color: red;"></i>
+                            <i ng-if="c.stage02Inventory.name == 'Completed'" class="fa fa-check-circle-o fa-fw" style="color: green;"></i>
+                            <i ng-if="c.stage02Inventory.name == 'Not Required'" class="fa fa-dot-circle-o fa-fw" style="color: red;"></i>
+                        </td>
+                        <td data-priority="3" colspan="1" data-columns="id8c140f573a4de-col-4">
+                            <i ng-if="c.stage03Printing.name == 'Pending'" class="fa fa-circle-o fa-fw" style="color: red;"></i>
+                            <i ng-if="c.stage03Printing.name == 'Queue'" class="fa fa-arrow-circle-up fa-fw" style="color: blue;"></i>
+                            <i ng-if="c.stage03Printing.name == 'WIP'" class="fa fa-check-circle-o fa-fw" style="color: yellowgreen;"></i>
+                            <i ng-if="c.stage03Printing.name == 'Flagged'" class="fa fa-flag fa-fw" style="color: red;"></i>
+                            <i ng-if="c.stage03Printing.name == 'Completed'" class="fa fa-check-circle-o fa-fw" style="color: green;"></i>
+                            <i ng-if="c.stage03Printing.name == 'Not Required'" class="fa fa-dot-circle-o fa-fw" style="color: red;"></i>
+
+                        </td>
+                        <td data-priority="3" colspan="1" data-columns="id8c140f573a4de-col-5">
+                            <i ng-if="c.stage06FirstJobRun.name == 'Pending'" class="fa fa-circle-o fa-fw" style="color: red;"></i>
+                            <i ng-if="c.stage06FirstJobRun.name == 'Queue'" class="fa fa-arrow-circle-up fa-fw" style="color: blue;"></i>
+                            <i ng-if="c.stage06FirstJobRun.name == 'WIP'" class="fa fa-check-circle-o fa-fw" style="color: yellowgreen;"></i>
+                            <i ng-if="c.stage06FirstJobRun.name == 'Flagged'" class="fa fa-flag fa-fw" style="color: red;"></i>
+                            <i ng-if="c.stage06FirstJobRun.name == 'Completed'" class="fa fa-check-circle-o fa-fw" style="color: green;"></i>
+                            <i ng-if="c.stage06FirstJobRun.name == 'Not Required'" class="fa fa-dot-circle-o fa-fw" style="color: red;"></i>
+
+                        </td>
+                        <td data-priority="6" colspan="1" data-columns="id8c140f573a4de-col-6">
+                            <i ng-if="c.stage05QA.name == 'Pending'" class="fa fa-circle-o fa-fw" style="color: red;"></i>
+                            <i ng-if="c.stage05QA.name == 'Queue'" class="fa fa-arrow-circle-up fa-fw" style="color: blue;"></i>
+                            <i ng-if="c.stage05QA.name == 'WIP'" class="fa fa-check-circle-o fa-fw" style="color: yellowgreen;"></i>
+                            <i ng-if="c.stage05QA.name == 'Flagged'" class="fa fa-flag fa-fw" style="color: red;"></i>
+                            <i ng-if="c.stage05QA.name == 'Completed'" class="fa fa-check-circle-o fa-fw" style="color: green;"></i>
+                            <i ng-if="c.stage05QA.name == 'Not Required'" class="fa fa-dot-circle-o fa-fw" style="color: red;"></i>
+
+                        </td>
+                        <td data-priority="3" colspan="1" data-columns="id8c140f573a4de-col-2">
+                            <i ng-if="c.stage07CardEngrResume.name == 'Pending'" class="fa fa-circle-o fa-fw" style="color: red;"></i>
+                            <i ng-if="c.stage07CardEngrResume.name == 'Queue'" class="fa fa-arrow-circle-up fa-fw" style="color: blue;"></i>
+                            <i ng-if="c.stage07CardEngrResume.name == 'WIP'" class="fa fa-check-circle-o fa-fw" style="color: yellowgreen;"></i>
+                            <i ng-if="c.stage07CardEngrResume.name == 'Flagged'" class="fa fa-flag fa-fw" style="color: red;"></i>
+                            <i ng-if="c.stage07CardEngrResume.name == 'Completed'" class="fa fa-check-circle-o fa-fw" style="color: green;"></i>
+                            <i ng-if="c.stage07CardEngrResume.name == 'Not Required'" class="fa fa-dot-circle-o fa-fw" style="color: red;"></i>
+
+                        </td>
+                        <td data-priority="1" colspan="1" data-columns="id8c140f573a4de-col-3">
+                            <i ng-if="c.stage08QC.name == 'Pending'" class="fa fa-circle-o fa-fw" style="color: red;"></i>
+                            <i ng-if="c.stage08QC.name == 'Queue'" class="fa fa-arrow-circle-up fa-fw" style="color: blue;"></i>
+                            <i ng-if="c.stage08QC.name == 'WIP'" class="fa fa-check-circle-o fa-fw" style="color: yellowgreen;"></i>
+                            <i ng-if="c.stage08QC.name == 'Flagged'" class="fa fa-flag fa-fw" style="color: red;"></i>
+                            <i ng-if="c.stage08QC.name == 'Completed'" class="fa fa-check-circle-o fa-fw" style="color: green;"></i>
+                            <i ng-if="c.stage08QC.name == 'Not Required'" class="fa fa-dot-circle-o fa-fw" style="color: red;"></i>
+
+                        </td>
+                        <td data-priority="3" colspan="1" data-columns="id8c140f573a4de-col-4">
+                            <i ng-if="c.stage09Mailing.name == 'Pending'" class="fa fa-circle-o fa-fw" style="color: red;"></i>
+                            <i ng-if="c.stage09Mailing.name == 'Queue'" class="fa fa-arrow-circle-up fa-fw" style="color: blue;"></i>
+                            <i ng-if="c.stage09Mailing.name == 'WIP'" class="fa fa-check-circle-o fa-fw" style="color: yellowgreen;"></i>
+                            <i ng-if="c.stage09Mailing.name == 'Flagged'" class="fa fa-flag fa-fw" style="color: red;"></i>
+                            <i ng-if="c.stage09Mailing.name == 'Completed'" class="fa fa-check-circle-o fa-fw" style="color: green;"></i>
+                            <i ng-if="c.stage09Mailing.name == 'Not Required'" class="fa fa-dot-circle-o fa-fw" style="color: red;"></i>
+
+                        </td>
+                        <td data-priority="3" colspan="1" data-columns="id8c140f573a4de-col-5">
+                            <i ng-if="c.stage10Dispatch.name == 'Pending'" class="fa fa-circle-o fa-fw" style="color: red;"></i>
+                            <i ng-if="c.stage10Dispatch.name == 'Queue'" class="fa fa-arrow-circle-up fa-fw" style="color: blue;"></i>
+                            <i ng-if="c.stage10Dispatch.name == 'WIP'" class="fa fa-check-circle-o fa-fw" style="color: yellowgreen;"></i>
+                            <i ng-if="c.stage10Dispatch.name == 'Flagged'" class="fa fa-flag fa-fw" style="color: red;"></i>
+                            <i ng-if="c.stage10Dispatch.name == 'Completed'" class="fa fa-check-circle-o fa-fw" style="color: green;"></i>
+                            <i ng-if="c.stage10Dispatch.name == 'Not Required'" class="fa fa-dot-circle-o fa-fw" style="color: red;"></i>
+
+                        </td>
+                        <td data-priority="6" colspan="1" data-columns="id8c140f573a4de-col-6">
+                            <i ng-if="c.stage11CustomerService.name == 'Pending'" class="fa fa-circle-o fa-fw" style="color: red;"></i>
+                            <i ng-if="c.stage11CustomerService.name == 'Queue'" class="fa fa-arrow-circle-up fa-fw" style="color: blue;"></i>
+                            <i ng-if="c.stage11CustomerService.name == 'WIP'" class="fa fa-check-circle-o fa-fw" style="color: yellowgreen;"></i>
+                            <i ng-if="c.stage11CustomerService.name == 'Flagged'" class="fa fa-flag fa-fw" style="color: red;"></i>
+                            <i ng-if="c.stage11CustomerService.name == 'Completed'" class="fa fa-check-circle-o fa-fw" style="color: green;"></i>
+                            <i ng-if="c.stage11CustomerService.name == 'Not Required'" class="fa fa-dot-circle-o fa-fw" style="color: red;"></i>
+
+                        </td>
+                        <td data-priority="6" colspan="1" data-columns="id8c140f573a4de-col-6">
+                            <i class="fa fa-circle-o fa-fw" style="color: red;"></i>
+                        </td>
+
+                    </tr>
+
+
+                </tbody>
+            </table>
+
+            <div>
+
+                <pagination boundary-links="true"
+                            on-select-page="vm.pageChanged(page)"
+                            total-items="vm.jobTrackerFilteredCount"
+                            items-per-page="vm.paging.pageSize"
+                            page="vm.paging.currentPage"
+                            max-size="vm.paging.maxPagesToShow"
+                            class="pagination-small"
+                            previous-text="Prev"
+                            next-text="Next"
+                            first-text="First"
+                            last-text="Last"></pagination>
+
+            </div>
+
+        </div>
+    </div>
+
+
+</div>

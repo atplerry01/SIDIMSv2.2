@@ -1,0 +1,55 @@
+﻿<div class="page-title full-width">
+    <div class="title-env">
+        <h1 class="title">Quality Assurance Check</h1>
+        <p class="description">Descriptions</p>
+    </div>
+
+    <div class="btn-group pull-right" style="padding-right:30px">
+
+        <button ng-click="vm.goBack()" class="btn btn-info btn-icon btn-gap" style="margin-right:2px">
+            <i class="fa-angle-left"></i>
+            <span>Back</span>
+        </button>
+
+        <button class="btn btn-info btn-icon btn-gap" style="margin-right:2px">
+            <i class="fa-refresh"></i>
+            <span>Refresh</span>
+        </button>
+
+        <button ng-click="vm.gotoAddVariant()" class="btn btn-info btn-icon btn-gap">
+            <i class="fa-plus"></i>
+            <span>Add New Variant</span>
+        </button>
+
+    </div>
+
+</div>
+
+<div class="table-wrapper">
+
+    <div class="table-responsive" data-pattern="priority-columns" data-focus-btn-icon="fa-asterisk" data-sticky-table-header="true" data-add-display-all-btn="true" data-add-focus-btn="true">
+
+        <h3>{{vm.productImage.sidProduct.name}}</h3>
+        <br />
+
+        <img style="width:400px; height:200px" src="{{vm.productImagePath}}" />
+
+        <br />
+        <br />
+
+        <button ng-show="vm.requireMailing" class="btn btn-info btn-icon btn-gap">
+            <i class="fa fa-paper-plane-o"></i>
+            <span>Require Mailing</span>
+        </button>
+
+        <br />
+        <br />
+        <div class="input-text form-group">
+            <input type="submit" data-ng-click="vm.save()"
+                   value="Validate Check"
+                   class="btn btn-primary btn-large list-your-property arrow-right" />
+        </div>
+
+
+    </div>
+</div>

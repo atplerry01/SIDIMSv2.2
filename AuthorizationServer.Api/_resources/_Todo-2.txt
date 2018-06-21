@@ -1,0 +1,35 @@
+﻿Todo: Makesure the splitjob is completed before moving to the nxt job
+
+NOTE
+=====
+>> Partial Job should be lock from starting until the current job is completed,
+>> QA Check
+>> Add TimeStart and TimeEnd in the JobTrackerLog
+>> Create Job with BatchNumber, Use the BatchNumber to identify which job you are working on
+>> Loading Indicator
+>> Moment Datetime not working
+>> TimeIn and TimeOut should be handle in Audit System
+
+
+
+Today Changelogs 01/08/2017
+============================
+>> QA Check Page Completed
+>> CE Resume Job Completed
+>> Mailing Start Job Completed
+>> Cleanups could be done today
+
+
+Today ChangeLogs 31/07/2017
+===========================
+Creating Card Variant By Inventory
+Creating Job Variant By Inventory
+Issuance Confirmation By CE
+
+
+
+
+            ////var cardIssuanceLog = await context.CardIssuanceLogs.FindAsync(entity.Id);
+            //var cardIssuanceLog = await context.CardIssuanceLogs.Include(o => o.CardIssuance).FirstOrDefaultAsync(i => i.Id == entity.CardIssuanceLogId);
+            ////Item item = await db.Items.Include(o => o.Tags).FirstOrDefaultAsync(i => i.Id == id);
+

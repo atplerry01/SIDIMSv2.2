@@ -1,0 +1,179 @@
+﻿<div class="page-title full-width">
+    <div class="title-env">
+        <h1 class="title">Quality Assurance Check</h1>
+        <p class="description">Descriptions</p>
+    </div>
+
+    <div class="btn-group pull-right" style="padding-right:30px">
+
+        <button ng-click="vm.goBack()" class="btn btn-info btn-icon btn-gap" style="margin-right:2px">
+            <i class="fa-angle-left"></i>
+            <span>Back</span>
+        </button>
+
+        <button class="btn btn-info btn-icon btn-gap" style="margin-right:2px">
+            <i class="fa-refresh"></i>
+            <span>Refresh</span>
+        </button>
+
+        <button ng-click="vm.gotoAddVariant()" class="btn btn-info btn-icon btn-gap">
+            <i class="fa-plus"></i>
+            <span>Add New Variant</span>
+        </button>
+
+    </div>
+
+</div>
+
+<div class="table-wrapper">
+
+    <div class="table-responsive" data-pattern="priority-columns" data-focus-btn-icon="fa-asterisk" data-sticky-table-header="true" data-add-display-all-btn="true" data-add-focus-btn="true">
+
+        GTB Master Card
+        <br />
+        <img style="width:400px; height:200px" src="{{vm.productImage.imagePath}}" />
+
+        <table cellspacing="0" class="table table-small-font table-bordered table-striped">
+           
+            <tbody>
+                <tr>
+                    <td>
+                        <label>
+                            <input type="checkbox" ng-model="vm.checkboxModel.chip">
+                            Chip Pass?
+                            
+                        </label>
+                    </td>
+                    <td>
+                        <label>
+                            <input type="checkbox" ng-model="vm.checkboxModel.magstripe">
+                            MagStripe Pass?
+                            
+                        </label>
+
+                    </td>
+                    <td>
+                        <label>
+                            <input type="checkbox" ng-model="vm.checkboxModel.indenting">
+                            Indenting Pass?
+                        </label>
+
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>
+                        <label>
+                            <input type="checkbox" ng-model="vm.checkboxModel.embossing">
+                            Embossing Pass?
+                            
+                        </label>
+                    </td>
+                    <td>
+                        <label>
+                            <input type="checkbox" ng-model="vm.checkboxModel.picture">
+                            Picture?
+                            
+                        </label>
+
+                    </td>
+                    <td>
+                        <label>
+                            <input type="checkbox" ng-model="vm.checkboxModel.fulfillment">
+                            Fulfillment?
+                            
+                        </label>
+
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>
+                        <label>
+                            <input type="checkbox" ng-model="vm.checkboxModel.client">
+                            Client?
+                            
+                        </label>
+                    </td>
+                    <td>
+                        <label>
+                            <input type="checkbox" ng-model="vm.checkboxModel.cardtype">
+                            Card Type?
+                            
+                        </label>
+
+                    </td>
+                    <td>
+                        <label>
+                            <input type="checkbox" ng-model="vm.checkboxModel.pictureView">
+                            Picture View?
+                            
+                        </label>
+
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>
+                        <label>
+                            <input type="checkbox" ng-model="vm.checkboxModel.variant">
+                            Variant?
+                            
+                        </label>
+                    </td>
+                    <td>
+                        <label>
+                            <input type="checkbox" ng-model="vm.checkboxModel.cardIdNumber">
+                            Card Id Number?
+                            
+                        </label>
+
+                    </td>
+                    <td>
+                        <label>
+                            <input type="checkbox" ng-model="vm.checkboxModel.bin">
+                            BIN?
+                            
+                        </label>
+
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>
+                        <label>
+                            <input type="checkbox" ng-model="vm.checkboxModel.magstripeTrack">
+                            Magstripe Tracks?
+                            
+                        </label>
+                    </td>
+                    <td>
+                        <label>
+                            <input type="checkbox" ng-model="vm.checkboxModel.cvv">
+                            CVV?
+                            
+                        </label>
+
+                    </td>
+                    <td>
+                        <label>
+                            <input type="checkbox" ng-model="vm.checkboxModel.panSpacing">
+                            PAN Spacing?
+                            
+                        </label>
+
+                    </td>
+                </tr>
+
+            </tbody>
+        </table>
+
+        <br /><br />
+        <div class="input-text form-group">
+            <input type="submit" data-ng-click="vm.save()"
+                   value="Validate Check" 
+                   class="btn btn-primary btn-large list-your-property arrow-right" />
+        </div>
+
+    </div>
+</div>

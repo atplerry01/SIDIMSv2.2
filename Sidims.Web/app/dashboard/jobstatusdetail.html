@@ -1,0 +1,743 @@
+﻿<div class="page-title full-width">
+    <div class="title-env">
+        <h1 class="title">Job Audit Trail</h1>
+        <p class="description">Descriptions</p>
+    </div>
+
+    <div class="btn-group pull-right" style="padding-right:30px">
+
+        <button ng-click="vm.goBack()" class="btn btn-info btn-icon btn-gap" style="margin-right:2px">
+            <i class="fa-angle-left"></i>
+            <span>Back</span>
+        </button>
+
+        <button class="btn btn-info btn-icon btn-gap" style="margin-right:2px">
+            <i class="fa-refresh"></i>
+            <span>Refresh</span>
+        </button>
+
+        <button ng-click="vm.gotoJobFlag()" class="btn btn-info btn-icon btn-gap">
+            <i class="fa fa-flag fa-fw"></i>
+            <span>Flag</span>
+        </button>
+
+    </div>
+
+</div>
+
+<!-- Tables and Panels -->
+<div class="row">
+    <div class="col-md-7">
+
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                
+
+                <div id="main">
+                   
+                    <!--CardOps-->
+                    <div class="list-your-property-form" 
+                         ng-show="vm.jobTracker.stage01CardOps.name === 'Completed' || 
+                         vm.jobTracker.stage01CardOps.name === 'WIP'">
+
+                        <h2 class="page-header" style="font-size:15px; margin-top:5px">
+                            <a>
+                                <i ng-if="vm.jobTracker.stage01CardOps.name == 'Pending'" class="fa fa-circle-o fa-fw" style="color: red;"></i>
+                                <i ng-if="vm.jobTracker.stage01CardOps.name == 'Queue'" class="fa fa-arrow-circle-up fa-fw" style="color: blue;"></i>
+                                <i ng-if="vm.jobTracker.stage01CardOps.name == 'WIP'" class="fa fa-check-circle-o fa-fw" style="color: yellowgreen;"></i>
+                                <i ng-if="vm.jobTracker.stage01CardOps.name == 'Flagged'" class="fa fa-flag fa-fw" style="color: red;"></i>
+                                <i ng-if="vm.jobTracker.stage01CardOps.name == 'Completed'" class="fa fa-check-circle-o fa-fw" style="color: green;"></i>
+                                <i ng-if="vm.jobTracker.stage01CardOps.name == 'Not Required'" class="fa fa-dot-circle-o fa-fw" style="color: red;"></i>
+                                Card Operations
+                            </a>
+                            
+                        </h2>
+                        <table class="table table-condensed">
+                            <thead>
+                                <tr style="font-size:12px">
+                                    <th>Initialized By</th>
+                                    <th>TimeIn</th>
+                                    <th>TimeOut</th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+                                <tr style="font-size:13px" data-ng-repeat="c in vm.cardops"
+                                    data-ng-click="vm.cardops(c)">
+                                    <td>{{c.CreatedUserId}}</td>
+                                    <td>{{c.timeIn}}</td>
+                                    <td>{{c.timeOut}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!--Inventory-->
+                    <div class="list-your-property-form"
+                         ng-show="vm.jobTracker.stage02Inventory.name !== 'Not Required'">
+
+                        <h2 class="page-header" style="font-size:15px; margin-top:5px">
+                            <a>
+                                <i ng-if="vm.jobTracker.stage02Inventory.name == 'Pending'" class="fa fa-circle-o fa-fw" style="color: red;"></i>
+                                <i ng-if="vm.jobTracker.stage02Inventory.name == 'Queue'" class="fa fa-arrow-circle-up fa-fw" style="color: blue;"></i>
+                                <i ng-if="vm.jobTracker.stage02Inventory.name == 'WIP'" class="fa fa-check-circle-o fa-fw" style="color: yellowgreen;"></i>
+                                <i ng-if="vm.jobTracker.stage02Inventory.name == 'Flagged'" class="fa fa-flag fa-fw" style="color: red;"></i>
+                                <i ng-if="vm.jobTracker.stage02Inventory.name == 'Completed'" class="fa fa-check-circle-o fa-fw" style="color: green;"></i>
+                                <i ng-if="vm.jobTracker.stage02Inventory.name == 'Not Required'" class="fa fa-dot-circle-o fa-fw" style="color: red;"></i>
+                                Inventory
+                            </a>
+
+                        </h2>
+                        <table class="table table-condensed">
+                            <thead>
+                                <tr style="font-size:12px">
+                                    <th>Qty Issued</th>
+                                    <th>Qty Remain</th>
+                                    <th>Issued By</th>
+                                    <th>Collected By</th>
+                                    <th>IssuedDate</th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+                                <tr style="font-size:13px" data-ng-repeat="c in vm.cardissuancelogs"
+                                    data-ng-click="vm.cardops(c)">
+                                    <td>{{c.quantityIssued}}</td>
+                                    <td>{{c.quantityRemain}}</td>
+                                    <td>{{c.issuance.fullName}}</td>
+                                    <td>{{c.collector.fullName}}</td>
+                                    <td>{{c.issuedDate}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!--Printing-->
+                    <div class="list-your-property-form"
+                         ng-show="vm.jobTracker.stage03Printing.name !== 'Not Required'">
+
+                        <h2 class="page-header" style="font-size:15px; margin-top:5px">
+                            <a>
+                                <i ng-if="vm.jobTracker.stage03Printing.name == 'Pending'" class="fa fa-circle-o fa-fw" style="color: red;"></i>
+                                <i ng-if="vm.jobTracker.stage03Printing.name == 'Queue'" class="fa fa-arrow-circle-up fa-fw" style="color: blue;"></i>
+                                <i ng-if="vm.jobTracker.stage03Printing.name == 'WIP'" class="fa fa-check-circle-o fa-fw" style="color: yellowgreen;"></i>
+                                <i ng-if="vm.jobTracker.stage03Printing.name == 'Flagged'" class="fa fa-flag fa-fw" style="color: red;"></i>
+                                <i ng-if="vm.jobTracker.stage03Printing.name == 'Completed'" class="fa fa-check-circle-o fa-fw" style="color: green;"></i>
+                                <i ng-if="vm.jobTracker.stage03Printing.name == 'Not Required'" class="fa fa-dot-circle-o fa-fw" style="color: red;"></i>
+                                Printing
+                            </a>
+
+                        </h2>
+                        <table class="table table-condensed">
+                            <thead>
+                                <tr style="font-size:12px">
+                                    <th>Split Detail</th>
+                                    <th>Qty Good</th>
+                                    <th>Qty Bad</th>
+                                    <th>Qty Held</th>
+                                    <th>CreatedDate</th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+                                <tr style="font-size:13px" data-ng-repeat="c in vm.printanalysis"
+                                    data-ng-click="vm.cardops(c)">
+                                    <td>{{c.jobSplit.sidMachine.name}} <span style="font-size:10px">({{c.jobSplit.rangeFrom}} - {{c.jobSplit.rangeTo}})</span></td>
+                                    <td>{{c.quantityGood}}</td>
+                                    <td>{{c.quantityBad}}</td>
+                                    <td>{{c.quantityHeld}}</td>
+                                    <td>{{c.createdOn}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!--First Card Perso-->
+                    <div class="list-your-property-form"
+                         ng-show="vm.jobTracker.stage06FirstJobRun.name !== 'Not Required'">
+
+                        <h2 class="page-header" style="font-size:15px; margin-top:5px">
+                            <a>
+                                <i ng-if="vm.jobTracker.stage06FirstJobRun.name == 'Pending'" class="fa fa-circle-o fa-fw" style="color: red;"></i>
+                                <i ng-if="vm.jobTracker.stage06FirstJobRun.name == 'Queue'" class="fa fa-arrow-circle-up fa-fw" style="color: blue;"></i>
+                                <i ng-if="vm.jobTracker.stage06FirstJobRun.name == 'WIP'" class="fa fa-check-circle-o fa-fw" style="color: yellowgreen;"></i>
+                                <i ng-if="vm.jobTracker.stage06FirstJobRun.name == 'Flagged'" class="fa fa-flag fa-fw" style="color: red;"></i>
+                                <i ng-if="vm.jobTracker.stage06FirstJobRun.name == 'Completed'" class="fa fa-check-circle-o fa-fw" style="color: green;"></i>
+                                <i ng-if="vm.jobTracker.stage06FirstJobRun.name == 'Not Required'" class="fa fa-dot-circle-o fa-fw" style="color: red;"></i>
+                                First Card Perso
+                            </a>
+
+                        </h2>
+                        <table class="table table-condensed">
+                            <thead>
+                                <tr style="font-size:12px">
+                                    <th>Split Detail</th>
+                                    <th>Qty Good</th>
+                                    <th>Qty Bad</th>
+                                    <th>Qty Held</th>
+                                    <th>CreatedDate</th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+                                <tr style="font-size:13px" data-ng-repeat="c in vm.jobsplitceanalysis"
+                                    data-ng-click="vm.cardops(c)">
+                                    <td>{{c.jobSplit.sidMachine.name}} <span style="font-size:10px">({{c.jobSplit.rangeFrom}} - {{c.jobSplit.rangeTo}})</span></td>
+                                    <td>{{c.quantityGood}}</td>
+                                    <td>{{c.quantityBad}}</td>
+                                    <td>{{c.quantityHeld}}</td>
+                                    <td>{{c.createdOn}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!--QA-->
+                    <div class="list-your-property-form"
+                         ng-show="vm.jobTracker.stage05QA.name !== 'Not Required'">
+
+                        <h2 class="page-header" style="font-size:15px; margin-top:5px">
+                            <a>
+                                <i ng-if="vm.jobTracker.stage05QA.name == 'Pending'" class="fa fa-circle-o fa-fw" style="color: red;"></i>
+                                <i ng-if="vm.jobTracker.stage05QA.name == 'Queue'" class="fa fa-arrow-circle-up fa-fw" style="color: blue;"></i>
+                                <i ng-if="vm.jobTracker.stage05QA.name == 'WIP'" class="fa fa-check-circle-o fa-fw" style="color: yellowgreen;"></i>
+                                <i ng-if="vm.jobTracker.stage05QA.name == 'Flagged'" class="fa fa-flag fa-fw" style="color: red;"></i>
+                                <i ng-if="vm.jobTracker.stage05QA.name == 'Completed'" class="fa fa-check-circle-o fa-fw" style="color: green;"></i>
+                                <i ng-if="vm.jobTracker.stage05QA.name == 'Not Required'" class="fa fa-dot-circle-o fa-fw" style="color: red;"></i>
+                                Quanlity Assurance
+                            </a>
+
+                        </h2>
+                        <table class="table table-condensed">
+                            <thead>
+                                <tr style="font-size:12px">
+                                    <th>Split Detail</th>
+                                    <th>Range From</th>
+                                    <th>Range To</th>
+                                    <th>Process Status</th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+                                <tr style="font-size:13px" data-ng-repeat="c in vm.qaprocess"
+                                    data-ng-click="vm.cardops(c)">
+                                    <td>{{c.sidMachine.name}} <span style="font-size:10px">({{c.jobSplit.rangeFrom}} - {{c.jobSplit.rangeTo}})</span></td>
+                                    <td>{{c.rangeFrom}}</td>
+                                    <td>{{c.rangeTo}}</td>
+                                    <td>{{c.isQACompleted}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                  
+
+                    <!--Card Engineer Personalization-->
+                    <div class="list-your-property-form"
+                         ng-show="vm.jobTracker.stage07CardEngrResume.name !== 'Not Required'">
+
+                        <h2 class="page-header" style="font-size:15px; margin-top:5px">
+                            <a>
+                                <i ng-if="vm.jobTracker.stage07CardEngrResume.name == 'Pending'" class="fa fa-circle-o fa-fw" style="color: red;"></i>
+                                <i ng-if="vm.jobTracker.stage07CardEngrResume.name == 'Queue'" class="fa fa-arrow-circle-up fa-fw" style="color: blue;"></i>
+                                <i ng-if="vm.jobTracker.stage07CardEngrResume.name == 'WIP'" class="fa fa-check-circle-o fa-fw" style="color: yellowgreen;"></i>
+                                <i ng-if="vm.jobTracker.stage07CardEngrResume.name == 'Flagged'" class="fa fa-flag fa-fw" style="color: red;"></i>
+                                <i ng-if="vm.jobTracker.stage07CardEngrResume.name == 'Completed'" class="fa fa-check-circle-o fa-fw" style="color: green;"></i>
+                                <i ng-if="vm.jobTracker.stage07CardEngrResume.name == 'Not Required'" class="fa fa-dot-circle-o fa-fw" style="color: red;"></i>
+                                Card Engineer Personilization
+                            </a>
+
+                        </h2>
+                        <table class="table table-condensed">
+                            <thead>
+                                <tr style="font-size:12px">
+                                    <th>Split Detail</th>
+                                    <th>Qty Good</th>
+                                    <th>Qty Bad</th>
+                                    <th>Qty Held</th>
+                                    <th>TreatedBy</th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+                                <tr style="font-size:13px" data-ng-repeat="c in vm.jobsplitceanalysis"
+                                    data-ng-click="vm.cardops(c)">
+                                    <td>{{c.jobSplit.sidMachine.name}} <span style="font-size:10px">({{c.jobSplit.rangeFrom}} - {{c.jobSplit.rangeTo}})</span></td>
+                                    <td>{{c.quantityGood}}</td>
+                                    <td>{{c.quantityBad}}</td>
+                                    <td>{{c.quantityHeld}}</td>
+                                    <td>{{c.modifiedBy.fullName}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!-- Quality Control -->
+                    <!--<div class="list-your-property-form"
+                         ng-show="vm.jobTracker.stage08QC.name !== 'Not Required'">
+
+                        <h2 class="page-header" style="font-size:15px; margin-top:5px">
+                            <a>
+                                <i ng-if="vm.jobTracker.stage08QC.name == 'Pending'" class="fa fa-circle-o fa-fw" style="color: red;"></i>
+                                <i ng-if="vm.jobTracker.stage08QC.name == 'Queue'" class="fa fa-arrow-circle-up fa-fw" style="color: blue;"></i>
+                                <i ng-if="vm.jobTracker.stage08QC.name == 'WIP'" class="fa fa-check-circle-o fa-fw" style="color: yellowgreen;"></i>
+                                <i ng-if="vm.jobTracker.stage08QC.name == 'Flagged'" class="fa fa-flag fa-fw" style="color: red;"></i>
+                                <i ng-if="vm.jobTracker.stage08QC.name == 'Completed'" class="fa fa-check-circle-o fa-fw" style="color: green;"></i>
+                                <i ng-if="vm.jobTracker.stage08QC.name == 'Not Required'" class="fa fa-dot-circle-o fa-fw" style="color: red;"></i>
+                                Quality Control
+                            </a>
+
+                        </h2>
+                        <table class="table table-condensed">
+                            <thead>
+                                <tr style="font-size:12px">
+                                    <th>Qty Issued</th>
+                                    <th>Qty Remain</th>
+                                    <th>Issued By</th>
+                                    <th>Collected By</th>
+                                    <th>IssuedDate</th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+                                <tr style="font-size:13px" data-ng-repeat="c in vm.cardissuancelogs"
+                                    data-ng-click="vm.cardops(c)">
+                                    <td>{{c.quantityIssued}}</td>
+                                    <td>{{c.quantityRemain}}</td>
+                                    <td>{{c.issuance.fullName}}</td>
+                                    <td>{{c.collector.fullName}}</td>
+                                    <td>{{c.issuedDate}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>-->
+
+                    <!-- Mailing -->
+                    <div class="list-your-property-form"
+                         ng-show="vm.jobTracker.stage09Mailing.name !== 'Not Required'">
+
+                        <h2 class="page-header" style="font-size:15px; margin-top:5px">
+                            <a>
+                                <i ng-if="vm.jobTracker.stage09Mailing.name == 'Pending'" class="fa fa-circle-o fa-fw" style="color: red;"></i>
+                                <i ng-if="vm.jobTracker.stage09Mailing.name == 'Queue'" class="fa fa-arrow-circle-up fa-fw" style="color: blue;"></i>
+                                <i ng-if="vm.jobTracker.stage09Mailing.name == 'WIP'" class="fa fa-check-circle-o fa-fw" style="color: yellowgreen;"></i>
+                                <i ng-if="vm.jobTracker.stage09Mailing.name == 'Flagged'" class="fa fa-flag fa-fw" style="color: red;"></i>
+                                <i ng-if="vm.jobTracker.stage09Mailing.name == 'Completed'" class="fa fa-check-circle-o fa-fw" style="color: green;"></i>
+                                <i ng-if="vm.jobTracker.stage09Mailing.name == 'Not Required'" class="fa fa-dot-circle-o fa-fw" style="color: red;"></i>
+                                Mailing and Fulfilment
+                            </a>
+
+                        </h2>
+                        <table class="table table-condensed">
+                            <thead>
+                                <tr style="font-size:12px">
+                                    <th>Machine Name</th>
+                                    <th>Range From</th>
+                                    <th>Range To</th>
+                                    <th>Total Quantity</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+                                <tr style="font-size:13px" data-ng-repeat="c in vm.mailingsplits"
+                                    data-ng-click="vm.cardops(c)">
+                                    <td>{{c.sidMachine.name}}</td>
+                                    <td>{{c.rangeFrom}}</td>
+                                    <td>{{c.rangeTo}}</td>
+                                    <td>{{(c.rangeTo - c.rangeFrom) + 1}}</td>
+                                    <td>{{c.isMACompleted}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!-- Dispatch -->
+                    <div class="list-your-property-form"
+                         ng-show="vm.jobTracker.stage10Dispatch.name !== 'Not Required'">
+
+                        <h2 class="page-header" style="font-size:15px; margin-top:5px">
+                            <a>
+                                <i ng-if="vm.jobTracker.stage10Dispatch.name == 'Pending'" class="fa fa-circle-o fa-fw" style="color: red;"></i>
+                                <i ng-if="vm.jobTracker.stage10Dispatch.name == 'Queue'" class="fa fa-arrow-circle-up fa-fw" style="color: blue;"></i>
+                                <i ng-if="vm.jobTracker.stage10Dispatch.name == 'WIP'" class="fa fa-check-circle-o fa-fw" style="color: yellowgreen;"></i>
+                                <i ng-if="vm.jobTracker.stage10Dispatch.name == 'Flagged'" class="fa fa-flag fa-fw" style="color: red;"></i>
+                                <i ng-if="vm.jobTracker.stage10Dispatch.name == 'Completed'" class="fa fa-check-circle-o fa-fw" style="color: green;"></i>
+                                <i ng-if="vm.jobTracker.stage10Dispatch.name == 'Not Required'" class="fa fa-dot-circle-o fa-fw" style="color: red;"></i>
+                                Dispatch
+                            </a>
+
+                        </h2>
+                        <table class="table table-condensed">
+                            <thead>
+                                <tr style="font-size:12px">
+                                    <th>Qty Issued</th>
+                                    <th>Qty Remain</th>
+                                    <th>Issued By</th>
+                                    <th>Collected By</th>
+                                    <th>IssuedDate</th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+                                <tr style="font-size:13px" data-ng-repeat="c in vm.cardissuancelogs"
+                                    data-ng-click="vm.cardops(c)">
+                                    <td>{{c.quantityIssued}}</td>
+                                    <td>{{c.quantityRemain}}</td>
+                                    <td>{{c.issuance.fullName}}</td>
+                                    <td>{{c.collector.fullName}}</td>
+                                    <td>{{c.issuedDate}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!-- Customer Service -->
+                    <div class="list-your-property-form"
+                         ng-show="vm.jobTracker.stage11CustomerService.name !== 'Not Required'">
+
+                        <h2 class="page-header" style="font-size:15px; margin-top:5px">
+                            <a>
+                                <i ng-if="vm.jobTracker.stage11CustomerService.name == 'Pending'" class="fa fa-circle-o fa-fw" style="color: red;"></i>
+                                <i ng-if="vm.jobTracker.stage11CustomerService.name == 'Queue'" class="fa fa-arrow-circle-up fa-fw" style="color: blue;"></i>
+                                <i ng-if="vm.jobTracker.stage11CustomerService.name == 'WIP'" class="fa fa-check-circle-o fa-fw" style="color: yellowgreen;"></i>
+                                <i ng-if="vm.jobTracker.stage11CustomerService.name == 'Flagged'" class="fa fa-flag fa-fw" style="color: red;"></i>
+                                <i ng-if="vm.jobTracker.stage11CustomerService.name == 'Completed'" class="fa fa-check-circle-o fa-fw" style="color: green;"></i>
+                                <i ng-if="vm.jobTracker.stage11CustomerService.name == 'Not Required'" class="fa fa-dot-circle-o fa-fw" style="color: red;"></i>
+                                Customer Service
+                            </a>
+
+                        </h2>
+                        <table class="table table-condensed">
+                            <thead>
+                                <tr style="font-size:12px">
+                                    <th>Qty Issued</th>
+                                    <th>Qty Remain</th>
+                                    <th>Issued By</th>
+                                    <th>Collected By</th>
+                                    <th>IssuedDate</th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+                                <tr style="font-size:13px" data-ng-repeat="c in vm.cardissuancelogs"
+                                    data-ng-click="vm.cardops(c)">
+                                    <td>{{c.quantityIssued}}</td>
+                                    <td>{{c.quantityRemain}}</td>
+                                    <td>{{c.issuance.fullName}}</td>
+                                    <td>{{c.collector.fullName}}</td>
+                                    <td>{{c.issuedDate}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="col-md-5">
+
+        <div class="panel panel-flat" ng-show="vm.jobSplitDetail">
+            <div class="panel-heading">
+
+                <h3 class="panel-title">Job Split Details</h3>
+
+                <div class="panel-options">
+                    <a href="">
+                        <i class="linecons-cog"></i>
+                    </a>
+
+                    <a href="" data-toggle="panel">
+                        <span class="collapse-icon">&ndash;</span>
+                        <span class="expand-icon">+</span>
+                    </a>
+
+                    <a href="" data-toggle="reload">
+                        <i class="fa-rotate-right"></i>
+                    </a>
+
+                    <a href="" data-toggle="remove">
+                        &times;
+                    </a>
+                </div>
+            </div>
+
+            <table style="margin-top:10px">
+
+                <tr style="font-size:12px">
+
+                    <td style="width:15%">
+                        {{vm.ceJobSplit.jobSplit.sidMachine.name}} (Machine)
+                    </td>
+
+                    <td style="width: 30%">
+                        Range From: {{vm.ceJobSplit.jobSplit.rangeFrom}} To  {{vm.ceJobSplit.jobSplit.rangeTo}}
+                    </td>
+
+                    <td>
+
+                        <div class="input-text form-group">
+                            <label class="control-label" for="inputLoginPassword">
+                                Bad Cards
+                                <span class="form-required" title="This field is required.">*</span>
+                            </label>
+                            <input type="text" name="contact_name" style="width:90% !important"
+                                   ng-model="vm.ceJobSplit.quantityBad"
+                                   class="input-name form-control" placeholder="" />
+                        </div>
+
+                    </td>
+
+                    <td>
+                        <div class="input-text form-group">
+                            <label class="control-label" for="inputLoginPassword">
+                                Held Cards
+                                <span class="form-required" title="This field is required.">*</span>
+                            </label>
+                            <input type="text" name="contact_name" style="width:90% !important"
+                                   ng-model="vm.ceJobSplit.quantityHeld"
+                                   class="input-name form-control" placeholder="" />
+                        </div>
+
+                    </td>
+                    <td>
+                        <label class="control-label" for="inputLoginPassword">
+                            &nbsp;
+                        </label>
+                        <button ng-click="vm.updateJobSplit()"
+                                class="btn btn-info btn-icon btn-gap btn-sm">
+                            <i class="fa fa-check"></i>
+                            <span>Update</span>
+                        </button>
+
+                    </td>
+                </tr>
+
+
+            </table>
+
+        </div>
+
+        <div class="panel panel-flat">
+            <div class="panel-heading">
+
+                <h3 class="panel-title">Job Details</h3>
+
+                <div class="panel-options">
+                    <a href="">
+                        <i class="linecons-cog"></i>
+                    </a>
+
+                    <a href="" data-toggle="panel">
+                        <span class="collapse-icon">&ndash;</span>
+                        <span class="expand-icon">+</span>
+                    </a>
+
+                    <a href="" data-toggle="reload">
+                        <i class="fa-rotate-right"></i>
+                    </a>
+
+                    <a href="" data-toggle="remove">
+                        &times;
+                    </a>
+                </div>
+            </div>
+
+            <table class="table table-condensed">
+
+                <tbody>
+                    <tr>
+                        <td>JobName</td>
+                        <td>{{vm.jobTracker.job.jobName}}</td>
+                    </tr>
+                    <tr>
+                        <td>Client:</td>
+                        <td>{{vm.jobTracker.job.sidSector.name}}> {{vm.jobTracker.job.sidClient.name}} > {{vm.jobTracker.job.remark.name}}</td>
+                    </tr>
+                    <tr>
+                        <td>Service Type</td>
+                        <td>{{vm.jobTracker.job.serviceType.name}}</td>
+                    </tr>
+                    <tr>
+                        <td>Quantity</td>
+                        <td>{{vm.jobTracker.job.quantity}}</td>
+                    </tr>
+
+                    <tr ng-show="vm.productName">
+                        <td>Product Name</td>
+                        <td><a target="_blank" href="#/in/inventory/vault-product/{{vm.jobVariants.sidProduct.id}}">{{vm.jobVariants.sidProduct.name}}</a></td>
+                    </tr>
+
+                </tbody>
+            </table>
+        </div>
+
+        <!--Vault Report-->
+        <div class="panel panel-flat">
+            <div class="panel-heading">
+
+                <h3 class="panel-title">Client Product Vault Report</h3>
+
+                <div class="panel-options">
+                    <a href="">
+                        <i class="linecons-cog"></i>
+                    </a>
+
+                    <a href="" data-toggle="panel">
+                        <span class="collapse-icon">&ndash;</span>
+                        <span class="expand-icon">+</span>
+                    </a>
+
+                    <a href="" data-toggle="reload">
+                        <i class="fa-rotate-right"></i>
+                    </a>
+
+                    <a href="" data-toggle="remove">
+                        &times;
+                    </a>
+                </div>
+            </div>
+
+            <table class="table table-condensed">
+                <thead>
+                    <tr>
+                        <th width="1%">#</th>
+                        <th>Opening Stock</th>
+                        <th>Closing Stock</th>
+                        <th>Last Updated</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <tr data-ng-repeat="c in vm.clientVault"
+                        data-ng-click="vm.gotoCardTypes(c)">
+                        <td>({{$index +1}})</td>
+                        <td>{{c.openingStock}}</td>
+                        <td>{{c.closingStock}}</td>
+                        <td>{{c.modifiedOn}}</td>
+                    </tr>
+
+                </tbody>
+            </table>
+
+            <div ng-show="vm.createVault">
+                This Product do not have any items in the Vault <br /> <br />
+
+                <div class="input-text form-group">
+                    <input type="submit" data-ng-click="vm.createProductVault()"
+                           value="Create Product Vault" class="btn btn-primary btn-large list-your-property arrow-right" />
+                </div>
+
+            </div>
+        </div>
+
+        <!--Issuance Log-->
+        <div class="panel panel-flat">
+            <div class="panel-heading">
+
+                <h3 class="panel-title">Issuance Log</h3>
+
+                <div class="panel-options">
+                    <a href="">
+                        <i class="linecons-cog"></i>
+                    </a>
+
+                    <a href="" data-toggle="panel">
+                        <span class="collapse-icon">&ndash;</span>
+                        <span class="expand-icon">+</span>
+                    </a>
+
+                    <a href="" data-toggle="reload">
+                        <i class="fa-rotate-right"></i>
+                    </a>
+
+                    <a href="" data-toggle="remove">
+                        &times;
+                    </a>
+                </div>
+            </div>
+
+            <table class="table table-condensed">
+                <thead>
+                    <tr>
+                        <th width="10%">#</th>
+                        <th>Qty Issued</th>
+                        <th>Remain</th>
+                        <th>IssuedBy</th>
+                        <th>IssuedOn</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <tr data-ng-repeat="c in vm.issuanceLogs"
+                        data-ng-click="vm.gotoCardTypes(c)">
+                        <td>({{$index +1}})</td>
+                        <td>{{c.quantityIssued}}</td>
+                        <td>{{c.quantityRemain}}</td>
+                        <!--<td>{{c.issuanceId}}</td>-->
+                        <td>Akinsanya Ola</td>
+                        <td>{{c.issuedDate}}</td>
+                    </tr>
+
+                </tbody>
+            </table>
+        </div>
+
+        <!--MIS Report -->
+        <div class="panel panel-flat">
+            <div class="panel-heading">
+
+                <h3 class="panel-title">Client MIS Stock Information</h3>
+
+                <div class="panel-options">
+                    <a href="">
+                        <i class="linecons-cog"></i>
+                    </a>
+
+                    <a href="" data-toggle="panel">
+                        <span class="collapse-icon">&ndash;</span>
+                        <span class="expand-icon">+</span>
+                    </a>
+
+                    <a href="" data-toggle="reload">
+                        <i class="fa-rotate-right"></i>
+                    </a>
+
+                    <a href="" data-toggle="remove">
+                        &times;
+                    </a>
+                </div>
+            </div>
+
+            <table class="table table-condensed">
+                <thead>
+                    <tr>
+                        <th width="1%">#</th>
+                        <th>Sectors</th>
+                        <th>Client Name</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <tr data-ng-repeat="c in vm.clients"
+                        data-ng-click="vm.gotoCardTypes(c)">
+                        <td>({{$index +1}})</td>
+                        <td>{{c.sector.name}}</td>
+                        <td>{{c.name}}</td>
+
+                    </tr>
+
+                </tbody>
+            </table>
+        </div>
+
+
+    </div>
+
+</div>
+

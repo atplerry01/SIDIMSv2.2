@@ -1,0 +1,424 @@
+﻿<!doctype html>
+<html lang="en-US" class="no-js" data-ng-app="app">
+<head>
+    <!--[if lt IE 9]>
+       <meta charset="utf-8">
+       <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+       <script type="text/javascript" src="assets/js/jquery-1.11.1.min.js"></script>
+    <![endif]-->
+    <!--[if gte IE 9]><!-->
+    <script type="text/javascript" src="assets/js/jquery-2.0.0.js"></script>
+    <!--<![endif]-->
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Whycespace Educational Portals" />
+    <meta name="author" content="" />
+    <title>SIDIMS - SecureID Event Management System</title>
+    <!--<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Arimo:400,700,400italic">-->
+
+    <script>
+        // Must be first. IE10 mobile viewport fix
+        if ("-ms-user-select" in document.documentElement.style && navigator.userAgent.match(/IEMobile\/10\.0/)) {
+            var msViewportStyle = document.createElement("style");
+            var mq = "@-ms-viewport{width:auto!important}";
+            msViewportStyle.appendChild(document.createTextNode(mq));
+            document.getElementsByTagName("head")[0].appendChild(msViewportStyle);
+        }
+    </script>
+
+    <link rel="shortcut icon" href="ccfavicon.ico" />
+    <link href="content/ie10mobile.css" rel="stylesheet" />
+    <link href="content/bootstrap.min.css" rel="stylesheet" />
+    <link href="content/font-awesome.min.css" rel="stylesheet" />
+    <link href="content/toastr.css" rel="stylesheet" />
+    <link href="content/bootstrap-responsive.min.css" rel="stylesheet" />
+    <link href="content/styles.css" rel="stylesheet" />
+    <link href="content/breeze.directives.css" rel="stylesheet" />
+
+    <link rel="stylesheet" href="assets/css/fonts/linecons/css/linecons.css">
+    <link rel="stylesheet" href="assets/css/fonts/fontawesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="assets/css/bootstrap.css">
+
+    <link rel="stylesheet" href="assets/css/xenon-core.css">
+    <link rel="stylesheet" href="assets/css/xenon-forms.css">
+    <link rel="stylesheet" href="assets/css/xenon-components.css">
+    <link rel="stylesheet" href="assets/css/xenon-skins.css">
+    <link rel="stylesheet" href="assets/css/custom.css">
+
+    <link rel="stylesheet" href="assets/css/ngPrint.css" type="text/css" media="print" />
+
+    
+
+    <script>
+        var appHelper = {
+            // Vars (paths without trailing slash)
+            templatesDir: 'app',
+            assetsDir: 'assets',
+
+            // Methods
+            templatePath: function (features, view_name) {
+                if (features) {
+                    //console.log(this.templatesDir + '/' + features + '/' + view_name + '.html');
+                    return this.templatesDir + '/' + features + '/' + view_name + '.html';
+                }
+                return this.templatesDir + '/' + view_name + '.html';
+            },
+
+            assetPath: function (file_path) {
+                return this.assetsDir + '/' + file_path;
+            }
+        };
+    </script>
+
+
+</head>
+
+<body class="page-body" data-ng-controller="MainCtrl" ng-class="{'settings-pane-open': layoutOptions.settingsPane.isOpen, 'chat-open': layoutOptions.chat.isOpen, 'login-page': isLoginPage && isMainPage == false, 'login-light': isLightLoginPage && isMainPage == false, 'lockscreen-page': isLockscreenPage && isMainPage == false, 'right-sidebar': layoutOptions.sidebar.isRight, 'boxed-container': layoutOptions.container.isBoxed}">
+
+    <settings-pane></settings-pane>
+    <horizontal-menu ng-if="layoutOptions.horizontalMenu.isVisible"></horizontal-menu>
+
+    <div class="page-container" data-ng-include="'app/layout/app-body.html'" ng-cloak></div>
+
+    <!--Todo-->
+    <!-- Remove this code if you want to disable Loading Overlay in the beginning of document loading -->
+    <div class="page-loading-overlay">
+        <div class="loader-2"></div>
+    </div>
+
+    <!-- inject-vendor:js -->
+    <!--<script src="assets/Scripts/jquery-2.1.1.js"></script>-->
+    <script src="assets/Scripts/angular.js"></script>
+    <script src="assets/Scripts/angular-sanitize.js"></script>
+    <script src="assets/Scripts/bootstrap.js"></script>
+    <script src="assets/Scripts/moment.js"></script>
+    <script src="assets/Scripts/angular-route.js"></script>
+    <script src="assets/Scripts/toastr.js"></script>
+    <script src="assets/Scripts/angular-animate.js"></script>
+    <script src="assets/Scripts/angular-local-storage.min.js"></script>
+    <script src="assets/Scripts/ngplus-overlay.js"></script>
+    <script src="assets/Scripts/angular-cookies.min.js"></script>
+    <script src="assets/Scripts/angular-fullscreen.js"></script>
+    <script src="assets/Scripts/ngPrint.js"></script>
+    <script src="assets/Scripts/ng-file-upload-shim.js"></script>
+    <script src="assets/Scripts/ng-file-upload.js"></script>
+
+    <script src="assets/js/oc-lazyload/ocLazyLoad.min.js"></script>
+    <script src="assets/js/moment.min.js"></script>
+
+
+    <!-- #region Breeze -->
+    <script src="assets/scripts/breeze.debug.js"></script>
+    <script src="assets/scripts/breeze.angular.js"></script>
+    <script src="assets/scripts/breeze.directives.js"></script>
+    <script src="assets/scripts/breeze.saveErrorExtensions.js"></script>
+    <script src="assets/Scripts/breeze.metadata-helper.js"></script>
+
+    <script src="assets/Scripts/angular.breeze.storagewip.js"></script>
+    <script src="assets/Scripts/ngplus-overlay.js"></script>
+    <script src="assets/scripts/ui-bootstrap-tpls-0.10.0.js"></script>
+
+    <script src="assets/js/TweenMax.min.js"></script>
+    <script src="assets/js/joinable.js"></script>
+    <script src="assets/js/resizeable.js"></script>
+
+    <!-- #endregion -->
+    <!-- Bootstrapping -->
+    <script src="app/app.js"></script>
+    <script src="app/config.js"></script>
+    <script src="app/config.exceptionHandler.js"></script>
+    <script src="app/config.route.js"></script>
+    <script src="app/constant.js"></script>
+
+    <!-- common Modules -->
+    <script src="app/common/common.js"></script>
+    <script src="app/common/logger.js"></script>
+    <script src="app/common/spinner.js"></script>
+
+    <!-- common.bootstrap Modules -->
+    <script src="app/common/bootstrap/bootstrap.dialog.js"></script>
+
+    <!-- Anonymous Page App -->
+    <!-- app Services -->
+    <!--/////////////////-->
+
+    <script src="app/services/controllers.js"></script>
+    <script src="app/services/directive.js"></script>
+    <script src="app/services/directives.js"></script>
+    <script src="app/services/factory.js"></script>
+    <script src="app/services/MainCtrl.js"></script>
+    <script src="app/services/resourceService.js"></script>
+    <script src="app/services/services.js"></script>
+
+    <script src="app/services/accountService.js"></script>
+    <script src="app/services/authService.js"></script>
+    <script src="app/services/authInterceptorService.js"></script>
+    <script src="app/services/datacontext.js"></script>
+    <script src="app/services/entityManagerFactory.js"></script>
+    <script src="app/services/model.js"></script>
+    <script src="app/services/routemediator.js"></script>
+
+    <script src="app/services/repositories.js"></script>
+    <script src="app/services/repository.abstract.js"></script>
+    <script src="app/services/resourceService.js"></script>
+    <script src="app/services/repository.lookup.js"></script>
+
+    <!-- Repository Services -->
+    <script src="app/services/cardengr/repository.cardengrjob.js"></script>
+    <script src="app/services/cardops/repository.cardopsaccount.js"></script>
+    <script src="app/services/cardops/repository.cardopsflag.js"></script>
+    <script src="app/services/cardops/repository.cardopsjob.js"></script>
+    <script src="app/services/cardops/repository.cardopslookup.js"></script>
+    <script src="app/services/cardops/repository.cardopsproduct.js"></script>
+    <script src="app/services/cardops/repository.cardopstracker.js"></script>
+    <script src="app/services/customerservice/repository.customerservice.js"></script>
+    <script src="app/services/resource/repository.resourcejob.js"></script>
+    <script src="app/services/inventory/repository.dispatchjob.js"></script>
+    <script src="app/services/inventory/repository.inventaccount.js"></script>
+    <script src="app/services/inventory/repository.inventflag.js"></script>
+    <script src="app/services/inventory/repository.inventjob.js"></script>
+    <script src="app/services/inventory/repository.inventory.js"></script>
+    <script src="app/services/inventory/repository.inventproduct.js"></script>
+    <script src="app/services/inventory/repository.inventtracker.js"></script>
+    <script src="app/services/mailing/repository.mailingjob.js"></script>
+    <script src="app/services/materialaudit/repository.materialaudit.js"></script>
+    <script src="app/services/printing/repository.printingjob.js"></script>
+    <script src="app/services/rm/repository.rm.js"></script>
+    <script src="app/services/sadmin/repository.sadminaccount.js"></script>
+    <script src="app/services/supervisor/repository.supervisor.js"></script>
+    <script src="app/services/qac/repository.qacjob.js"></script>
+    <script src="app/services/repository.application.js"></script>
+
+    <script src="app/dashboard/dashboard.js"></script>
+    <script src="app/dashboard/flaggedjob.js"></script>
+    <script src="app/dashboard/jobflag.js"></script>
+    <script src="app/dashboard/jobstatus.js"></script>
+    <script src="app/dashboard/jobstatusdetail.js"></script>
+    <script src="app/dashboard/resolvedflagjob.js"></script>
+
+    <script src="app/login/login.js"></script>
+    <script src="app/layout/user-info-navbar.js"></script>
+    <script src="app/account/changepassword.js"></script>
+
+    <script src="app/cardengr/report/carddeliveryreport.ce.js"></script>
+    <script src="app/cardengr/report/issuancereport.ce.js"></script>
+    <script src="app/cardengr/report/jobarchive.ce.js"></script>
+    <script src="app/cardengr/report/jobdeliveryreport.ce.js"></script>
+    <script src="app/cardengr/report/jobpersoreport.ce.js"></script>
+    <script src="app/cardengr/report/cardmisreport.ce.js"></script>
+
+    <script src="app/cardengr/firstcarddetail.ce.js"></script>
+    <script src="app/cardengr/incoming-print.ce.js"></script>
+    <script src="app/cardengr/incoming-perso.ce.js"></script>
+    <script src="app/cardengr/issuance-confirmation.ce.js"></script>
+    <script src="app/cardengr/resumable-newperso.ce.js"></script>
+    <script src="app/cardengr/resumable-newpersodetail.ce.js"></script>
+    <script src="app/cardengr/resumable-partialperso.ce.js"></script>
+    <script src="app/cardengr/flagjob/unitflaggedjob.ce.js"></script>
+    <script src="app/cardengr/resumable-pendingperso.ce.js"></script>
+    <script src="app/cardengr/resumable-pendingpersodetail.ce.js"></script>
+
+    <script src="app/CS/incoming-job.cs.js"></script>
+    <script src="app/CS/jobdetail.cs.js"></script>
+    <script src="app/CS/flagjob/unitflaggedjob.cs.js"></script>
+
+    <script src="app/cardops/job/deletedjob.co.js"></script>
+    <script src="app/cardops/job/job.co.js"></script>
+    <script src="app/cardops/job/jobarchive.co.js"></script>
+    <script src="app/cardops/job/jobdetail.co.js"></script>
+    <script src="app/cardops/job/joblist.co.js"></script>
+    <script src="app/cardops/job/jobstatus.co.js"></script>
+    <script src="app/cardops/job/jobsetup.co.js"></script>
+    <script src="app/cardops/job/jobserviceupdate.co.js"></script>
+    <script src="app/cardops/job/jobsetupupdate.co.js"></script>
+    <script src="app/cardops/job/nonpersojob.co.js"></script>
+    <script src="app/cardops/job/pendingjob.co.js"></script>
+    <script src="app/cardops/lookup/cardtypedetail.co.js"></script>
+    <script src="app/cardops/lookup/cardvariant.co.js"></script>
+    <script src="app/cardops/lookup/client.co.js"></script>
+    <script src="app/cardops/lookup/remark.co.js"></script>
+    <script src="app/cardops/flagjob/unitflaggedjob.co.js"></script>
+    <script src="app/cardops/lookup/dictionary.co.js"></script>
+    <script src="app/cardops/job/nonpersojobsetup.co.js"></script>
+
+
+    <script src="app/inventory/dispatch/client-job.dp.js"></script>
+    <script src="app/inventory/dispatch/client-waste.dp.js"></script>
+    <script src="app/inventory/dispatch/confirm-receipt.dp.js"></script>
+    <script src="app/inventory/dispatch/delivery-note.dp.js"></script>
+    <script src="app/inventory/dispatch/delivery-profile.dp.js"></script>
+    <script src="app/inventory/dispatch/delivery-report.dp.js"></script>
+    <script src="app/inventory/dispatch/delivery-reportdetail.dp.js"></script>
+    <script src="app/inventory/dispatch/incoming-job.dp.js"></script>
+    <script src="app/inventory/dispatch/waste-report.dp.js"></script>
+    <script src="app/inventory/dispatch/waste-reportdetail.dp.js"></script>
+
+    <script src="app/inventory/inventory/card-receipt.in.js"></script>
+    <script src="app/inventory/inventory/card-receiptdetail.in.js"></script>
+    <script src="app/inventory/inventory/card-receiptlog.in.js"></script>
+    <script src="app/inventory/inventory/card-receiptlogdetail.in.js"></script>
+    <script src="app/inventory/inventory/card-request.in.js"></script>
+    <script src="app/inventory/inventory/card-requestdetail.in.js"></script>
+    <script src="app/inventory/inventory/stationary-receipt.in.js"></script>
+    <script src="app/inventory/inventory/stationary-request.in.js"></script>
+    <script src="app/inventory/job/card-issuance-log.in.js"></script>
+    <script src="app/inventory/job/card-issuance-logdetail.in.js"></script>
+    <script src="app/inventory/job/card-issuance-partialdetail.in.js"></script>
+    <script src="app/inventory/job/card-issuancedetail.in.js"></script>
+    <script src="app/inventory/job/card-partial-issuancedetail.in.js"></script>
+    <script src="app/inventory/job/card-setupdetail.in.js"></script>
+    <script src="app/inventory/job/card-productdetail.in.js"></script>
+    <script src="app/inventory/job/card-waste-issuancedetail.in.js"></script>
+    <script src="app/inventory/job/joblist.in.js"></script>
+    <script src="app/inventory/job/nonpersojob.in.js"></script>
+    <script src="app/inventory/job/nonpersojobdetail.in.js"></script>
+    <script src="app/inventory/job/incomingheldcards.in.js"></script>
+    <script src="app/inventory/job/held-carddetail.in.js"></script>
+    <script src="app/inventory/job/incoming-job.in.js"></script>
+    <script src="app/inventory/job/partial-job.in.js"></script>
+    <script src="app/inventory/job/reverted-jobs.js"></script>
+    <script src="app/inventory/job/waste-job.in.js"></script>
+    <script src="app/inventory/job/waste-joblog.in.js"></script>
+    <script src="app/inventory/lookup/cardtypedetail.in.js"></script>
+    <script src="app/inventory/lookup/cardvariant.in.js"></script>
+    <script src="app/inventory/lookup/sidclient.in.js"></script>
+    <script src="app/inventory/lookup/remark.in.js"></script>
+    <script src="app/inventory/lookup/variant.in.js"></script>
+    <script src="app/inventory/lookup/createproduct.in.js"></script>
+
+    <script src="app/inventory/job/print-waste-job.in.js"></script>
+    <script src="app/inventory/job/print-waste-issuancedetail.in.js"></script>
+    <script src="app/inventory/job/incomingheldprints.in.js"></script>
+
+    <script src="app/inventory/mis/cards/createproduct.in.js"></script>
+    <script src="app/inventory/mis/cards/createservicetype.in.js"></script>
+    <script src="app/inventory/mis/cards/updateproduct.in.js"></script>
+    <script src="app/inventory/mis/cards/updateproductimage.in.js"></script>
+    <script src="app/inventory/mis/cards/deliverynotereports.in.js"></script>
+    <script src="app/inventory/mis/cards/dispatchreports.in.js"></script>
+    <script src="app/inventory/mis/cards/heldcardreports.in.js"></script>
+    <script src="app/inventory/mis/cards/issuancereports.in.js"></script>
+
+    <script src="app/inventory/mis/cards/misclientcardtypereports.js"></script>
+    <script src="app/inventory/mis/cards/misclientcardtypes.in.js"></script>
+    <script src="app/inventory/mis/cards/misclientreports.in.js"></script>
+    <script src="app/inventory/mis/cards/misclients.js"></script>
+    <script src="app/inventory/mis/cards/misreports.in.js"></script>
+
+    <script src="app/inventory/mis/cards/misclientcardtypes.in.js"></script>
+    <script src="app/inventory/mis/cards/misclientreports.in.js"></script>
+    <script src="app/inventory/mis/cards/misclients.js"></script>
+    <script src="app/inventory/mis/cards/misreports.in.js"></script>
+    <script src="app/inventory/mis/cards/misstockreports.in.js"></script>
+    <script src="app/inventory/mis/cards/misreportdetail.in.js"></script>
+
+    <script src="app/inventory/mis/cards/productdetail.in.js"></script>
+    <script src="app/inventory/mis/cards/productlists.in.js"></script>
+    <script src="app/inventory/mis/cards/receiptlogreports.in.js"></script>
+    <script src="app/inventory/mis/cards/wastereports.in.js"></script>
+    <script src="app/inventory/mis/cards/clientlists.in.js"></script>
+    <script src="app/inventory/mis/cards/vaultreports.in.js"></script>
+    <script src="app/inventory/mis/cards/vaultupdate.in.js"></script>
+    <script src="app/inventory/mis/cards/update-client.in.js"></script>
+
+    <script src="app/inventory/stock/stock-product-lists.in.js"></script>
+    <script src="app/inventory/stock/stock-product-mis.in.js"></script>
+    <script src="app/inventory/stock/stock-productdetail.in.js"></script>
+    <script src="app/inventory/stock/stock-receipt.in.js"></script>
+    <script src="app/inventory/stock/stock-receiptdetail.in.js"></script>
+    <script src="app/inventory/stock/stock-productrequest.in.js"></script>
+    <script src="app/inventory/stock/stock-productreceipt.in.js"></script>
+    <script src="app/inventory/stockmgt/card-history.in.js"></script>
+    <script src="app/inventory/stockmgt/card-item-logs.in.js"></script>
+    <script src="app/inventory/stockmgt/card-low-stock.in.js"></script>
+    <script src="app/inventory/stockmgt/stationary-history.in.js"></script>
+    <script src="app/inventory/stockmgt/stationary-item-logs.in.js"></script>
+    <script src="app/inventory/stockmgt/stationary-low-stock.in.js"></script>
+    <script src="app/inventory/wastemgt/card-history.in.js"></script>
+    <script src="app/inventory/wastemgt/card-request.in.js"></script>
+    <script src="app/inventory/wastemgt/stationary-history.in.js"></script>
+    <script src="app/inventory/wastemgt/stationary-request.in.js"></script>
+    <script src="app/inventory/flagjob/unitflaggedjob.in.js"></script>
+
+    <script src="app/mailing/incoming-job.ma.js"></script>
+    <script src="app/mailing/job-delivery.ma.js"></script>
+    <script src="app/mailing/job-deliverydetail.ma.js"></script>
+    <script src="app/mailing/job-run.ma.js"></script>
+    <script src="app/mailing/flagjob/unitflaggedjob.ma.js"></script>
+    <script src="app/mailing/reports/cardmisreport.ma.js"></script>
+    <script src="app/mailing/reports/carddeliveryreport.ma.js"></script>
+
+    <script src="app/materialaudit/incoming-job.au.js"></script>
+    <script src="app/materialaudit/driverassignment.au.js"></script>
+
+    <script src="app/printing/carddeliveryreport.pr.js"></script>
+    <script src="app/printing/incoming-print.pr.js"></script>
+    <script src="app/printing/print-misreport.pr.js"></script>
+    <script src="app/printing/printanalysis.pr.js"></script>
+    <script src="app/printing/printdetail.pr.js"></script>
+    <script src="app/printing/printanalysisdetail.pr.js"></script>
+    <script src="app/printing/printdeliverable.pr.js"></script>
+    <script src="app/printing/flagjob/unitflaggedjob.pr.js"></script>
+
+    <script src="app/RM/clientproducts.rm.js"></script>
+    <script src="app/RM/clients.rm.js"></script>
+    <script src="app/RM/nonpersojob.rm.js"></script>
+    <script src="app/RM/nonpersojobdetail.rm.js"></script>
+
+    <script src="app/qac/incoming-perso.qa.js"></script>
+    <script src="app/qac/incoming-print.qa.js"></script>
+    <script src="app/qac/job-check.qa.js"></script>
+    <script src="app/qac/cardcompleteddelivery.qc.js"></script>
+    <script src="app/qac/cardcompleteddeliverydetail.qc.js"></script>
+    <script src="app/qac/carddelivery.qc.js"></script>
+    <script src="app/qac/carddeliverydetail.qc.js"></script>
+    <script src="app/qac/incoming-perso.qc.js"></script>
+    <script src="app/qac/incoming-print.qc.js"></script>
+    <script src="app/qac/job-run-print.qc.js"></script>
+    <script src="app/qac/job-run.qc.js"></script>
+
+    <script src="app/qac/pending-perso.qc.js"></script>
+    <script src="app/qac/perso-jobsplit-list.qa.js"></script>
+    <script src="app/qac/print-jobsplit-list.qa.js"></script>
+    <script src="app/qac/printcompleteddelivery.qc.js"></script>
+    <script src="app/qac/printcompleteddeliverydetail.qc.js"></script>
+    <script src="app/qac/printdelivery.qc.js"></script>
+    <script src="app/qac/printdeliverydetail.qc.js"></script>
+    <script src="app/qac/waste-approved.qa.js"></script>
+    <script src="app/qac/waste-pending.qa.js"></script>
+    <script src="app/qac/perso-waste-request.qa.js"></script>
+    <script src="app/qac/print-waste-request.qa.js"></script>
+    <script src="app/qac/printdeliverable.qc.js"></script>
+    <script src="app/qac/flagjob/unitflaggedjob.qc.js"></script>
+
+    <script src="app/supervisor/flaggedjob.sv.js"></script>
+    <script src="app/supervisor/resolvedjob.sv.js"></script>
+    <script src="app/supervisor/co/co-job.sv.js"></script>
+    <script src="app/supervisor/co/co-jobsetup.sv.js"></script>
+
+    <script src="app/supervisor/jobstatusreport/completed.sv.js"></script>
+    <script src="app/supervisor/jobstatusreport/olderjob.sv.js"></script>
+    <script src="app/supervisor/jobstatusreport/pending.sv.js"></script>
+
+    <script src="app/supervisor/jobstatusreport/completedjobs/oldercompletedjobs.sv.js"></script>
+    <script src="app/supervisor/jobstatusreport/completedjobs/recentcompletedjobs.sv.js"></script>
+    <script src="app/supervisor/jobstatusreport/pendingjobs/olderpendingjobs.sv.js"></script>
+    <script src="app/supervisor/jobstatusreport/pendingjobs/recentpendingjobs.sv.js"></script>
+
+    <script src="app/sadmin/useraccount/accountdetail.sa.js"></script>
+    <script src="app/sadmin/useraccount/createuser.sa.js"></script>
+    <script src="app/sadmin/useraccount/useraccount.sa.js"></script>
+    <script src="app/cardops/features/accordion.js"></script>
+    <script src="app/xenon-custom.js"></script>
+
+    <script src="app/sadmin/clientaccount/clientlist.sa.js"></script>
+    <script src="app/sadmin/clientaccount/clientuserlist.sa.js"></script>
+    <script src="app/sadmin/clientaccount/createclientuser.sa.js"></script>
+    <!--<script src="app/serviceScript.min.js"></script>
+    <script src="app/all.min.js"></script>-->
+
+</body>
+</html>

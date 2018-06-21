@@ -1,0 +1,17 @@
+﻿>> new CardIssuane Dispatch commntedout
+>> Update JobTracker on Navigation
+
+>> Report Details
+>> Card Ops - Expected TimeOut
+>> CardEngr Resume >> Todo: User TrackerId instead of JobId
+>> Audit Analysis
+>> IN Card Setups
+>> Job Status not updating
+>> Printing Card Details
+>> Print Analysis >> Update Good base on the BAd and Held
+>> ce/batch/3/issuance-confirmation/3 £ Issuance from Print reference Inventory
+>> CE Issuance Log; PR Issuance Log
+>> Audit Analysis
+>> Cascade delete configuration
+
+>> SBN Card Product client 34

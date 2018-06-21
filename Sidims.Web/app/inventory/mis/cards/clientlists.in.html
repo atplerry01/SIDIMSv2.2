@@ -1,0 +1,101 @@
+﻿<div class="page-title full-width">
+    <div class="title-env">
+        <h1 class="title">MIS Client Lists</h1>
+        <p class="description">Descriptions</p>
+    </div>
+
+    <div class="btn-group pull-right" style="padding-right:30px">
+
+        <button ng-click="vm.goBack()" class="btn btn-info btn-icon btn-gap" style="margin-right:2px">
+            <i class="fa-angle-left"></i>
+            <span>Back</span>
+        </button>
+
+        <button class="btn btn-info btn-icon btn-gap" style="margin-right:2px">
+            <i class="fa-refresh"></i>
+            <span>Refresh</span>
+        </button>
+
+        <button ng-click="vm.newClient()" class="btn btn-info btn-icon btn-gap">
+            <i class="fa-plus"></i>
+            <span>Add New Client</span>
+        </button>
+
+    </div>
+
+</div>
+
+
+
+<div class="table-wrapper">
+
+    <div class="table-responsive" data-pattern="priority-columns" data-focus-btn-icon="fa-asterisk" data-sticky-table-header="true" data-add-display-all-btn="true" data-add-focus-btn="true">
+
+        <table cellspacing="0" class="table table-small-font table-bordered table-striped">
+            <thead>
+                <tr>
+                    <th>SN</th>
+                    <th data-priority="3">Sector</th>
+                    <th data-priority="1">Client</th>
+                    <th>ShortCode</th>
+                    <th></th>
+                    <th data-priority="3"></th>
+                    <th data-priority="3"></th>
+                    <th data-priority="6"></th>
+                    <th data-priority="6"></th>
+                    <th data-priority="1">Time In</th>
+                </tr>
+            </thead>
+            <tbody>
+
+                <!--data-ng-click="vm.gotoClientDetails(c)"-->
+                <tr data-ng-repeat="c in vm.clients">
+                    <th colspan="1" data-columns="id8c140f573a4de-col-0">
+                        ({{$index +1}})
+                    </th>
+                    <td data-priority="3" colspan="1" data-columns="id8c140f573a4de-col-2">
+                        {{c.sector.name}}
+                    </td>
+                    <td data-priority="1" colspan="1" data-columns="id8c140f573a4de-col-3">
+                        {{c.name}}
+
+                    </td>
+                    <td>
+                        {{c.shortCode}}
+                    </td>
+                    <td>
+                        <span class="pull-right padd dash-small-icon" style="margin-left: 20px"
+                              data-ng-click="vm.updateClient(c)">
+                            <i class="fa fa-edit" style="color: green;"
+                               data-toggle="tooltip" data-placement="left"
+                               title="Update Client"></i>
+                        </span>
+                    </td>
+                    <td data-priority="3" colspan="1" data-columns="id8c140f573a4de-col-4">
+                        <span class="pull-right padd dash-small-icon" data-ng-click="vm.gotoProducts(c)">
+                            <i class="fa fa-file-excel-o" style="color: blue;"
+                               data-toggle="tooltip" data-placement="left"
+                               title="Goto Job Audit Tray"></i> Products
+                        </span>
+                    </td>
+                    <td data-priority="3" colspan="1" data-columns="id8c140f573a4de-col-5">
+                        {{c.jobType.name}}
+                    </td>
+                    <td data-priority="6" colspan="1" data-columns="id8c140f573a4de-col-6">
+                        {{c.jobStatus.name}}
+                    </td>
+                    <td data-priority="6" colspan="1" data-columns="id8c140f573a4de-col-6">
+                        {{c.quantity}}
+                    </td>
+                    <td data-priority="1" colspan="1" data-columns="id8c140f573a4de-col-1">
+                        {{c.formattedDate}}
+                    </td>
+
+                </tr>
+
+
+            </tbody>
+        </table>
+
+    </div>
+</div>

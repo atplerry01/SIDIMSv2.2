@@ -1,0 +1,84 @@
+﻿<div class="page-title full-width">
+    <div class="title-env">
+        <h1 class="title">Flagged Jobs</h1>
+        <p class="description">Descriptions</p>
+    </div>
+
+    <div class="btn-group pull-right" style="padding-right:30px">
+
+        <button ng-click="vm.goBack()" class="btn btn-info btn-icon btn-gap" style="margin-right:2px">
+            <i class="fa-angle-left"></i>
+            <span>Back</span>
+        </button>
+
+        <button class="btn btn-info btn-icon btn-gap" style="margin-right:2px">
+            <i class="fa-refresh"></i>
+            <span>Refresh</span>
+        </button>
+
+    </div>
+
+</div>
+
+<div class="table-wrapper">
+
+    <div class="table-responsive" data-pattern="priority-columns" data-focus-btn-icon="fa-asterisk" data-sticky-table-header="true" data-add-display-all-btn="true" data-add-focus-btn="true">
+
+        <table cellspacing="0" class="table table-small-font table-bordered table-striped">
+            <thead>
+                <tr>
+                    <th></th>
+                    <th>File Name</th>
+                    <th data-priority="3">Sector</th>
+                    <th data-priority="1">Client</th>
+                    <th data-priority="3">Service Type</th>
+                    <th data-priority="6">Flag Type</th>
+                    <th data-priority="6">Description</th>
+                    <th data-priority="1">Recommendation</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+
+                <tr data-ng-repeat="c in vm.incomingPrints"
+                    data-ng-click="vm.gotoJobDetails(c)">
+                    <td>
+                        <p data-ng-click="vm.unFlaggedJob(c)"><i class="fa fa-flag fa-fw" style="color: red;"></i></p>
+                    </td>
+                    <th colspan="1" data-columns="id8c140f573a4de-col-0">
+                        <span class="co-name">
+                            {{c.jobTracker.job.jobName }}
+                        </span>
+                    </th>
+                    <td data-priority="3" colspan="1" data-columns="id8c140f573a4de-col-2">
+                        {{c.jobTracker.job.sidSector.name}}
+                    </td>
+                    <td data-priority="1" colspan="1" data-columns="id8c140f573a4de-col-3">
+                        {{c.jobTracker.job.sidClient.name}}
+                    </td>
+                    <td data-priority="3" colspan="1" data-columns="id8c140f573a4de-col-5">
+                        {{c.jobTracker.job.serviceType.name}}
+                    </td>
+
+                    <td data-priority="3" colspan="1" data-columns="id8c140f573a4de-col-4">
+                        {{c.flagType.name}}
+                    </td>
+
+                    <td data-priority="6" colspan="1" data-columns="id8c140f573a4de-col-6">
+                        {{c.description}}
+                    </td>
+                    <td data-priority="6" colspan="1" data-columns="id8c140f573a4de-col-6">
+                        {{c.recommendation}}
+                    </td>
+                    <td data-priority="1" colspan="1" data-columns="id8c140f573a4de-col-1">
+                        {{c.formattedDate}}
+                    </td>
+
+                </tr>
+
+
+            </tbody>
+        </table>
+
+    </div>
+</div>

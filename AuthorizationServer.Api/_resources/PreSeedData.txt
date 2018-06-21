@@ -1,0 +1,16 @@
+﻿# UserAccountInformation
+# Department
+# Priority
+# Remark
+# ServiceType
+# CardType
+# ChipType
+# Client
+# Machine
+# ClientProduct
+# Sector
+# Variant
+# WasteErrorSource
+# WasteErrorSourceCode
+# WasteType
+# DeliveryProfile

@@ -1,0 +1,482 @@
+﻿namespace AuthorizationServer.Api.Migrations
+{
+    using Helpers;
+    using Infrastructure;
+    using Microsoft.AspNet.Identity;
+    using Microsoft.AspNet.Identity.EntityFramework;
+    using SID.Common.Model.Infrastructure;
+    using SID.Common.Model.Lookups;
+    using SID.Common.Model.Production;
+    using System;
+    using System.Collections.Generic;
+    using System.Data.Entity.Migrations;
+    using System.Linq;
+
+    internal sealed class Configuration : DbMigrationsConfiguration<AuthorizationServer.Api.Infrastructure.ApplicationDbContext>
+    {
+        private ApplicationRepository _repo = null;
+
+        public Configuration()
+        {
+            AutomaticMigrationsEnabled = false;
+            _repo = new ApplicationRepository();
+        }
+
+        protected override void Seed(AuthorizationServer.Api.Infrastructure.ApplicationDbContext context)
+        {
+            //  This method will be called after migrating to the latest version.
+
+            var manager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(new ApplicationDbContext()));
+            var roleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(new ApplicationDbContext()));
+
+            var user = new ApplicationUser() { UserName = "atplerry", Email = "atplerry@gmail.com", EmailConfirmed = true, FirstName = "Akinsanya", LastName = "Olanrewaju", Level = 1, JoinDate = DateTime.Now.AddYears(-3) };
+            var user01CO = new ApplicationUser() { UserName = "sidCardOps", Email = "akinCardOps@gmail.com", EmailConfirmed = true, FirstName = "Akinsanya", LastName = "akinCardOps", Level = 1, JoinDate = DateTime.Now.AddYears(-3) };
+            var user02Inv = new ApplicationUser() { UserName = "sidInv", Email = "akinInv@gmail.com", EmailConfirmed = true, FirstName = "Akinsanya", LastName = "akinInv", Level = 1, JoinDate = DateTime.Now.AddYears(-3) };
+            var user03CE = new ApplicationUser() { UserName = "sidCardEngr", Email = "akinCardEngr@gmail.com", EmailConfirmed = true, FirstName = "Akinsanya", LastName = "akinCardEngr", Level = 1, JoinDate = DateTime.Now.AddYears(-3) };
+            var user12PR = new ApplicationUser() { UserName = "sidPrinting", Email = "akinCardPrint@gmail.com", EmailConfirmed = true, FirstName = "Akinsanya", LastName = "akinCardPrint", Level = 1, JoinDate = DateTime.Now.AddYears(-3) };
+            var user04QA = new ApplicationUser() { UserName = "sidQA", Email = "akinQA@gmail.com", EmailConfirmed = true, FirstName = "Akinsanya", LastName = "akinQA", Level = 1, JoinDate = DateTime.Now.AddYears(-3) };
+            var user05QC = new ApplicationUser() { UserName = "sidQC", Email = "sidQC@gmail.com", EmailConfirmed = true, FirstName = "Akinsanya", LastName = "akinQC", Level = 1, JoinDate = DateTime.Now.AddYears(-3) };
+            var user06MA = new ApplicationUser() { UserName = "sidMA", Email = "sidMA@gmail.com", EmailConfirmed = true, FirstName = "Akinsanya", LastName = "akinMA", Level = 1, JoinDate = DateTime.Now.AddYears(-3) };
+            var user07DP = new ApplicationUser() { UserName = "sidDP", Email = "sidDP@gmail.com", EmailConfirmed = true, FirstName = "Akinsanya", LastName = "akinDP", Level = 1, JoinDate = DateTime.Now.AddYears(-3) };
+            var user08RM = new ApplicationUser() { UserName = "sidRM", Email = "sidRM@gmail.com", EmailConfirmed = true, FirstName = "Akinsanya", LastName = "akinRM", Level = 1, JoinDate = DateTime.Now.AddYears(-3) };
+            var user09CS = new ApplicationUser() { UserName = "sidCS", Email = "sidCS@gmail.com", EmailConfirmed = true, FirstName = "Akinsanya", LastName = "akinCS", Level = 1, JoinDate = DateTime.Now.AddYears(-3) };
+            var user10Mgt = new ApplicationUser() { UserName = "sidMgt", Email = "sidMgt@gmail.com", EmailConfirmed = true, FirstName = "Akinsanya", LastName = "akinMgt", Level = 1, JoinDate = DateTime.Now.AddYears(-3) };
+            var user11Supervisor = new ApplicationUser() { UserName = "sidSupv", Email = "sidSupv@gmail.com", EmailConfirmed = true, FirstName = "Akinsanya", LastName = "akinSupv", Level = 1, JoinDate = DateTime.Now.AddYears(-3) };
+            var user12Finance = new ApplicationUser() { UserName = "sidFin", Email = "sidFin@gmail.com", EmailConfirmed = true, FirstName = "Akinsanya", LastName = "akinFin", Level = 1, JoinDate = DateTime.Now.AddYears(-3) };
+
+            manager.Create(user, "siduser@01");
+            manager.Create(user01CO, "siduser@01");
+            manager.Create(user02Inv, "siduser@01");
+            manager.Create(user12PR, "siduser@01");
+            manager.Create(user03CE, "siduser@01");
+            manager.Create(user04QA, "siduser@01");
+            manager.Create(user05QC, "siduser@01");
+            manager.Create(user06MA, "siduser@01");
+            manager.Create(user07DP, "siduser@01");
+            manager.Create(user08RM, "siduser@01");
+            manager.Create(user09CS, "siduser@01");
+            manager.Create(user10Mgt, "siduser@01");
+            manager.Create(user11Supervisor, "siduser@01");
+            manager.Create(user12Finance, "siduser@01");
+
+            if (roleManager.Roles.Count() == 0)
+            {
+                roleManager.Create(new IdentityRole { Name = "SuperAdmin" });
+                roleManager.Create(new IdentityRole { Name = "Admin" });
+                roleManager.Create(new IdentityRole { Name = "Management" });
+                roleManager.Create(new IdentityRole { Name = "Supervisor" });
+                roleManager.Create(new IdentityRole { Name = "User" });
+                roleManager.Create(new IdentityRole { Name = "CardOps" });
+                roleManager.Create(new IdentityRole { Name = "Printing" });
+                roleManager.Create(new IdentityRole { Name = "CardEngr" });
+                roleManager.Create(new IdentityRole { Name = "Inventory" });
+                roleManager.Create(new IdentityRole { Name = "QA" });
+                roleManager.Create(new IdentityRole { Name = "QC" });
+                roleManager.Create(new IdentityRole { Name = "Mailing" });
+                roleManager.Create(new IdentityRole { Name = "RM" });
+                roleManager.Create(new IdentityRole { Name = "CS" });
+                roleManager.Create(new IdentityRole { Name = "Dispatch" });
+                roleManager.Create(new IdentityRole { Name = "Bank" });
+                roleManager.Create(new IdentityRole { Name = "Customer" });
+                roleManager.Create(new IdentityRole { Name = "Finance" });
+
+            }
+
+            var adminUser = manager.FindByName("atplerry");
+            var adminUser01CO = manager.FindByName("sidCardOps");
+            var adminUser02Inv = manager.FindByName("sidInv");
+            var adminUser03CE = manager.FindByName("sidCardEngr");
+            var adminUser04QA = manager.FindByName("sidQA");
+            var adminUser05QC = manager.FindByName("sidQC");
+            var adminUser06MA = manager.FindByName("sidMA");
+            var adminUser07DP = manager.FindByName("sidDP");
+            var adminUser08RM = manager.FindByName("sidRM");
+            var adminUser09CS = manager.FindByName("sidCS");
+            var adminUser10Mgt = manager.FindByName("sidMgt");
+            var adminUser11Supv = manager.FindByName("sidSupv");
+            var adminUser12PR = manager.FindByName("sidPrinting");
+            var adminUser13Fin = manager.FindByName("sidFin");
+
+            manager.AddToRoles(adminUser.Id, new string[] { "SuperAdmin", "Admin", "Inventory", "QA" });
+            manager.AddToRoles(adminUser01CO.Id, new string[] { "CardOps" });
+            manager.AddToRoles(adminUser02Inv.Id, new string[] { "Inventory" });
+            manager.AddToRoles(adminUser03CE.Id, new string[] { "CardEngr" });
+            manager.AddToRoles(adminUser04QA.Id, new string[] { "QA" });
+            manager.AddToRoles(adminUser05QC.Id, new string[] { "QC" });
+            manager.AddToRoles(adminUser06MA.Id, new string[] { "Mailing" });
+            manager.AddToRoles(adminUser07DP.Id, new string[] { "Dispatch" });
+            manager.AddToRoles(adminUser08RM.Id, new string[] { "RM" });
+            manager.AddToRoles(adminUser09CS.Id, new string[] { "CS" });
+            manager.AddToRoles(adminUser10Mgt.Id, new string[] { "Management" });
+            manager.AddToRoles(adminUser11Supv.Id, new string[] { "Supervisor" });
+            manager.AddToRoles(adminUser12PR.Id, new string[] { "Printing" });
+            manager.AddToRoles(adminUser13Fin.Id, new string[] { "Finance" });
+
+            // Client Seeds
+            if (context.Clients.Count() > 0)
+            {
+                return;
+            }
+
+            context.Clients.AddRange(BuildClientsList());
+            context.SaveChanges();
+
+
+            #region JobProduction
+
+            if (context.ServerJobQueues.Count() == 0)
+            {
+                var servJobQueue = new List<ServerJobQueue>
+                {
+                    new ServerJobQueue() { JobName ="GTBank_422525_20170523_1447 GOLD SDA.txt.xls", CreatedOn = DateTime.Now, ModifiedOn = DateTime.Now},
+                    new ServerJobQueue() { JobName ="FirstBank_422525_20170523_1448 Diamond SDA.txt.xls", CreatedOn = DateTime.Now, ModifiedOn = DateTime.Now},
+                };
+
+                servJobQueue.ForEach(r => context.ServerJobQueues.Add(r));
+                context.SaveChanges();
+            }
+
+            #endregion
+
+            #region Lookups
+
+            // Department
+            if (context.Departments.Count() == 0)
+            {
+                var department01 = new List<Department>
+                {
+                    new Department() { Name = "Card Ops"},
+                    new Department() { Name = "Printing"},
+                    new Department() { Name = "Card Engineer"},
+                    new Department() { Name = "Quality Assurance"},
+                    new Department() { Name = "Quality Control"},
+                    new Department() { Name = "Mailing"},
+                    new Department() { Name = "Customer Service"},
+                    new Department() { Name = "Relationship Manager"},
+                };
+
+                department01.ForEach(r => context.Departments.Add(r));
+                context.SaveChanges();
+            }
+
+            // Waste Type
+            if (context.WasteTypes.Count() == 0)
+            {
+                var waste01 = new List<WasteType>
+                {
+                    new WasteType() { Name = "Card"},
+                    new WasteType() { Name = "Stationary"},
+                };
+
+                waste01.ForEach(r => context.WasteTypes.Add(r));
+                context.SaveChanges();
+            }
+
+            // Vendors
+            if (context.Vendors.Count() == 0)
+            {
+                var vendor01 = new List<Vendor>
+                {
+                    new Vendor() { Name = "SCM"},
+                    new Vendor() { Name = "Others"},
+                };
+
+                vendor01.ForEach(r => context.Vendors.Add(r));
+                context.SaveChanges();
+            }
+
+            // IssuanceType
+            if (context.IssuanceTypes.Count() == 0)
+            {
+                var issuance01 = new List<IssuanceType>
+                {
+                    new IssuanceType() { Name = "New Issuance"},
+                    new IssuanceType() { Name = "Partial Issuance"},
+                    new IssuanceType() { Name = "Damage Issuance"},
+                };
+
+                issuance01.ForEach(r => context.IssuanceTypes.Add(r));
+                context.SaveChanges();
+            }
+
+            // IssuanceStatus
+            if (context.IssuanceStatus.Count() == 0)
+            {
+                var issuanceState01 = new List<IssuanceStatus>
+                {
+                    new IssuanceStatus() { Name = "Completed"},
+                    new IssuanceStatus() { Name = "Partial"}
+                };
+
+                issuanceState01.ForEach(r => context.IssuanceStatus.Add(r));
+                context.SaveChanges();
+            }
+
+            // Flag Type
+            if (context.FlagTypes.Count() == 0)
+            {
+                var FlagType01 = new List<FlagType>
+                {
+                    new FlagType() { Name = "Partial Upload"},
+                    new FlagType() { Name = "Bad Packet"},
+                    new FlagType() { Name = "Not Sorting File"}
+                };
+
+                FlagType01.ForEach(r => context.FlagTypes.Add(r));
+                context.SaveChanges();
+            }
+
+            // Job Status
+            if (context.JobStatus.Count() == 0)
+            {
+                var JobStatus01 = new List<JobStatus>
+                {
+                    new JobStatus() { Name = "Pending"},
+                    new JobStatus() { Name = "Queue"},
+                    new JobStatus() { Name = "WIP"},
+                    new JobStatus() { Name = "Flagged"},
+                    new JobStatus() { Name = "Completed"},
+                    new JobStatus() { Name = "Not Required"},
+                    new JobStatus() { Name = "SLA Met"},
+                    new JobStatus() { Name = "SLA Not Met"},
+                    new JobStatus() { Name = "Delivered"},
+                    new JobStatus() { Name = "Not Delivered"},
+                    new JobStatus() { Name = "Partial"}
+                };
+
+                JobStatus01.ForEach(r => context.JobStatus.Add(r));
+                context.SaveChanges();
+            }
+
+            //// Status
+            //if (context.Status.Count() == 0)
+            //{
+            //    var status01 = new List<Status>
+            //    {
+            //        new Status() { Name = "Pending"},
+            //        new Status() { Name = "Queue"},
+            //        new Status() { Name = "Work In Progress"},
+            //        new Status() { Name = "Completed"},
+            //        new Status() { Name = "OnHold"},
+            //        new Status() { Name = "Resume"},
+            //        new Status() { Name = "Kill"}
+            //    };
+
+            //    status01.ForEach(r => context.Status.Add(r));
+            //    context.SaveChanges();
+            //}
+
+            //// JobTrackerStatus
+            //if (context.JobTrackerStatus.Count() == 0)
+            //{
+            //    var trackerStatus01 = new List<JobTrackerStatus>
+            //    {
+            //        new JobTrackerStatus() { Name = "Completed"},
+            //        new JobTrackerStatus() { Name = "Partial"},
+            //        new JobTrackerStatus() { Name = "Waste"},
+            //        new JobTrackerStatus() { Name = "Blank"},
+            //        new JobTrackerStatus() { Name = "New"},
+            //        new JobTrackerStatus() { Name = "WIP"},
+            //    };
+
+            //    trackerStatus01.ForEach(r => context.JobTrackerStatus.Add(r));
+            //    context.SaveChanges();
+            //}
+
+            //// Remark
+            //if (context.Remarks.Count() == 0)
+            //{
+            //    var remark01 = new List<Remark>
+            //    {
+            //        new Remark() { Name = "Front & Back"},
+            //        new Remark() { Name = "Black & White"},
+
+            //    };
+
+            //    remark01.ForEach(r => context.Remarks.Add(r));
+            //    context.SaveChanges();
+            //}
+
+            // Priority
+            if (context.Priority.Count() == 0)
+            {
+                var priority01 = new List<Priority>
+                {
+                    new Priority() { Name = "Low"},
+                    new Priority() { Name = "Normal"},
+                    new Priority() { Name = "High"},
+                };
+
+                priority01.ForEach(r => context.Priority.Add(r));
+                context.SaveChanges();
+            }
+
+            // Job Type
+            if (context.ServiceTypes.Count() == 0)
+            {
+                var jobType01 = new List<ServiceType>
+                {
+                    new ServiceType() { Name = "Perso Only"},
+                    new ServiceType() { Name = "Printing Only"},
+                    new ServiceType() { Name = "Mailing Only"},
+                    new ServiceType() { Name = "Printing And Perso"},
+                };
+
+                jobType01.ForEach(r => context.ServiceTypes.Add(r));
+                context.SaveChanges();
+            }
+
+            // JobStatus
+            if (context.JobStatus.Count() == 0)
+            {
+                var JobStatus01 = new List<JobStatus>
+                {
+                    new JobStatus() { Name = "Pending"},
+                    new JobStatus() { Name = "Queue"},
+                    new JobStatus() { Name = "WIP"},
+                    new JobStatus() { Name = "Flagged"},
+                    new JobStatus() { Name = "SLA Met"},
+                    new JobStatus() { Name = "SLA Not Met"},
+                    new JobStatus() { Name = "Completed"},
+                    new JobStatus() { Name = "Delivered"},
+                    new JobStatus() { Name = "Not Delivered"},
+                    new JobStatus() { Name = "Not Required"}
+                };
+
+                JobStatus01.ForEach(r => context.JobStatus.Add(r));
+                context.SaveChanges();
+            }
+
+            //// IssuanceUnit
+            //if (context.IssuanceUnits.Count() == 0)
+            //{
+            //    var IssuanceUnit = new List<IssuanceUnit>
+            //    {
+            //        new IssuanceUnit() { Name = "Inventory"},
+            //        new IssuanceUnit() { Name = "CardEngr"},
+            //        new IssuanceUnit() { Name = "QC"},
+            //        new IssuanceUnit() { Name = "Mailing"}
+            //    };
+
+            //    IssuanceUnit.ForEach(r => context.IssuanceUnits.Add(r));
+            //    context.SaveChanges();
+            //}
+
+            #endregion
+
+
+            #region Lookups
+
+            // SidCardType
+            if (context.SidCardTypes.Count() == 0)
+            {
+                var SidCardType = new List<SidCardType>
+                {
+                    new SidCardType() { Name = "Master Card"},
+                    new SidCardType() { Name = "Verve Card"},
+                    new SidCardType() { Name = "Visa Card"}
+                };
+
+                SidCardType.ForEach(r => context.SidCardTypes.Add(r));
+                context.SaveChanges();
+            }
+
+
+            // SidChipType
+            var chipName = _repo.FindCardTypeByName("Master Card");
+
+            if (context.SidChipTypes.Count() == 0)
+            {
+                var SidChipType = new List<SidChipType>
+                {
+                    new SidChipType() { SidCardTypeId = chipName.Id, Name = "Kona Card"},
+
+                };
+
+                SidChipType.ForEach(r => context.SidChipTypes.Add(r));
+                context.SaveChanges();
+            }
+
+
+
+            // SidSector
+            if (context.SidSectors.Count() == 0)
+            {
+                var sidSector = new List<SidSector>
+                {
+                    new SidSector() { Name = "Bank"},
+                    new SidSector() { Name = "Public Sector"},
+                    new SidSector() { Name = "Telecommunication"},
+                    new SidSector() { Name = "Special Projects"}
+                };
+
+                sidSector.ForEach(r => context.SidSectors.Add(r));
+                context.SaveChanges();
+            }
+
+            // DeliveryTemplate
+            if (context.DeliveryNoteTemplates.Count() == 0)
+            {
+                var deliveryNote = new List<DeliveryNoteTemplate>
+                {
+                    new DeliveryNoteTemplate() { Name = "General"}
+                };
+
+                deliveryNote.ForEach(r => context.DeliveryNoteTemplates.Add(r));
+                context.SaveChanges();
+            }
+
+            /// Create Client
+            var client01 = _repo.FindSectorByName("Bank");
+
+            if (context.SidClients.Count() == 0)
+            {
+                var sidClient01 = new List<SidClient>
+                {
+                    new SidClient() { SectorId = client01.Id, Name = "GTBank"},
+                    new SidClient() { SectorId = client01.Id, Name = "First Bank"},
+                    new SidClient() { SectorId = client01.Id, Name = "Stanbic IBTC Bank"},
+
+                };
+
+                sidClient01.ForEach(r => context.SidClients.Add(r));
+                context.SaveChanges();
+            }
+
+
+            #endregion
+
+
+        }
+
+
+        private static List<Client> BuildClientsList()
+        {
+
+            List<Client> ClientsList = new List<Client>
+            {
+                new Client
+                { Id = "ngAuthApp",
+                    Secret= Helper.GetHash("abc@123"),
+                    Name="AngularJS front-end Application",
+                    ApplicationType =  ApplicationTypes.JavaScript,
+                    Active = true,
+                    RefreshTokenLifeTime = 7200,
+                    AllowedOrigin = "http://localhost:55094"
+                },
+                new Client
+                { Id = "consoleApp",
+                    Secret=Helper.GetHash("123@abc"),
+                    Name="Console Application",
+                    ApplicationType = ApplicationTypes.NativeConfidential,
+                    Active = true,
+                    RefreshTokenLifeTime = 14400,
+                    AllowedOrigin = "*"
+                }
+            };
+
+            return ClientsList;
+        }
+
+    }
+}

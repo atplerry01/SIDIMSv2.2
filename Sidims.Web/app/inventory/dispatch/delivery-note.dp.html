@@ -1,0 +1,243 @@
+﻿<div class="page-title full-width">
+    <div class="title-env">
+        <h1 class="title">Delivery Notes</h1>
+        <p class="description">Descriptions</p>
+    </div>
+
+    <div class="btn-group pull-right" style="padding-right:30px">
+
+        <button ng-click="vm.goBack()" class="btn btn-info btn-icon btn-gap" style="margin-right:2px">
+            <i class="fa-angle-left"></i>
+            <span>Back</span>
+        </button>
+
+        <button class="btn btn-info btn-icon btn-gap" style="margin-right:2px">
+            <i class="fa-refresh"></i>
+            <span>Refresh</span>
+        </button>
+
+        <button ng-click="vm.gotoAddVariant()" class="btn btn-info btn-icon btn-gap">
+            <i class="fa-plus"></i>
+            <span>Add New Variant</span>
+        </button>
+
+    </div>
+
+</div>
+
+<div class="row">
+
+    <div class="table-wrapper" ng-show="vm.prepareDeliveryNote">
+
+        <div  class="table-responsive" data-pattern="priority-columns" data-focus-btn-icon="fa-asterisk" data-sticky-table-header="true" data-add-display-all-btn="true" data-add-focus-btn="true">
+
+            <table cellspacing="0" class="table table-small-font table-bordered table-striped">
+                <thead>
+                    <tr>
+                        <th>File Name</th>
+                        <th data-priority="3">Sector</th>
+                        <th data-priority="1">Client</th>
+                        <th data-priority="3">Remark</th>
+                        <th data-priority="3">Service Type</th>
+                        <th data-priority="6">Job Status</th>
+                        <th data-priority="6">Quantity</th>
+                        <th data-priority="1">Time In</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                    <tr data-ng-repeat="c in vm.incomingJobs">
+                        <th colspan="1" data-columns="id8c140f573a4de-col-0">
+                            <label for="{{c.id}}">
+                                <input type="checkbox"
+                                       ng-model="selection.ids[c.id]"
+                                       name="group"
+                                       id="{{c.id}}" />
+
+                                <span class="co-name">
+                                    {{c.job.jobName }}
+                                </span>
+                            </label>
+                        </th>
+                        <td data-priority="3" colspan="1" data-columns="id8c140f573a4de-col-2">
+                            {{c.job.sidSector.name}}
+                        </td>
+                        <td data-priority="1" colspan="1" data-columns="id8c140f573a4de-col-3">
+                            {{c.job.sidClient.name}}
+                        </td>
+                        <td data-priority="3" colspan="1" data-columns="id8c140f573a4de-col-4">
+                            {{c.job.remark.name}}
+                        </td>
+                        <td data-priority="3" colspan="1" data-columns="id8c140f573a4de-col-5">
+                            {{c.job.serviceType.name}}
+                        </td>
+                        <td data-priority="6" colspan="1" data-columns="id8c140f573a4de-col-6">
+                            {{c.job.jobStatus.name}}
+                        </td>
+                        <td data-priority="6" colspan="1" data-columns="id8c140f573a4de-col-6">
+                            {{c.job.quantity}}
+                        </td>
+                        <td data-priority="1" colspan="1" data-columns="id8c140f573a4de-col-1">
+                            {{c.formattedDate}}
+                        </td>
+
+                    </tr>
+
+
+                </tbody>
+            </table>
+
+            <br /><br />
+
+            <div class="input-text form-group">
+                <input type="submit" data-ng-click="vm.prepareNote()"
+                       value="Prepare Delivery Note"
+                       class="btn btn-primary btn-large list-your-property arrow-right" />
+            </div>
+
+            
+
+
+        </div>
+
+    </div>
+
+    <div class="table-wrapper" ng-show="vm.generateDeliveryNote">
+
+        <div  class="col-md-5">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+
+                    <div id="main">
+                        <div class="list-your-property-form">
+
+                            <h2 class="page-header" style="font-size:24px; margin-top:5px">
+                                Generate Delivery Note
+                            </h2>
+
+
+                            <div class="input-text form-group">
+                                <label class="control-label" for="inputLoginPassword">
+                                    Client:
+                                    <span class="form-required" title="This field is required.">*</span>
+                                </label>
+
+                                <input type="text" name="contact_name"
+                                       ng-model="vm.delivery.client" readonly
+                                       class="input-name form-control" placeholder="" />
+
+
+                            </div>
+
+                            <div class="input-text form-group">
+                                <label class="control-label" for="inputLoginPassword">
+                                    Delivery Profile: <span style="font-size:11px"></span>
+                                    <span class="form-required" title="This field is required.">*</span>
+                                </label>
+                               
+                                <select data-ng-options="r.name for r in vm.deliveryprofiles"
+                                        data-ng-model="vm.delivery.profile" class="form-control"
+                                        style="padding:5px"></select>
+                            </div>
+
+                            <div class="input-text form-group">
+                                <label class="control-label" for="inputLoginPassword">
+                                    Description:
+                                    <span class="form-required" title="This field is required.">*</span>
+                                </label>
+
+                                <input type="text" name="contact_name"
+                                       ng-model="vm.delivery.description"
+                                       class="input-name form-control" placeholder="" />
+
+
+                            </div>
+
+
+                            <div class="input-text form-group">
+                                <label class="control-label" for="inputLoginPassword">
+                                    <span style="font-size:11px">Use Template:</span>
+                                    <span class="form-required" title="This field is required.">*</span>
+                                </label>
+
+                                <input type="checkbox"  ng-click='doIfChecked(vm.delivery.template)'
+                                       ng-model="vm.delivery.template" />
+
+                            </div>
+
+                
+                            <div class="input-text form-group">
+                                <input type="submit" data-ng-click="vm.generateNote()"
+                                       value="Generate Delivery Note"
+                                       class="btn btn-primary btn-large list-your-property arrow-right" />
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+
+        <div class="col-md-7">
+
+            <div class="table-responsive" data-pattern="priority-columns" data-focus-btn-icon="fa-asterisk" data-sticky-table-header="true" data-add-display-all-btn="true" data-add-focus-btn="true">
+
+                <table cellspacing="0" class="table table-small-font table-bordered table-striped">
+                    <thead>
+                        <tr>
+                            <th>File Name</th>
+                            <th data-priority="3">Sector</th>
+                            <th data-priority="1">Client</th>
+                            <th data-priority="3">Card Type</th>
+                            <th data-priority="3">Product Name</th>
+                            <th data-priority="6"></th>
+                            <th data-priority="6"></th>
+                            <th data-priority="1">Time In</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        <tr data-ng-repeat="c in vm.clientProducts"
+                            data-ng-click="vm.gotoclientProductDetails(c)">
+                            <th colspan="1" data-columns="id8c140f573a4de-col-0">
+                                ({{$index +1}})
+                                <span class="co-name">
+                                    {{c.jobName }}
+                                </span>
+                            </th>
+                            <td data-priority="3" colspan="1" data-columns="id8c140f573a4de-col-2">
+                                {{c.sidClient.sector.name}}
+                            </td>
+                            <td data-priority="1" colspan="1" data-columns="id8c140f573a4de-col-3">
+                                {{c.sidClient.name}}
+                            </td>
+                            <td data-priority="3" colspan="1" data-columns="id8c140f573a4de-col-4">
+                                {{c.sidCardType.name}}
+                            </td>
+                            <td data-priority="3" colspan="1" data-columns="id8c140f573a4de-col-5">
+                                {{c.name}}
+                            </td>
+                            <td data-priority="6" colspan="1" data-columns="id8c140f573a4de-col-6">
+                                {{c.jobStatus.name}}
+                            </td>
+                            <td data-priority="6" colspan="1" data-columns="id8c140f573a4de-col-6">
+                                {{c.name2}}
+                            </td>
+                            <td data-priority="1" colspan="1" data-columns="id8c140f573a4de-col-1">
+                                {{c.formattedDate}}
+                            </td>
+
+                        </tr>
+
+
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
+
+    </div>
+
+</div>

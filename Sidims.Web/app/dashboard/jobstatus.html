@@ -1,0 +1,355 @@
+﻿<div class="page-title full-width">
+    <div class="title-env">
+        <h1 class="title">Job Status</h1>
+        <p class="description">Retrive all jobs status.</p>
+    </div>
+
+    <div class="btn-group pull-right" style="padding-right:30px">
+
+        <button ng-click="vm.goBack()" class="btn btn-info btn-icon btn-gap" style="margin-right:2px">
+            <i class="fa-angle-left"></i>
+            <span>Back</span>
+        </button>
+
+        <button ng-click="vm.refresh()" class="btn btn-info btn-icon btn-gap" style="margin-right:2px">
+            <i class="fa-refresh"></i>
+            <span>Refresh</span>
+        </button>
+
+    </div>
+
+</div>
+
+
+<div>
+
+    <div class="row ng-scope">
+
+        <div class="col-sm-3">
+            <p> <i class="fa fa-arrow-circle-up fa-fw" style="color: blue;"></i> Queue</p>
+            <p> <i class="fa fa-check-circle-o fa-fw" style="color: green;"></i> Processed</p>
+            <p> <i class="fa fa-check-circle-o fa-fw" style="color: yellowgreen;"></i> Work In Progress</p>
+            <p><i class="fa fa-circle-o fa-fw" style="color: red;"></i>  Pending </p>
+
+        </div>
+        <div class="col-sm-3">
+            <p><i class="fa fa-dot-circle-o fa-fw" style="color: red;"></i> Not Required  </p>
+            <p><i class="fa fa-clock-o fa-fw" style="color: green;"></i> SLA Met  </p>
+            <p><i class="fa fa-clock-o fa-fw" style="color: red;"></i> SLA Not Met  </p>
+
+        </div>
+
+        <div class="col-sm-3">
+            <p><i class="fa fa-flag fa-fw" style="color: red;"></i> Flagged  </p>
+            <p><i class="fa fa-truck fa-fw" style="color: green;"></i> Delivered  </p>
+            <p><i class="fa fa-truck fa-fw" style="color: red;"></i> Not Delivered  </p>
+
+        </div>
+
+        <div class="clearfix"></div>
+        <div class="vspacer v4"></div>
+
+    </div>
+
+    <div class="table-wrapper widget-content">
+
+        <div class="table-responsive" data-pattern="priority-columns" data-focus-btn-icon="fa-asterisk" data-sticky-table-header="true" data-add-display-all-btn="true" data-add-focus-btn="true">
+
+            <input class="input-medium search-query"
+                   style="padding:5px 0 5px 5px; width: 300px" type="text"
+                   placeholder="Search for Job on JobTracker Trail"
+                   data-ng-model="vm.jobTrackersSearch"
+                   data-ng-keyup="vm.search($event)" />
+
+            &nbsp;&nbsp;
+
+            Page {{vm.paging.currentPage}} of {{vm.paging.pageCount}} - Total: {{vm.jobTrackerCount}} Trackers
+
+            <table cellspacing="0" class="table table-small-font table-bordered table-striped job-status">
+                <thead>
+                    <tr>
+                        <th id="id8c140f573a4de-col-0-clone">&nbsp;</th>
+                        <th id="id8c140f573a4de-col-0-clone">File Name</th>
+                        <th id="id8c140f573a4de-col-0-clone">Actions</th>
+                        <th data-priority="1" id="id8c140f573a4de-col-1-clone">Time In</th>
+                        <th data-priority="3" id="id8c140f573a4de-col-2-clone">CO</th>
+                        <th data-priority="1" id="id8c140f573a4de-col-3-clone">IN</th>
+                        <th data-priority="3" id="id8c140f573a4de-col-4-clone">PR</th>
+                        <th data-priority="3" id="id8c140f573a4de-col-5-clone">CE/1</th>
+                        <th data-priority="6" id="id8c140f573a4de-col-6-clone">QA</th>
+                        <th data-priority="6" id="id8c140f573a4de-col-6-clone">CE/2</th>
+                        <th data-priority="6" id="id8c140f573a4de-col-6-clone">QC</th>
+                        <th data-priority="6" id="id8c140f573a4de-col-6-clone">MA</th>
+                        <th data-priority="6" id="id8c140f573a4de-col-6-clone">DP</th>
+                        <th data-priority="6" id="id8c140f573a4de-col-6-clone">MAud</th>
+                        <th data-priority="6" id="id8c140f573a4de-col-6-clone">CST</th>
+                        <th data-priority="6" id="id8c140f573a4de-col-6-clone">TAT</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                    <tr data-ng-repeat="c in vm.filteredJobTrackers">
+                        <td data-ng-click="vm.flagJob(c)" class="padd">
+                            <p>
+                                <i ng-if="c.isFlag == false" class="fa fa-flag fa-fw" style="color: #808080;"></i>
+                                <i ng-if="c.isFlag == true" class="fa fa-flag fa-fw" style="color: red;"></i>
+                            </p>
+                        </td>
+                        <td colspan="1" data-columns="id8c140f573a4de-col-0">
+                            <span class="co-name">
+                                <i data-toggle="tooltip" data-placement="left"
+                                   tooltip-placement="left">{{c.job.jobName}}</i>
+                            </span>
+                            
+                        </td>
+                        <td>
+                            <table>
+                                <tr>
+                                    <td>
+                                        <span ng-if="vm.currentRole === 'CardOps' || vm.currentRole === 'CardOps Supervisor' "
+                                              class="pull-right padd dash-small-icon" style="margin-left: 20px" data-ng-click="vm.gotoUpdate(c)">
+                                            <i class="fa fa-edit" style="color: green;"
+                                               data-toggle="tooltip" data-placement="left"
+                                               title="Update Job"></i>
+                                        </span>
+                                    </td>
+                                    <td>
+                                        <span class="pull-right padd dash-small-icon" data-ng-click="vm.gotoAuditTrail(c)">
+                                            <i class="fa fa-file-excel-o" style="color: blue;"
+                                               data-toggle="tooltip" data-placement="left"
+                                               title="Goto Job Audit Tray"></i>
+                                        </span>
+                                    </td>
+                                    <td>
+                                        <span ng-if="vm.currentRole === 'CardOps Supervisor' || vm.currentRole === 'Inventory Supervisor' ||
+                                          vm.currentRole === 'CardEngr Supervisor' || vm.currentRole === 'QA Supervisor' ||
+                                          vm.currentRole === 'QC Supervisor' || vm.currentRole === 'Mailing Supervisor'"
+                                              class="pull-right padd dash-small-icon" data-ng-click="vm.revertJob(c)">
+                                            <i class="fa fa-undo" style="color: purple;"
+                                               data-toggle="tooltip" data-placement="left"
+                                               title="Revert Job"></i>
+                                        </span>
+                                    </td>
+                                    <td>
+                                        <span ng-if="vm.currentRole === 'CardOps Supervisor' || vm.currentRole === 'Inventory Supervisor' ||
+                                          vm.currentRole === 'CardEngr Supervisor' || vm.currentRole === 'QA Supervisor' ||
+                                          vm.currentRole === 'QC Supervisor' || vm.currentRole === 'Mailing Supervisor'"
+                                              class="pull-right padd dash-small-icon" data-ng-click="vm.deleteJob(c)">
+                                            <i class="fa fa-trash-o" style="color: red;"
+                                               data-toggle="tooltip" data-placement="left"
+                                               title="Delete Job"></i>
+                                        </span>
+                                    </td>
+                                </tr>
+                            </table>
+                            
+                        </td>
+                        <td data-priority="1" colspan="1" data-columns="id8c140f573a4de-col-1"  
+                               data-toggle="tooltip" data-placement="top"
+                               title="{{c.fullFormattedDate}}"
+                               tooltip-placement="top">
+                            {{c.formattedDate}}
+                        </td>
+                        <td data-priority="3" colspan="1" data-columns="id8c140f573a4de-col-2">
+                            <i ng-if="c.stage01CardOps.name == 'Pending'" class="fa fa-circle-o fa-fw" style="color: red;"></i>
+                            <i ng-if="c.stage01CardOps.name == 'Queue'" class="fa fa-arrow-circle-up fa-fw" style="color: blue;"></i>
+                            <i ng-if="c.stage01CardOps.name == 'WIP'" class="fa fa-check-circle-o fa-fw" style="color: yellowgreen;"></i>
+                            <i ng-if="c.stage01CardOps.name == 'Flagged'" class="fa fa-flag fa-fw" style="color: red;"></i>
+                            <i ng-if="c.stage01CardOps.name == 'Completed'" class="fa fa-check-circle-o fa-fw" style="color: green;"></i>
+                            <i ng-if="c.stage01CardOps.name == 'Not Required'" class="fa fa-dot-circle-o fa-fw" style="color: red;"></i>
+                           
+                        </td>
+                        <td data-priority="1" colspan="1" data-columns="id8c140f573a4de-col-3">
+                            <i ng-if="c.stage02Inventory.name == 'Pending'" class="fa fa-circle-o fa-fw" style="color: red;"></i>
+                            <i ng-if="c.stage02Inventory.name == 'Queue'" class="fa fa-arrow-circle-up fa-fw" style="color: blue;"></i>
+                            <i ng-if="c.stage02Inventory.name == 'WIP'" data-ng-click="vm.currentRole === 'Inventory Supervisor' && vm.toggle($index)" class="fa fa-check-circle-o fa-fw" style="color: yellowgreen;"></i>
+                            <i ng-if="c.stage02Inventory.name == 'Flagged'" class="fa fa-flag fa-fw" style="color: red;"></i>
+                            <i ng-if="c.stage02Inventory.name == 'Completed'" data-ng-click="vm.currentRole === 'Inventory Supervisor' && vm.toggle($index)" class="fa fa-check-circle-o fa-fw" style="color: green;"></i>
+                            <i ng-if="c.stage02Inventory.name == 'Not Required'" class="fa fa-dot-circle-o fa-fw" style="color: red;"></i>
+                            <span ng-show="(vm.toggleSpan && (index == $index))">
+                                <span ng-if="vm.currentRole === 'Inventory Supervisor'"
+                                      ng-click="vm.revertUnitJob('in', c, 'in')" class="pull-right padd dash-small-icon">
+                                    <i class="fa fa-undo" style="color: purple;"
+                                       data-toggle="tooltip" data-placement="left"
+                                       title="Revert Job"></i>
+                                </span>
+                            </span>
+                        </td>
+                        <td data-priority="3" colspan="1" data-columns="id8c140f573a4de-col-4">
+                            <i ng-if="c.stage03Printing.name == 'Pending'" class="fa fa-circle-o fa-fw" style="color: red;"></i>
+                            <i ng-if="c.stage03Printing.name == 'Queue'" class="fa fa-arrow-circle-up fa-fw" style="color: blue;"></i>
+                            <i ng-if="c.stage03Printing.name == 'WIP'" data-ng-click="vm.currentRole === 'CardEngr Supervisor' && vm.toggle($index)" class="fa fa-check-circle-o fa-fw" style="color: yellowgreen;"></i>
+                            <i ng-if="c.stage03Printing.name == 'Flagged'" class="fa fa-flag fa-fw" style="color: red;"></i>
+                            <i ng-if="c.stage03Printing.name == 'Completed'" data-ng-click="vm.currentRole === 'CardEngr Supervisor' && vm.toggle($index)" class="fa fa-check-circle-o fa-fw" style="color: green;"></i>
+                            <i ng-if="c.stage03Printing.name == 'Not Required'" class="fa fa-dot-circle-o fa-fw" style="color: red;"></i> <br />
+                            <span ng-if="c.stage03Printing.name !== 'Not Required'" style="font-size:10px">
+                                QA
+                                <i ng-if="c.stage03PrintQA.name == 'Pending'" class="fa fa-circle-o fa-fw" style="color: red;"></i>
+                                <i ng-if="c.stage03PrintQA.name == 'Queue'" class="fa fa-arrow-circle-up fa-fw" style="color: blue;"></i>
+                                <i ng-if="c.stage03PrintQA.name == 'WIP'" class="fa fa-check-circle-o fa-fw" style="color: yellowgreen;"></i>
+                                <i ng-if="c.stage03PrintQA.name == 'Flagged'" class="fa fa-flag fa-fw" style="color: red;"></i>
+                                <i ng-if="c.stage03PrintQA.name == 'Completed'" class="fa fa-check-circle-o fa-fw" style="color: green;"></i>
+                                <i ng-if="c.stage03PrintQA.name == 'Not Required'" class="fa fa-dot-circle-o fa-fw" style="color: red;"></i>
+                                QC
+                                <i ng-if="c.stage03PrintQC.name == 'Pending'" class="fa fa-circle-o fa-fw" style="color: red;"></i>
+                                <i ng-if="c.stage03PrintQC.name == 'Queue'" class="fa fa-arrow-circle-up fa-fw" style="color: blue;"></i>
+                                <i ng-if="c.stage03PrintQC.name == 'WIP'" class="fa fa-check-circle-o fa-fw" style="color: yellowgreen;"></i>
+                                <i ng-if="c.stage03PrintQC.name == 'Flagged'" class="fa fa-flag fa-fw" style="color: red;"></i>
+                                <i ng-if="c.stage03PrintQC.name == 'Completed'" class="fa fa-check-circle-o fa-fw" style="color: green;"></i>
+                                <i ng-if="c.stage03PrintQC.name == 'Not Required'" class="fa fa-dot-circle-o fa-fw" style="color: red;"></i>
+                            </span>
+                            <span ng-show="(vm.toggleSpan && (index == $index))">
+                                <span ng-if="vm.currentRole === 'CardEngr Supervisor'"
+                                      ng-click="vm.revertUnitJob('ce', c, 'pr')" class="pull-right padd dash-small-icon">
+                                    <i class="fa fa-undo" style="color: purple;"
+                                       data-toggle="tooltip" data-placement="left"
+                                       title="Revert Job"></i>
+                                </span>
+                            </span>
+                        </td>
+                        <td data-priority="3" colspan="1" data-columns="id8c140f573a4de-col-5">
+                            <i ng-if="c.stage06FirstJobRun.name == 'Pending'" class="fa fa-circle-o fa-fw" style="color: red;"></i>
+                            <i ng-if="c.stage06FirstJobRun.name == 'Queue'" class="fa fa-arrow-circle-up fa-fw" style="color: blue;"></i>
+                            <i ng-if="c.stage06FirstJobRun.name == 'WIP'" data-ng-click="vm.currentRole === 'CardEngr Supervisor' && vm.toggle($index)" class="fa fa-check-circle-o fa-fw" style="color: yellowgreen;"></i>
+                            <i ng-if="c.stage06FirstJobRun.name == 'Flagged'" class="fa fa-flag fa-fw" style="color: red;"></i>
+                            <i ng-if="c.stage06FirstJobRun.name == 'Completed'" data-ng-click="vm.currentRole === 'CardEngr Supervisor' && vm.toggle($index)" class="fa fa-check-circle-o fa-fw" style="color: green;"></i>
+                            <i ng-if="c.stage06FirstJobRun.name == 'Not Required'" class="fa fa-dot-circle-o fa-fw" style="color: red;"></i>
+                            <span ng-show="(vm.toggleSpan && (index == $index))">
+                                <span ng-if="vm.currentRole === 'CardEngr Supervisor'"
+                                      ng-click="vm.revertUnitJob('ce', c, 'ce1')" class="pull-right padd dash-small-icon">
+                                    <i class="fa fa-undo" style="color: purple;"
+                                       data-toggle="tooltip" data-placement="left"
+                                       title="Revert Job"></i>
+                                </span>
+                            </span>
+                        </td>
+                        <td data-priority="6" colspan="1" data-columns="id8c140f573a4de-col-6">
+                            <i ng-if="c.stage05QA.name == 'Pending'" class="fa fa-circle-o fa-fw" style="color: red;"></i>
+                            <i ng-if="c.stage05QA.name == 'Queue'" class="fa fa-arrow-circle-up fa-fw" style="color: blue;"></i>
+                            <i ng-if="c.stage05QA.name == 'WIP'" data-ng-click="vm.currentRole === 'QA Supervisor' && vm.toggle($index)" class="fa fa-check-circle-o fa-fw" style="color: yellowgreen;"></i>
+                            <i ng-if="c.stage05QA.name == 'Flagged'" class="fa fa-flag fa-fw" style="color: red;"></i>
+                            <i ng-if="c.stage05QA.name == 'Completed'" data-ng-click="vm.currentRole === 'QA Supervisor' && vm.toggle($index)" class="fa fa-check-circle-o fa-fw" style="color: green;"></i>
+                            <i ng-if="c.stage05QA.name == 'Not Required'" class="fa fa-dot-circle-o fa-fw" style="color: red;"></i>
+                            <span ng-show="(vm.toggleSpan && (index == $index))">
+                                <span ng-if="vm.currentRole === 'QA Supervisor'"
+                                      ng-click="vm.revertUnitJob('qa', c, 'qa')" class="pull-right padd dash-small-icon">
+                                    <i class="fa fa-undo" style="color: purple;"
+                                       data-toggle="tooltip" data-placement="left"
+                                       title="Revert Job"></i>
+                                </span>
+                            </span>
+                        </td>
+                        <td data-priority="3" colspan="1" data-columns="id8c140f573a4de-col-2">
+                            <i ng-if="c.stage07CardEngrResume.name == 'Pending'" class="fa fa-circle-o fa-fw" style="color: red;"></i>
+                            <i ng-if="c.stage07CardEngrResume.name == 'Queue'" class="fa fa-arrow-circle-up fa-fw" style="color: blue;"></i>
+                            <i ng-if="c.stage07CardEngrResume.name == 'WIP'" data-ng-click="vm.currentRole === 'CardEngr Supervisor' && vm.toggle($index)" class="fa fa-check-circle-o fa-fw" style="color: yellowgreen;"></i>
+                            <i ng-if="c.stage07CardEngrResume.name == 'Flagged'" class="fa fa-flag fa-fw" style="color: red;"></i>
+                            <i ng-if="c.stage07CardEngrResume.name == 'Completed'" data-ng-click="vm.currentRole === 'CardEngr Supervisor' && vm.toggle($index)" class="fa fa-check-circle-o fa-fw" style="color: green;"></i>
+                            <i ng-if="c.stage07CardEngrResume.name == 'Not Required'" class="fa fa-dot-circle-o fa-fw" style="color: red;"></i>
+                            <span ng-show="(vm.toggleSpan && (index == $index))">
+                                <span ng-if="vm.currentRole === 'CardEngr Supervisor'"
+                                      ng-click="vm.revertUnitJob('ce', c, 'ce2')" class="pull-right padd dash-small-icon">
+                                    <i class="fa fa-undo" style="color: purple;"
+                                       data-toggle="tooltip" data-placement="left"
+                                       title="Revert Job"></i>
+                                </span>
+                            </span>
+                        </td>
+                        <td data-priority="1" colspan="1" data-columns="id8c140f573a4de-col-3">
+                            <i ng-if="c.stage08QC.name == 'Pending'" class="fa fa-circle-o fa-fw" style="color: red;"></i>
+                            <i ng-if="c.stage08QC.name == 'Queue'" class="fa fa-arrow-circle-up fa-fw" style="color: blue;"></i>
+                            <i ng-if="c.stage08QC.name == 'WIP'" data-ng-click="vm.currentRole === 'QC Supervisor' && vm.toggle($index)" class="fa fa-check-circle-o fa-fw" style="color: yellowgreen;"></i>
+                            <i ng-if="c.stage08QC.name == 'Flagged'" class="fa fa-flag fa-fw" style="color: red;"></i>
+                            <i ng-if="c.stage08QC.name == 'Completed'" data-ng-click="vm.currentRole === 'QC Supervisor' && vm.toggle($index)" class="fa fa-check-circle-o fa-fw" style="color: green;"></i>
+                            <i ng-if="c.stage08QC.name == 'Not Required'" class="fa fa-dot-circle-o fa-fw" style="color: red;"></i>
+                            <span ng-show="(vm.toggleSpan && (index == $index))">
+                                <span ng-if="vm.currentRole === 'QC Supervisor'"
+                                      ng-click="vm.revertUnitJob('qc', c, 'qc')" class="pull-right padd dash-small-icon">
+                                    <i class="fa fa-undo" style="color: purple;"
+                                       data-toggle="tooltip" data-placement="left"
+                                       title="Revert Job"></i>
+                                </span>
+                            </span>
+                        </td>
+                        <td data-priority="3" colspan="1" data-columns="id8c140f573a4de-col-4">
+                            <i ng-if="c.stage09Mailing.name == 'Pending'" class="fa fa-circle-o fa-fw" style="color: red;"></i>
+                            <i ng-if="c.stage09Mailing.name == 'Queue'" class="fa fa-arrow-circle-up fa-fw" style="color: blue;"></i>
+                            <i ng-if="c.stage09Mailing.name == 'WIP'" data-ng-click="vm.currentRole === 'MA Supervisor' && vm.toggle($index)" class="fa fa-check-circle-o fa-fw" style="color: yellowgreen;"></i>
+                            <i ng-if="c.stage09Mailing.name == 'Flagged'" class="fa fa-flag fa-fw" style="color: red;"></i>
+                            <i ng-if="c.stage09Mailing.name == 'Completed'" data-ng-click="vm.currentRole === 'MA Supervisor' && vm.toggle($index)" class="fa fa-check-circle-o fa-fw" style="color: green;"></i>
+                            <i ng-if="c.stage09Mailing.name == 'Not Required'" class="fa fa-dot-circle-o fa-fw" style="color: red;"></i>
+                            <span ng-show="(vm.toggleSpan && (index == $index))">
+                                <span ng-if="vm.currentRole === 'MA Supervisor'"
+                                      ng-click="vm.revertUnitJob('ma', c, 'ma')" class="pull-right padd dash-small-icon">
+                                    <i class="fa fa-undo" style="color: purple;"
+                                       data-toggle="tooltip" data-placement="left"
+                                       title="Revert Job"></i>
+                                </span>
+                            </span>
+                        </td>
+                        <td data-priority="3" colspan="1" data-columns="id8c140f573a4de-col-5">
+                            <i ng-if="c.stage10Dispatch.name == 'Pending'" class="fa fa-circle-o fa-fw" style="color: red;"></i>
+                            <i ng-if="c.stage10Dispatch.name == 'Queue'" class="fa fa-arrow-circle-up fa-fw" style="color: blue;"></i>
+                            <i ng-if="c.stage10Dispatch.name == 'WIP'" data-ng-click="vm.currentRole === 'Inventory Supervisor' && vm.toggle($index)" class="fa fa-check-circle-o fa-fw" style="color: yellowgreen;"></i>
+                            <i ng-if="c.stage10Dispatch.name == 'Flagged'" class="fa fa-flag fa-fw" style="color: red;"></i>
+                            <i ng-if="c.stage10Dispatch.name == 'Completed'" data-ng-click="vm.currentRole === 'Inventory Supervisor' && vm.toggle($index)" class="fa fa-check-circle-o fa-fw" style="color: green;"></i>
+                            <i ng-if="c.stage10Dispatch.name == 'Not Required'" class="fa fa-dot-circle-o fa-fw" style="color: red;"></i>
+                            <!--<span ng-show="(vm.toggleSpan && (index == $index))">
+                                <span ng-if="vm.currentRole === 'Inventory Supervisor'"
+                                      ng-click="vm.revertUnitJob('in', c, 'dp')" class="pull-right padd dash-small-icon">
+                                    <i class="fa fa-undo" style="color: purple;"
+                                       data-toggle="tooltip" data-placement="left"
+                                       title="Revert Job"></i>
+                                </span>
+                            </span>-->
+                        </td>
+                        <td data-priority="3" colspan="1" data-columns="id8c140f573a4de-col-5">
+                            <i ng-if="c.stage10MaterialAudit.name == 'Pending'" class="fa fa-circle-o fa-fw" style="color: red;"></i>
+                            <i ng-if="c.stage10MaterialAudit.name == 'Queue'" class="fa fa-arrow-circle-up fa-fw" style="color: blue;"></i>
+                            <i ng-if="c.stage10MaterialAudit.name == 'WIP'" class="fa fa-check-circle-o fa-fw" style="color: yellowgreen;"></i>
+                            <i ng-if="c.stage10MaterialAudit.name == 'Flagged'" class="fa fa-flag fa-fw" style="color: red;"></i>
+                            <i ng-if="c.stage10MaterialAudit.name == 'Completed'" class="fa fa-check-circle-o fa-fw" style="color: green;"></i>
+                            <i ng-if="c.stage10MaterialAudit.name == 'Not Required'" class="fa fa-dot-circle-o fa-fw" style="color: red;"></i>
+                            <i ng-if="c.stage10MaterialAudit.name == 'Not Delivered'" class="fa fa-truck fa-fw" style="color: yellowgreen;"></i>
+                            <i ng-if="c.stage10MaterialAudit.name == 'Delivered'" class="fa fa-truck fa-fw" style="color: green;"></i>
+                        </td>
+                        <td data-priority="6" colspan="1" data-columns="id8c140f573a4de-col-6">
+                            <i ng-if="c.stage11CustomerService.name == 'Pending'" class="fa fa-circle-o fa-fw" style="color: red;"></i>
+                            <i ng-if="c.stage11CustomerService.name == 'Queue'" class="fa fa-arrow-circle-up fa-fw" style="color: blue;"></i>
+                            <i ng-if="c.stage11CustomerService.name == 'WIP'" class="fa fa-check-circle-o fa-fw" style="color: yellowgreen;"></i>
+                            <i ng-if="c.stage11CustomerService.name == 'Flagged'" class="fa fa-flag fa-fw" style="color: red;"></i>
+                            <i ng-if="c.stage11CustomerService.name == 'Completed'" class="fa fa-check-circle-o fa-fw" style="color: green;"></i>
+                            <i ng-if="c.stage11CustomerService.name == 'Not Required'" class="fa fa-dot-circle-o fa-fw" style="color: red;"></i>
+
+                        </td>
+                        <td data-priority="6" colspan="1" data-columns="id8c140f573a4de-col-6">
+                            <i class="fa fa-circle-o fa-fw" style="color: red;"></i>
+                        </td>
+
+                    </tr>
+
+
+                </tbody>
+            </table>
+
+            <div>
+
+                <pagination boundary-links="true"
+                            on-select-page="vm.pageChanged(page)"
+                            total-items="vm.jobTrackerFilteredCount"
+                            items-per-page="vm.paging.pageSize"
+                            page="vm.paging.currentPage"
+                            max-size="vm.paging.maxPagesToShow"
+                            class="pagination-small"
+                            previous-text="Prev"
+                            next-text="Next"
+                            first-text="First"
+                            last-text="Last"></pagination>
+
+            </div>
+
+        </div>
+    </div>
+
+
+</div>

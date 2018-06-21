@@ -1,0 +1,168 @@
+﻿<div class="page-title full-width">
+    <div class="title-env">
+        <h1 class="title">Sessions</h1>
+        <p class="description">Retrive all session from assessment.</p>
+    </div>
+
+    <div class="btn-group pull-right" style="padding-right:30px">
+
+        <button ng-click="vm.goBack()" class="btn btn-info btn-icon btn-gap" style="margin-right:2px">
+            <i class="fa-angle-left"></i>
+            <span>Back</span>
+        </button>
+
+        <button class="btn btn-info btn-icon btn-gap" style="margin-right:2px">
+            <i class="fa-refresh"></i>
+            <span>Refresh</span>
+        </button>
+
+        <button ng-click="vm.addNewEmployee()" class="btn btn-info btn-icon btn-gap">
+            <i class="fa-plus"></i>
+            <span>Add New Account</span>
+        </button>
+
+    </div>
+
+</div>
+
+
+
+
+<!-- Tables and Panels -->
+<div class="row">
+    <div class="col-md-9">
+
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">All Assignments</h3>
+
+                <div class="panel-options">
+                    <a href="">
+                        <i class="linecons-cog"></i>
+                    </a>
+
+                    <a href="" data-toggle="panel">
+                        <span class="collapse-icon">&ndash;</span>
+                        <span class="expand-icon">+</span>
+                    </a>
+
+                    <a href="" data-toggle="reload">
+                        <i class="fa-rotate-right"></i>
+                    </a>
+
+                    <a href="" data-toggle="remove">
+                        &times;
+                    </a>
+                </div>
+            </div>
+
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Title</th>
+                        <th>Course Name</th>
+                        <th>Tutor</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <tr data-ng-repeat="c in vm.assignmentSessions"
+                        data-ng-click="vm.gotoAssignmentSession(c)">
+                        <td>({{$index +1}})</td>
+                        <td>{{c.title}}</td>
+                        <td>{{c.course.name}}</td>
+                        <td>{{c.course.courseTutor.fullName}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+
+    <div class="col-md-3">
+
+        <div class="panel panel-flat">
+            <div class="panel-heading">
+                <h3 class="panel-title">Latest Submission</h3>
+
+                <div class="panel-options">
+                    <a href="" data-toggle="reload">
+                        <i class="fa-rotate-right"></i>
+                    </a>
+                    <a href="#/sa/subject/new">
+                        <i class="fa-plus-circle"></i>
+                    </a>
+                    <a href="#/sa/subjects">
+                        <i class="fa-angle-double-right"></i>
+                    </a>
+                </div>
+
+            </div>
+
+            <table class="table table-condensed">
+                <thead>
+                    <tr>
+                        <th width="1%">#</th>
+                        <th>Assignment Title</th>
+                        <th>SubmitBy</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <tr data-ng-repeat="c in vm.assignmentSubmissions"
+                        data-ng-click="vm.gotoAssignmentSession(c)">
+                        <td>1</td>
+                        <td>{{c.assignmentSession.title}}</td>
+                        <td>{{c.student.fullName}}</td>
+                    </tr>
+
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+
+    <div class="col-md-3">
+
+        <div class="panel panel-flat">
+            <div class="panel-heading">
+                <h3 class="panel-title">Assessment Type</h3>
+
+                <div class="panel-options">
+                    <a href="" data-toggle="reload">
+                        <i class="fa-rotate-right"></i>
+                    </a>
+                    <a href="#/sa/assessment/type/new">
+                        <i class="fa-plus-circle"></i>
+                    </a>
+                    <a href="#/sa/assessment/types">
+                        <i class="fa-angle-double-right"></i>
+                    </a>
+                </div>
+            </div>
+
+            <table class="table table-condensed">
+                <thead>
+                    <tr>
+                        <th width="1%">#</th>
+                        <th>Assessments</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <tr data-ng-repeat="c in vm.assessmentType"
+                        data-ng-click="vm.gotoAssessmentType(c)">
+                        <td>({{$index +1}})</td>
+                        <td>{{c.name}}</td>
+                    </tr>
+
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+
+
+</div>
+

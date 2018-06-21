@@ -1,0 +1,123 @@
+﻿<div class="page-title full-width">
+    <div class="title-env">
+        <h1 class="title">MIS Reports</h1>
+        <p class="description">Descriptions</p>
+    </div>
+
+    <div class="btn-group pull-right" style="padding-right:30px">
+
+        <button ng-click="vm.goBack()" class="btn btn-info btn-icon btn-gap" style="margin-right:2px">
+            <i class="fa-angle-left"></i>
+            <span>Back</span>
+        </button>
+
+        <button class="btn btn-info btn-icon btn-gap" style="margin-right:2px">
+            <i class="fa-refresh"></i>
+            <span>Refresh</span>
+        </button>
+
+        <button ng-click="vm.gotoAddVariant()" class="btn btn-info btn-icon btn-gap">
+            <i class="fa-plus"></i>
+            <span>Add New Variant</span>
+        </button>
+
+    </div>
+
+</div>
+
+
+
+<div class="table-wrapper">
+
+    <div class="table-responsive" data-pattern="priority-columns" data-focus-btn-icon="fa-asterisk" data-sticky-table-header="true" data-add-display-all-btn="true" data-add-focus-btn="true">
+
+        <div>
+            <table style="width:100%">
+                <tr>
+                    <td>
+                        <span><strong>Stock Report</strong></span>
+                        <span>Today This Week, </span>
+                        <span>Last 3 Weeks, </span>
+                        <span>This Month, </span>
+                        <span>Last 3 Months</span>
+                    </td>
+                    <td><span>Issuance Report</span></td>
+                </tr>
+            </table>
+            
+            
+        </div>
+
+     
+        <table cellspacing="0" class="table table-small-font table-bordered table-striped">
+            <thead>
+                <tr>
+                    <th>File Name</th>
+                    <th data-priority="3">Sector</th>
+                    <th data-priority="1">Client</th>
+                    <th data-priority="3">Card Type</th>
+                    <th data-priority="3">Product Name</th>
+                    <th data-priority="6"></th>
+                    <th data-priority="6"></th>
+                    <th data-priority="1">Time In</th>
+                </tr>
+            </thead>
+            <tbody>
+
+                <tr data-ng-repeat="c in vm.filteredProducts" 
+                    data-ng-click="vm.gotoclientProductDetails(c)">
+                    <th colspan="1" data-columns="id8c140f573a4de-col-0">
+                        ({{$index +1}})
+                        <span class="co-name">
+                            {{c.jobName }}
+                        </span>
+                    </th>
+                    <td data-priority="3" colspan="1" data-columns="id8c140f573a4de-col-2">
+                        {{c.sidClient.sector.name}}
+                    </td>
+                    <td data-priority="1" colspan="1" data-columns="id8c140f573a4de-col-3">
+                       {{c.sidClient.name}}
+                    </td>
+                    <td data-priority="3" colspan="1" data-columns="id8c140f573a4de-col-4">
+                        {{c.sidCardType.name}}
+                    </td>
+                    <td data-priority="3" colspan="1" data-columns="id8c140f573a4de-col-5">
+                        {{c.name}}
+                    </td>
+                    <td data-priority="6" colspan="1" data-columns="id8c140f573a4de-col-6">
+                        {{c.jobStatus.name}}
+                    </td>
+                    <td data-priority="6" colspan="1" data-columns="id8c140f573a4de-col-6">
+                        {{c.name2}}
+                    </td>
+                    <td data-priority="1" colspan="1" data-columns="id8c140f573a4de-col-1">
+                        {{c.formattedDate}}
+                    </td>
+
+                </tr>
+
+
+            </tbody>
+
+            
+
+        </table>
+
+        <div>
+
+            <pagination boundary-links="true"
+                        on-select-page="vm.pageChanged(page)"
+                        total-items="vm.productFilteredCount"
+                        items-per-page="vm.paging.pageSize"
+                        page="vm.paging.currentPage"
+                        max-size="vm.paging.maxPagesToShow"
+                        class="pagination-small"
+                        previous-text="Prev"
+                        next-text="Next"
+                        first-text="First"
+                        last-text="Last"></pagination>
+
+        </div>
+
+    </div>
+</div>

@@ -1,0 +1,297 @@
+﻿<div class="page-title full-width">
+    <div class="title-env">
+        <h1 class="title">NonPerso Job</h1>
+        <p class="description">Descriptions</p>
+    </div>
+
+    <div class="btn-group pull-right" style="padding-right:30px">
+
+        <button ng-click="vm.goBack()" class="btn btn-info btn-icon btn-gap" style="margin-right:2px">
+            <i class="fa-angle-left"></i>
+            <span>Back</span>
+        </button>
+
+        <button class="btn btn-info btn-icon btn-gap" style="margin-right:2px">
+            <i class="fa-refresh"></i>
+            <span>Refresh</span>
+        </button>
+
+        <button ng-click="vm.gotoAddVariant()" class="btn btn-info btn-icon btn-gap">
+            <i class="fa-plus"></i>
+            <span>Add New Variant</span>
+        </button>
+
+    </div>
+
+</div>
+
+<!-- Tables and Panels -->
+<div class="row">
+    <div class="col-md-6">
+
+        <div class="panel panel-default">
+            <div class="panel-heading">
+
+                <div id="main">
+                    <div class="list-your-property-form">
+
+                        <h2 class="page-header" style="font-size:24px; margin-top:5px">
+                            Non Perso
+                        </h2>
+
+
+                        <div class="span6">
+
+                            <table>
+                                <tr>
+                                    <td>
+                                        <div class="input-text form-group">
+                                            <label class="control-label" for="inputLoginPassword">
+                                                Client Name
+                                                <span class="form-required" title="This field is required.">*</span>
+                                            </label>
+
+                                            <input type="text" name="contact_name" readonly
+                                                   ng-model="vm.product.sidClient.name"
+                                                   class="input-name form-control" placeholder="" />
+                                        </div>
+                                    </td>
+
+                                    <td>
+                                        <div class="input-text form-group">
+                                            <label class="control-label" for="inputLoginPassword">
+                                                Product Name
+                                                <span class="form-required" title="This field is required.">*</span>
+                                            </label>
+
+                                            <input type="text" name="contact_name" readonly
+                                                   ng-model="vm.product.name"
+                                                   class="input-name form-control" placeholder="" />
+                                        </div>
+                                    </td>
+                                </tr>
+                            </table>
+                           
+
+                           
+
+                            <div class="input-text form-group">
+                                <label class="control-label" for="inputLoginPassword">
+                                    Job Name
+                                    <span class="form-required" title="This field is required.">*</span>
+                                </label>
+
+                                <input type="text" name="contact_name"
+                                       ng-model="vm.entity.jobName"
+                                       class="input-name form-control" placeholder="" />
+                            </div>
+
+
+                            <div class="input-text form-group">
+                                <label class="control-label" for="inputLoginPassword">
+                                    Service Type
+                                    <span class="form-required" title="This field is required.">*</span>
+                                </label>
+
+                                <select data-ng-options="r.name for r in vm.serviceTypes"
+                                        data-ng-model="vm.entity.serviceType" class="form-control"
+                                        style="padding:5px"></select>
+
+                            </div>
+
+
+                            <div class="input-text form-group">
+                                <label class="control-label" for="inputLoginPassword">
+                                    Job Quantity
+                                    <span class="form-required" title="This field is required.">*</span>
+                                </label>
+
+                                <input type="text" name="contact_name"
+                                       ng-model="vm.entity.quantity"
+                                       class="input-name form-control" placeholder="" />
+                            </div>
+
+                            <div class="input-text form-group">
+                                <label class="control-label" for="inputLoginPassword">
+                                    Description
+                                    <span class="form-required" title="This field is required.">*</span>
+                                </label>
+
+                                <br />
+                                <textarea style="font-size:13px; width:60%; " 
+                                          name="" ng-model="vm.entity.description" placeholder="Job a short job description"></textarea>
+                            </div>
+
+
+                            <div class="input-text form-group">
+                                <input type="submit" data-ng-click="vm.save()"
+                                       value="Submit Entry" class="btn btn-primary btn-large list-your-property arrow-right" />
+                            </div>
+
+                            <!--<div style="margin-top:10px; font-size:12px" data-ng-hide="message == ''"
+                                 data-ng-class="(savedSuccessfully) ? 'alert alert-success' : 'alert alert-danger'">
+                                {{message}}
+                            </div>-->
+
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="col-md-6">
+
+        <div class="panel panel-flat">
+            <div class="panel-heading">
+
+                <h3 class="panel-title">Job Details</h3>
+
+                <div class="panel-options">
+                    <a href="">
+                        <i class="linecons-cog"></i>
+                    </a>
+
+                    <a href="" data-toggle="panel">
+                        <span class="collapse-icon">&ndash;</span>
+                        <span class="expand-icon">+</span>
+                    </a>
+
+                    <a href="" data-toggle="reload">
+                        <i class="fa-rotate-right"></i>
+                    </a>
+
+                    <a href="" data-toggle="remove">
+                        &times;
+                    </a>
+                </div>
+            </div>
+
+            <table class="table table-condensed">
+
+                <tbody>
+                    <tr>
+                        <td>JobName</td>
+                        <td>{{vm.jobBatchTracker.job.jobName}}</td>
+                    </tr>
+                    <tr>
+                        <td>Client:</td>
+                        <td>{{vm.jobBatchTracker.job.sidSector.name}}> {{vm.jobBatchTracker.job.sidClient.name}} > {{vm.jobBatchTracker.job.remark.name}}</td>
+                    </tr>
+                    <tr>
+                        <td>Service Type</td>
+                        <td>{{vm.jobBatchTracker.job.serviceType.name}}</td>
+                    </tr>
+                    <tr>
+                        <td>Quantity</td>
+                        <td>{{vm.jobBatchTracker.job.quantity}}</td>
+                    </tr>
+
+                </tbody>
+            </table>
+        </div>
+
+        <div class="panel panel-flat">
+            <div class="panel-heading">
+
+                <h3 class="panel-title">Issuance Log</h3>
+
+                <div class="panel-options">
+                    <a href="">
+                        <i class="linecons-cog"></i>
+                    </a>
+
+                    <a href="" data-toggle="panel">
+                        <span class="collapse-icon">&ndash;</span>
+                        <span class="expand-icon">+</span>
+                    </a>
+
+                    <a href="" data-toggle="reload">
+                        <i class="fa-rotate-right"></i>
+                    </a>
+
+                    <a href="" data-toggle="remove">
+                        &times;
+                    </a>
+                </div>
+            </div>
+
+            <table class="table table-condensed">
+                <thead>
+                    <tr>
+                        <th width="1%">#</th>
+                        <th>Qty Issued</th>
+                        <th>Remain</th>
+                        <th>IssuedBy</th>
+                        <th>IssuedOn</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <tr data-ng-repeat="c in vm.issuanceLogs"
+                        data-ng-click="vm.gotoCardTypes(c)">
+                        <td>({{$index +1}})</td>
+                        <td>{{c.quantityIssued}}</td>
+                        <td>{{c.quantityRemain}}</td>
+                        <td>{{c.issuance.fullName}}</td>
+                        <td>{{c.issuedDate}}</td>
+                    </tr>
+
+                </tbody>
+            </table>
+        </div>
+
+        <div class="panel panel-flat">
+            <div class="panel-heading">
+
+                <h3 class="panel-title">Client MIS Stock Information</h3>
+
+                <div class="panel-options">
+                    <a href="">
+                        <i class="linecons-cog"></i>
+                    </a>
+
+                    <a href="" data-toggle="panel">
+                        <span class="collapse-icon">&ndash;</span>
+                        <span class="expand-icon">+</span>
+                    </a>
+
+                    <a href="" data-toggle="reload">
+                        <i class="fa-rotate-right"></i>
+                    </a>
+
+                    <a href="" data-toggle="remove">
+                        &times;
+                    </a>
+                </div>
+            </div>
+
+            <table class="table table-condensed">
+                <thead>
+                    <tr>
+                        <th width="1%">#</th>
+                        <th>Sectors</th>
+                        <th>Client Name</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <tr data-ng-repeat="c in vm.clients"
+                        data-ng-click="vm.gotoCardTypes(c)">
+                        <td>({{$index +1}})</td>
+                        <td>{{c.sector.name}}</td>
+                        <td>{{c.name}}</td>
+
+                    </tr>
+
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+</div>
+

@@ -1,0 +1,902 @@
+﻿namespace AuthorizationServer.Api.Migrations
+{
+    using System;
+    using System.Data.Entity.Migrations;
+    
+    public partial class InitialCreate : DbMigration
+    {
+        public override void Up()
+        {
+            CreateTable(
+                "dbo.Audience",
+                c => new
+                    {
+                        ClientId = c.String(nullable: false, maxLength: 32),
+                        Base64Secret = c.String(nullable: false, maxLength: 80),
+                        Name = c.String(nullable: false, maxLength: 100),
+                    })
+                .PrimaryKey(t => t.ClientId);
+            
+            CreateTable(
+                "dbo.BioData",
+                c => new
+                    {
+                        Id = c.Int(nullable: false, identity: true),
+                        MatricNo = c.String(),
+                        FirstName = c.String(),
+                        LastName = c.String(),
+                        OtherName = c.String(),
+                        Gender = c.String(),
+                        DateOfBirth = c.String(),
+                        Faculty = c.String(),
+                        Department = c.String(),
+                        CourseOfStudy = c.String(),
+                        Level = c.String(),
+                        PhoneNumber = c.String(),
+                        StateOfOrigin = c.String(),
+                        LocalGovt = c.String(),
+                        NextOfKin = c.String(),
+                        NextOfKinAddress = c.String(),
+                        NextOfKinPhone = c.String(),
+                        BloodGroup = c.String(),
+                    })
+                .PrimaryKey(t => t.Id);
+            
+            CreateTable(
+                "dbo.Sector",
+                c => new
+                    {
+                        Id = c.Int(nullable: false, identity: true),
+                        Name = c.String(),
+                    })
+                .PrimaryKey(t => t.Id);
+            
+            CreateTable(
+                "dbo.CardIssuanceLog",
+                c => new
+                    {
+                        Id = c.Int(nullable: false, identity: true),
+                        CardIssuanceId = c.Int(nullable: false),
+                        IssuanceTypeId = c.Int(nullable: false),
+                        TotalQuantity = c.Int(nullable: false),
+                        QuantityIssued = c.Int(nullable: false),
+                        QuantityRemain = c.Int(nullable: false),
+                        IssuanceId = c.String(maxLength: 128),
+                        CollectorId = c.String(maxLength: 128),
+                        IssuedDate = c.DateTime(nullable: false),
+                    })
+                .PrimaryKey(t => t.Id)
+                .ForeignKey("dbo.CardIssuance", t => t.CardIssuanceId, cascadeDelete: true)
+                .ForeignKey("dbo.AspNetUsers", t => t.CollectorId)
+                .ForeignKey("dbo.AspNetUsers", t => t.IssuanceId)
+                .ForeignKey("dbo.IssuanceType", t => t.IssuanceTypeId, cascadeDelete: true)
+                .Index(t => t.CardIssuanceId)
+                .Index(t => t.IssuanceTypeId)
+                .Index(t => t.IssuanceId)
+                .Index(t => t.CollectorId);
+            
+            CreateTable(
+                "dbo.CardIssuance",
+                c => new
+                    {
+                        Id = c.Int(nullable: false, identity: true),
+                        JobId = c.Int(nullable: false),
+                        TotalQuantity = c.Int(nullable: false),
+                        TotalQuantityIssued = c.Int(nullable: false),
+                        TotalQuantityRemain = c.Int(nullable: false),
+                        TotalWaste = c.Int(nullable: false),
+                        IssuanceId = c.String(maxLength: 128),
+                        CollectorId = c.String(maxLength: 128),
+                        IssuanceStatusId = c.Int(nullable: false),
+                    })
+                .PrimaryKey(t => t.Id)
+                .ForeignKey("dbo.AspNetUsers", t => t.CollectorId)
+                .ForeignKey("dbo.AspNetUsers", t => t.IssuanceId)
+                .ForeignKey("dbo.Job", t => t.JobId, cascadeDelete: true)
+                .Index(t => t.JobId)
+                .Index(t => t.IssuanceId)
+                .Index(t => t.CollectorId);
+            
+            CreateTable(
+                "dbo.AspNetUsers",
+                c => new
+                    {
+                        Id = c.String(nullable: false, maxLength: 128),
+                        FirstName = c.String(nullable: false, maxLength: 100),
+                        LastName = c.String(nullable: false, maxLength: 100),
+                        MiddleName = c.String(),
+                        Nickname = c.String(),
+                        Suffix = c.String(),
+                        Level = c.Byte(nullable: false),
+                        JoinDate = c.DateTime(nullable: false),
+                        Title = c.String(),
+                        EmailSignature = c.String(),
+                        Photo = c.String(),
+                        ProfilePicture = c.String(),
+                        ProfileIsVisible = c.String(),
+                        UserLanguagekey = c.String(),
+                        EnableMobileApp = c.String(),
+                        EnableOfflineUser = c.String(),
+                        Status = c.String(),
+                        IsDeleted = c.Boolean(nullable: false),
+                        IsFrozen = c.Boolean(nullable: false),
+                        Email = c.String(maxLength: 256),
+                        EmailConfirmed = c.Boolean(nullable: false),
+                        PasswordHash = c.String(),
+                        SecurityStamp = c.String(),
+                        PhoneNumber = c.String(),
+                        PhoneNumberConfirmed = c.Boolean(nullable: false),
+                        TwoFactorEnabled = c.Boolean(nullable: false),
+                        LockoutEndDateUtc = c.DateTime(),
+                        LockoutEnabled = c.Boolean(nullable: false),
+                        AccessFailedCount = c.Int(nullable: false),
+                        UserName = c.String(nullable: false, maxLength: 256),
+                    })
+                .PrimaryKey(t => t.Id)
+                .Index(t => t.UserName, unique: true, name: "UserNameIndex");
+            
+            CreateTable(
+                "dbo.AspNetUserClaims",
+                c => new
+                    {
+                        Id = c.Int(nullable: false, identity: true),
+                        UserId = c.String(nullable: false, maxLength: 128),
+                        ClaimType = c.String(),
+                        ClaimValue = c.String(),
+                    })
+                .PrimaryKey(t => t.Id)
+                .ForeignKey("dbo.AspNetUsers", t => t.UserId, cascadeDelete: true)
+                .Index(t => t.UserId);
+            
+            CreateTable(
+                "dbo.AspNetUserLogins",
+                c => new
+                    {
+                        LoginProvider = c.String(nullable: false, maxLength: 128),
+                        ProviderKey = c.String(nullable: false, maxLength: 128),
+                        UserId = c.String(nullable: false, maxLength: 128),
+                    })
+                .PrimaryKey(t => new { t.LoginProvider, t.ProviderKey, t.UserId })
+                .ForeignKey("dbo.AspNetUsers", t => t.UserId, cascadeDelete: true)
+                .Index(t => t.UserId);
+            
+            CreateTable(
+                "dbo.AspNetUserRoles",
+                c => new
+                    {
+                        UserId = c.String(nullable: false, maxLength: 128),
+                        RoleId = c.String(nullable: false, maxLength: 128),
+                    })
+                .PrimaryKey(t => new { t.UserId, t.RoleId })
+                .ForeignKey("dbo.AspNetUsers", t => t.UserId, cascadeDelete: true)
+                .ForeignKey("dbo.AspNetRoles", t => t.RoleId, cascadeDelete: true)
+                .Index(t => t.UserId)
+                .Index(t => t.RoleId);
+            
+            CreateTable(
+                "dbo.Job",
+                c => new
+                    {
+                        Id = c.Int(nullable: false, identity: true),
+                        JobName = c.String(),
+                        JobNameId = c.String(),
+                        SidSectorId = c.Int(nullable: false),
+                        SidClientId = c.Int(nullable: false),
+                        RemarkId = c.Int(nullable: false),
+                        JobTypeId = c.Int(nullable: false),
+                        PriorityId = c.Int(nullable: false),
+                        JobStatusId = c.Int(nullable: false),
+                        Quantity = c.Int(nullable: false),
+                        SortingFile = c.Boolean(nullable: false),
+                    })
+                .PrimaryKey(t => t.Id)
+                .ForeignKey("dbo.JobStatus", t => t.JobStatusId, cascadeDelete: true)
+                .ForeignKey("dbo.JobType", t => t.JobTypeId, cascadeDelete: true)
+                .ForeignKey("dbo.Priority", t => t.PriorityId, cascadeDelete: true)
+                .ForeignKey("dbo.Remark", t => t.RemarkId, cascadeDelete: true)
+                .ForeignKey("dbo.SidClient", t => t.SidClientId, cascadeDelete: true)
+                .ForeignKey("dbo.SidSector", t => t.SidSectorId, cascadeDelete: true)
+                .Index(t => t.SidSectorId)
+                .Index(t => t.SidClientId)
+                .Index(t => t.RemarkId)
+                .Index(t => t.JobTypeId)
+                .Index(t => t.PriorityId)
+                .Index(t => t.JobStatusId);
+                Sql("DBCC CHECKIDENT ('Job', RESEED, 1000)");
+
+            CreateTable(
+                "dbo.JobStatus",
+                c => new
+                    {
+                        Id = c.Int(nullable: false, identity: true),
+                        Name = c.String(),
+                    })
+                .PrimaryKey(t => t.Id);
+            
+            CreateTable(
+                "dbo.JobType",
+                c => new
+                    {
+                        Id = c.Int(nullable: false, identity: true),
+                        Name = c.String(),
+                    })
+                .PrimaryKey(t => t.Id);
+            
+            CreateTable(
+                "dbo.Priority",
+                c => new
+                    {
+                        Id = c.Int(nullable: false, identity: true),
+                        Name = c.String(),
+                    })
+                .PrimaryKey(t => t.Id);
+            
+            CreateTable(
+                "dbo.Remark",
+                c => new
+                    {
+                        Id = c.Int(nullable: false, identity: true),
+                        Name = c.String(),
+                    })
+                .PrimaryKey(t => t.Id);
+            
+            CreateTable(
+                "dbo.SidClient",
+                c => new
+                    {
+                        Id = c.Int(nullable: false, identity: true),
+                        SectorId = c.Int(nullable: false),
+                        Name = c.String(),
+                        ShortCode = c.String(),
+                    })
+                .PrimaryKey(t => t.Id)
+                .ForeignKey("dbo.SidSector", t => t.SectorId, cascadeDelete: false)
+                .Index(t => t.SectorId);
+            
+            CreateTable(
+                "dbo.SidSector",
+                c => new
+                    {
+                        Id = c.Int(nullable: false, identity: true),
+                        Name = c.String(),
+                    })
+                .PrimaryKey(t => t.Id);
+            
+            CreateTable(
+                "dbo.IssuanceType",
+                c => new
+                    {
+                        Id = c.Int(nullable: false, identity: true),
+                        Name = c.String(),
+                    })
+                .PrimaryKey(t => t.Id);
+            
+            CreateTable(
+                "dbo.ClientCardProduct",
+                c => new
+                    {
+                        Id = c.Int(nullable: false, identity: true),
+                        SidClientId = c.Int(nullable: false),
+                        SidCardTypeId = c.Int(nullable: false),
+                        SidChipTypeId = c.Int(nullable: false),
+                        Quantity = c.Int(nullable: false),
+                        ReOrderLevel = c.Int(nullable: false),
+                        ProductName = c.String(),
+                        ItemCode = c.Int(nullable: false),
+                        Description = c.String(),
+                    })
+                .PrimaryKey(t => t.Id)
+                .ForeignKey("dbo.SidCardType", t => t.SidCardTypeId, cascadeDelete: true)
+                .ForeignKey("dbo.SidChipType", t => t.SidChipTypeId, cascadeDelete: false)
+                .ForeignKey("dbo.SidClient", t => t.SidClientId, cascadeDelete: true)
+                .Index(t => t.SidClientId)
+                .Index(t => t.SidCardTypeId)
+                .Index(t => t.SidChipTypeId);
+            
+            CreateTable(
+                "dbo.SidCardType",
+                c => new
+                    {
+                        Id = c.Int(nullable: false, identity: true),
+                        Name = c.String(),
+                    })
+                .PrimaryKey(t => t.Id);
+            
+            CreateTable(
+                "dbo.SidChipType",
+                c => new
+                    {
+                        Id = c.Int(nullable: false, identity: true),
+                        SidCardTypeId = c.Int(nullable: false),
+                        Name = c.String(),
+                    })
+                .PrimaryKey(t => t.Id)
+                .ForeignKey("dbo.SidCardType", t => t.SidCardTypeId, cascadeDelete: true)
+                .Index(t => t.SidCardTypeId);
+            
+            CreateTable(
+                "dbo.Client",
+                c => new
+                    {
+                        Id = c.String(nullable: false, maxLength: 128),
+                        Secret = c.String(nullable: false),
+                        Name = c.String(nullable: false, maxLength: 100),
+                        ApplicationType = c.Int(nullable: false),
+                        Active = c.Boolean(nullable: false),
+                        RefreshTokenLifeTime = c.Int(nullable: false),
+                        AllowedOrigin = c.String(maxLength: 100),
+                        IsPublic = c.Boolean(nullable: false),
+                    })
+                .PrimaryKey(t => t.Id);
+            
+            CreateTable(
+                "dbo.Department",
+                c => new
+                    {
+                        Id = c.Int(nullable: false, identity: true),
+                        Name = c.String(),
+                    })
+                .PrimaryKey(t => t.Id);
+            
+            CreateTable(
+                "dbo.EmbedCardReceipt",
+                c => new
+                    {
+                        Id = c.Int(nullable: false, identity: true),
+                        SupplierName = c.String(),
+                        VendorId = c.Int(nullable: false),
+                        SIDReceiverId = c.String(maxLength: 128),
+                        EmbedCardRequestId = c.Int(nullable: false),
+                        LotNumber = c.Int(),
+                        Quantity = c.Int(nullable: false),
+                        TimeOfReceipt = c.DateTime(nullable: false),
+                        Remark = c.String(),
+                    })
+                .PrimaryKey(t => t.Id)
+                .ForeignKey("dbo.EmbedCardRequest", t => t.EmbedCardRequestId, cascadeDelete: true)
+                .ForeignKey("dbo.AspNetUsers", t => t.SIDReceiverId)
+                .ForeignKey("dbo.Vendor", t => t.VendorId, cascadeDelete: true)
+                .Index(t => t.VendorId)
+                .Index(t => t.SIDReceiverId)
+                .Index(t => t.EmbedCardRequestId);
+            
+            CreateTable(
+                "dbo.EmbedCardRequest",
+                c => new
+                    {
+                        Id = c.Int(nullable: false, identity: true),
+                        VendorId = c.Int(nullable: false),
+                        SidVariantId = c.Int(nullable: false),
+                        OrderNumber = c.Int(),
+                        SidChipTypeId = c.Int(nullable: false),
+                        TotalBatchQty = c.Int(nullable: false),
+                        TotalDelivered = c.Int(nullable: false),
+                        CreatedById = c.String(maxLength: 128),
+                    })
+                .PrimaryKey(t => t.Id)
+                .ForeignKey("dbo.AspNetUsers", t => t.CreatedById)
+                .ForeignKey("dbo.SidChipType", t => t.SidChipTypeId, cascadeDelete: true)
+                .ForeignKey("dbo.SidVariant", t => t.SidVariantId, cascadeDelete: true)
+                .Index(t => t.SidVariantId)
+                .Index(t => t.SidChipTypeId)
+                .Index(t => t.CreatedById);
+            
+            CreateTable(
+                "dbo.SidVariant",
+                c => new
+                    {
+                        Id = c.Int(nullable: false, identity: true),
+                        SidClientId = c.Int(nullable: false),
+                        SidCardTypeId = c.Int(nullable: false),
+                        VariantName = c.String(),
+                        ShortCode = c.String(),
+                    })
+                .PrimaryKey(t => t.Id)
+                .ForeignKey("dbo.SidCardType", t => t.SidCardTypeId, cascadeDelete: false)
+                .ForeignKey("dbo.SidClient", t => t.SidClientId, cascadeDelete: true)
+                .Index(t => t.SidClientId)
+                .Index(t => t.SidCardTypeId);
+            
+            CreateTable(
+                "dbo.Vendor",
+                c => new
+                    {
+                        Id = c.Int(nullable: false, identity: true),
+                        Name = c.String(),
+                    })
+                .PrimaryKey(t => t.Id);
+            
+            CreateTable(
+                "dbo.FlagType",
+                c => new
+                    {
+                        Id = c.Int(nullable: false, identity: true),
+                        Name = c.String(),
+                    })
+                .PrimaryKey(t => t.Id);
+            
+            CreateTable(
+                "dbo.IssuanceStatus",
+                c => new
+                    {
+                        Id = c.Int(nullable: false, identity: true),
+                        Name = c.String(),
+                    })
+                .PrimaryKey(t => t.Id);
+            
+            CreateTable(
+                "dbo.JobFlag",
+                c => new
+                    {
+                        Id = c.Int(nullable: false, identity: true),
+                        JobId = c.Int(nullable: false),
+                        FlagTypeId = c.Int(nullable: false),
+                        Remark = c.String(),
+                        Recommendation = c.String(),
+                        JobStatusId = c.Int(nullable: false),
+                        ResolvedBy = c.String(),
+                        CreatedBy = c.String(),
+                        ModifiedBy = c.String(),
+                        CreatedOn = c.DateTime(nullable: false),
+                        ModifiedOn = c.DateTime(nullable: false),
+                    })
+                .PrimaryKey(t => t.Id);
+            
+            CreateTable(
+                "dbo.JobQueue",
+                c => new
+                    {
+                        Id = c.Int(nullable: false, identity: true),
+                    })
+                .PrimaryKey(t => t.Id);
+            
+            CreateTable(
+                "dbo.JobTracker",
+                c => new
+                    {
+                        Id = c.Int(nullable: false, identity: true),
+                        JobId = c.Int(nullable: false),
+                        CardOpsId = c.Int(nullable: false),
+                        InventoryId = c.Int(nullable: false),
+                        PrintingId = c.Int(nullable: false),
+                        CardEngrId = c.Int(nullable: false),
+                        QAId = c.Int(nullable: false),
+                        FirstJobRunId = c.Int(nullable: false),
+                        CardEngrResumeId = c.Int(nullable: false),
+                        QCId = c.Int(nullable: false),
+                        MailingId = c.Int(nullable: false),
+                        DispatchId = c.Int(nullable: false),
+                        CustomerServiceId = c.Int(nullable: false),
+                        StageRequired = c.Int(nullable: false),
+                        CurrentState = c.Int(nullable: false),
+                        TAT = c.Single(nullable: false),
+                        JobTrackerStatusId = c.Int(nullable: false),
+                    })
+                .PrimaryKey(t => t.Id)
+                .ForeignKey("dbo.Job", t => t.JobId, cascadeDelete: true)
+                .ForeignKey("dbo.JobTrackerStatus", t => t.JobTrackerStatusId, cascadeDelete: true)
+                .ForeignKey("dbo.JobStatus", t => t.CardOpsId, cascadeDelete: false)
+                .ForeignKey("dbo.JobStatus", t => t.InventoryId, cascadeDelete: false)
+                .ForeignKey("dbo.JobStatus", t => t.PrintingId, cascadeDelete: false)
+                .ForeignKey("dbo.JobStatus", t => t.CardEngrId, cascadeDelete: false)
+                .ForeignKey("dbo.JobStatus", t => t.QAId, cascadeDelete: false)
+                .ForeignKey("dbo.JobStatus", t => t.FirstJobRunId, cascadeDelete: false)
+                .ForeignKey("dbo.JobStatus", t => t.CardEngrResumeId, cascadeDelete: false)
+                .ForeignKey("dbo.JobStatus", t => t.QCId, cascadeDelete: false)
+                .ForeignKey("dbo.JobStatus", t => t.MailingId, cascadeDelete: false)
+                .ForeignKey("dbo.JobStatus", t => t.DispatchId, cascadeDelete: false)
+                .ForeignKey("dbo.JobStatus", t => t.CustomerServiceId, cascadeDelete: false)
+                .Index(t => t.JobId)
+                .Index(t => t.CardOpsId)
+                .Index(t => t.InventoryId)
+                .Index(t => t.PrintingId)
+                .Index(t => t.CardEngrId)
+                .Index(t => t.QAId)
+                .Index(t => t.FirstJobRunId)
+                .Index(t => t.CardEngrResumeId)
+                .Index(t => t.QCId)
+                .Index(t => t.MailingId)
+                .Index(t => t.DispatchId)
+                .Index(t => t.CustomerServiceId)
+                .Index(t => t.JobTrackerStatusId);
+            
+            CreateTable(
+                "dbo.JobTrackerStatus",
+                c => new
+                    {
+                        Id = c.Int(nullable: false, identity: true),
+                        Name = c.String(),
+                    })
+                .PrimaryKey(t => t.Id);
+            
+            CreateTable(
+                "dbo.JobWasteLog",
+                c => new
+                    {
+                        Id = c.Int(nullable: false, identity: true),
+                        JobWasteId = c.Int(nullable: false),
+                        WasteQuantity = c.Int(nullable: false),
+                        CreatedById = c.String(maxLength: 128),
+                    })
+                .PrimaryKey(t => t.Id)
+                .ForeignKey("dbo.AspNetUsers", t => t.CreatedById)
+                .ForeignKey("dbo.JobWaste", t => t.JobWasteId, cascadeDelete: true)
+                .Index(t => t.JobWasteId)
+                .Index(t => t.CreatedById);
+            
+            CreateTable(
+                "dbo.JobWaste",
+                c => new
+                    {
+                        Id = c.Int(nullable: false, identity: true),
+                        JobId = c.Int(nullable: false),
+                        WasteTypeId = c.Int(nullable: false),
+                        DepartmentId = c.Int(nullable: false),
+                        TotalWasteQuantity = c.Int(nullable: false),
+                        PendingWasteQuantity = c.Int(nullable: false),
+                        CreatedById = c.String(maxLength: 128),
+                    })
+                .PrimaryKey(t => t.Id)
+                .ForeignKey("dbo.AspNetUsers", t => t.CreatedById)
+                .ForeignKey("dbo.Department", t => t.DepartmentId, cascadeDelete: true)
+                .ForeignKey("dbo.Job", t => t.JobId, cascadeDelete: true)
+                .ForeignKey("dbo.WasteType", t => t.WasteTypeId, cascadeDelete: true)
+                .Index(t => t.JobId)
+                .Index(t => t.WasteTypeId)
+                .Index(t => t.DepartmentId)
+                .Index(t => t.CreatedById);
+            
+            CreateTable(
+                "dbo.WasteType",
+                c => new
+                    {
+                        Id = c.Int(nullable: false, identity: true),
+                        Name = c.String(),
+                    })
+                .PrimaryKey(t => t.Id);
+            
+            CreateTable(
+                "dbo.Product",
+                c => new
+                    {
+                        Id = c.Int(nullable: false, identity: true),
+                    })
+                .PrimaryKey(t => t.Id);
+            
+            CreateTable(
+                "dbo.RefreshToken",
+                c => new
+                    {
+                        Id = c.String(nullable: false, maxLength: 128),
+                        Subject = c.String(nullable: false, maxLength: 50),
+                        ClientId = c.String(nullable: false, maxLength: 50),
+                        IssuedUtc = c.DateTime(nullable: false),
+                        ExpiresUtc = c.DateTime(nullable: false),
+                        ProtectedTicket = c.String(nullable: false),
+                    })
+                .PrimaryKey(t => t.Id);
+            
+            CreateTable(
+                "dbo.AspNetRoles",
+                c => new
+                    {
+                        Id = c.String(nullable: false, maxLength: 128),
+                        Name = c.String(nullable: false, maxLength: 256),
+                    })
+                .PrimaryKey(t => t.Id)
+                .Index(t => t.Name, unique: true, name: "RoleNameIndex");
+            
+            CreateTable(
+                "dbo.ServerJobQueue",
+                c => new
+                    {
+                        Id = c.Int(nullable: false, identity: true),
+                        JobName = c.String(),
+                        IsTreated = c.Boolean(nullable: false),
+                        CreatedOn = c.DateTime(nullable: false),
+                        ModifiedOn = c.DateTime(nullable: false),
+                    })
+                .PrimaryKey(t => t.Id);
+            
+            CreateTable(
+                "dbo.Sid01CardOps",
+                c => new
+                    {
+                        Id = c.Int(nullable: false, identity: true),
+                        JobId = c.Int(nullable: false),
+                        CreatedUserId = c.String(maxLength: 128),
+                        ModifiedUserId = c.String(maxLength: 128),
+                    })
+                .PrimaryKey(t => t.Id)
+                .ForeignKey("dbo.AspNetUsers", t => t.CreatedUserId)
+                .ForeignKey("dbo.AspNetUsers", t => t.ModifiedUserId)
+                .Index(t => t.CreatedUserId)
+                .Index(t => t.ModifiedUserId);
+            
+            CreateTable(
+                "dbo.Sid02Inventory",
+                c => new
+                    {
+                        Id = c.Int(nullable: false, identity: true),
+                    })
+                .PrimaryKey(t => t.Id);
+            
+            CreateTable(
+                "dbo.Sid03CardEngr",
+                c => new
+                    {
+                        Id = c.Int(nullable: false, identity: true),
+                    })
+                .PrimaryKey(t => t.Id);
+            
+            CreateTable(
+                "dbo.Sid04Printing",
+                c => new
+                    {
+                        Id = c.Int(nullable: false, identity: true),
+                    })
+                .PrimaryKey(t => t.Id);
+            
+            CreateTable(
+                "dbo.Sid05QA",
+                c => new
+                    {
+                        Id = c.Int(nullable: false, identity: true),
+                    })
+                .PrimaryKey(t => t.Id);
+            
+            CreateTable(
+                "dbo.Sid06QC",
+                c => new
+                    {
+                        Id = c.Int(nullable: false, identity: true),
+                    })
+                .PrimaryKey(t => t.Id);
+            
+            CreateTable(
+                "dbo.Sid07Mailing",
+                c => new
+                    {
+                        Id = c.Int(nullable: false, identity: true),
+                    })
+                .PrimaryKey(t => t.Id);
+            
+            CreateTable(
+                "dbo.Sid08Dispatch",
+                c => new
+                    {
+                        Id = c.Int(nullable: false, identity: true),
+                    })
+                .PrimaryKey(t => t.Id);
+            
+            CreateTable(
+                "dbo.Sid09CustomerService",
+                c => new
+                    {
+                        Id = c.Int(nullable: false, identity: true),
+                    })
+                .PrimaryKey(t => t.Id);
+            
+            CreateTable(
+                "dbo.StationaryInwardGood",
+                c => new
+                    {
+                        Id = c.Int(nullable: false, identity: true),
+                        GoodsName = c.String(),
+                        Quantity = c.Int(nullable: false),
+                        TimeOfReceipt = c.DateTime(nullable: false),
+                        GoodsFrom = c.String(),
+                        Attention = c.String(),
+                        BroughtBy = c.String(),
+                        ReceivedBy = c.String(),
+                    })
+                .PrimaryKey(t => t.Id);
+            
+            CreateTable(
+                "dbo.Status",
+                c => new
+                    {
+                        Id = c.Int(nullable: false, identity: true),
+                        Name = c.String(),
+                    })
+                .PrimaryKey(t => t.Id);
+            
+            CreateTable(
+                "dbo.StockStatus",
+                c => new
+                    {
+                        Id = c.Int(nullable: false, identity: true),
+                        SidClientId = c.Int(nullable: false),
+                        SidVariantId = c.Int(nullable: false),
+                        CardIssuanceId = c.Int(nullable: false),
+                        TotalDataReceived = c.Int(nullable: false),
+                        OpeningStock = c.Int(nullable: false),
+                        NewStock = c.Int(nullable: false),
+                        TotalIssued = c.Int(nullable: false),
+                        TotalDelivered = c.Int(nullable: false),
+                        TotalProductionSpoil = c.Int(nullable: false),
+                        TotalWasteSent = c.Int(nullable: false),
+                        CardIssuedById = c.String(maxLength: 128),
+                        CardCollectedById = c.String(maxLength: 128),
+                        CreatedOn = c.DateTime(nullable: false),
+                    })
+                .PrimaryKey(t => t.Id)
+                .ForeignKey("dbo.AspNetUsers", t => t.CardCollectedById)
+                .ForeignKey("dbo.AspNetUsers", t => t.CardIssuedById)
+                .ForeignKey("dbo.SidClient", t => t.SidClientId, cascadeDelete: true)
+                .ForeignKey("dbo.SidVariant", t => t.SidVariantId, cascadeDelete: false)
+                .Index(t => t.SidClientId)
+                .Index(t => t.SidVariantId)
+                .Index(t => t.CardIssuedById)
+                .Index(t => t.CardCollectedById);
+            
+        }
+        
+        public override void Down()
+        {
+            DropForeignKey("dbo.StockStatus", "SidVariantId", "dbo.SidVariant");
+            DropForeignKey("dbo.StockStatus", "SidClientId", "dbo.SidClient");
+            DropForeignKey("dbo.StockStatus", "CardIssuedById", "dbo.AspNetUsers");
+            DropForeignKey("dbo.StockStatus", "CardCollectedById", "dbo.AspNetUsers");
+            DropForeignKey("dbo.Sid01CardOps", "ModifiedUserId", "dbo.AspNetUsers");
+            DropForeignKey("dbo.Sid01CardOps", "CreatedUserId", "dbo.AspNetUsers");
+            DropForeignKey("dbo.AspNetUserRoles", "RoleId", "dbo.AspNetRoles");
+            DropForeignKey("dbo.JobWasteLog", "JobWasteId", "dbo.JobWaste");
+            DropForeignKey("dbo.JobWaste", "WasteTypeId", "dbo.WasteType");
+            DropForeignKey("dbo.JobWaste", "JobId", "dbo.Job");
+            DropForeignKey("dbo.JobWaste", "DepartmentId", "dbo.Department");
+            DropForeignKey("dbo.JobWaste", "CreatedById", "dbo.AspNetUsers");
+            DropForeignKey("dbo.JobWasteLog", "CreatedById", "dbo.AspNetUsers");
+            DropForeignKey("dbo.JobTracker", "CustomerServiceId", "dbo.JobStatus");
+            DropForeignKey("dbo.JobTracker", "DispatchId", "dbo.JobStatus");
+            DropForeignKey("dbo.JobTracker", "MailingId", "dbo.JobStatus");
+            DropForeignKey("dbo.JobTracker", "QCId", "dbo.JobStatus");
+            DropForeignKey("dbo.JobTracker", "CardEngrResumeId", "dbo.JobStatus");
+            DropForeignKey("dbo.JobTracker", "FirstJobRunId", "dbo.JobStatus");
+            DropForeignKey("dbo.JobTracker", "QAId", "dbo.JobStatus");
+            DropForeignKey("dbo.JobTracker", "CardEngrId", "dbo.JobStatus");
+            DropForeignKey("dbo.JobTracker", "PrintingId", "dbo.JobStatus");
+            DropForeignKey("dbo.JobTracker", "InventoryId", "dbo.JobStatus");
+            DropForeignKey("dbo.JobTracker", "CardOpsId", "dbo.JobStatus");
+            DropForeignKey("dbo.JobTracker", "JobTrackerStatusId", "dbo.JobTrackerStatus");
+            DropForeignKey("dbo.JobTracker", "JobId", "dbo.Job");
+            DropForeignKey("dbo.EmbedCardReceipt", "VendorId", "dbo.Vendor");
+            DropForeignKey("dbo.EmbedCardReceipt", "SIDReceiverId", "dbo.AspNetUsers");
+            DropForeignKey("dbo.EmbedCardReceipt", "EmbedCardRequestId", "dbo.EmbedCardRequest");
+            DropForeignKey("dbo.EmbedCardRequest", "SidVariantId", "dbo.SidVariant");
+            DropForeignKey("dbo.SidVariant", "SidClientId", "dbo.SidClient");
+            DropForeignKey("dbo.SidVariant", "SidCardTypeId", "dbo.SidCardType");
+            DropForeignKey("dbo.EmbedCardRequest", "SidChipTypeId", "dbo.SidChipType");
+            DropForeignKey("dbo.EmbedCardRequest", "CreatedById", "dbo.AspNetUsers");
+            DropForeignKey("dbo.ClientCardProduct", "SidClientId", "dbo.SidClient");
+            DropForeignKey("dbo.ClientCardProduct", "SidChipTypeId", "dbo.SidChipType");
+            DropForeignKey("dbo.SidChipType", "SidCardTypeId", "dbo.SidCardType");
+            DropForeignKey("dbo.ClientCardProduct", "SidCardTypeId", "dbo.SidCardType");
+            DropForeignKey("dbo.CardIssuanceLog", "IssuanceTypeId", "dbo.IssuanceType");
+            DropForeignKey("dbo.CardIssuanceLog", "IssuanceId", "dbo.AspNetUsers");
+            DropForeignKey("dbo.CardIssuanceLog", "CollectorId", "dbo.AspNetUsers");
+            DropForeignKey("dbo.CardIssuanceLog", "CardIssuanceId", "dbo.CardIssuance");
+            DropForeignKey("dbo.CardIssuance", "JobId", "dbo.Job");
+            DropForeignKey("dbo.Job", "SidSectorId", "dbo.SidSector");
+            DropForeignKey("dbo.Job", "SidClientId", "dbo.SidClient");
+            DropForeignKey("dbo.SidClient", "SectorId", "dbo.SidSector");
+            DropForeignKey("dbo.Job", "RemarkId", "dbo.Remark");
+            DropForeignKey("dbo.Job", "PriorityId", "dbo.Priority");
+            DropForeignKey("dbo.Job", "JobTypeId", "dbo.JobType");
+            DropForeignKey("dbo.Job", "JobStatusId", "dbo.JobStatus");
+            DropForeignKey("dbo.CardIssuance", "IssuanceId", "dbo.AspNetUsers");
+            DropForeignKey("dbo.CardIssuance", "CollectorId", "dbo.AspNetUsers");
+            DropForeignKey("dbo.AspNetUserRoles", "UserId", "dbo.AspNetUsers");
+            DropForeignKey("dbo.AspNetUserLogins", "UserId", "dbo.AspNetUsers");
+            DropForeignKey("dbo.AspNetUserClaims", "UserId", "dbo.AspNetUsers");
+            DropIndex("dbo.StockStatus", new[] { "CardCollectedById" });
+            DropIndex("dbo.StockStatus", new[] { "CardIssuedById" });
+            DropIndex("dbo.StockStatus", new[] { "SidVariantId" });
+            DropIndex("dbo.StockStatus", new[] { "SidClientId" });
+            DropIndex("dbo.Sid01CardOps", new[] { "ModifiedUserId" });
+            DropIndex("dbo.Sid01CardOps", new[] { "CreatedUserId" });
+            DropIndex("dbo.AspNetRoles", "RoleNameIndex");
+            DropIndex("dbo.JobWaste", new[] { "CreatedById" });
+            DropIndex("dbo.JobWaste", new[] { "DepartmentId" });
+            DropIndex("dbo.JobWaste", new[] { "WasteTypeId" });
+            DropIndex("dbo.JobWaste", new[] { "JobId" });
+            DropIndex("dbo.JobWasteLog", new[] { "CreatedById" });
+            DropIndex("dbo.JobWasteLog", new[] { "JobWasteId" });
+            DropIndex("dbo.JobTracker", new[] { "JobTrackerStatusId" });
+            DropIndex("dbo.JobTracker", new[] { "CustomerServiceId" });
+            DropIndex("dbo.JobTracker", new[] { "DispatchId" });
+            DropIndex("dbo.JobTracker", new[] { "MailingId" });
+            DropIndex("dbo.JobTracker", new[] { "QCId" });
+            DropIndex("dbo.JobTracker", new[] { "CardEngrResumeId" });
+            DropIndex("dbo.JobTracker", new[] { "FirstJobRunId" });
+            DropIndex("dbo.JobTracker", new[] { "QAId" });
+            DropIndex("dbo.JobTracker", new[] { "CardEngrId" });
+            DropIndex("dbo.JobTracker", new[] { "PrintingId" });
+            DropIndex("dbo.JobTracker", new[] { "InventoryId" });
+            DropIndex("dbo.JobTracker", new[] { "CardOpsId" });
+            DropIndex("dbo.JobTracker", new[] { "JobId" });
+            DropIndex("dbo.SidVariant", new[] { "SidCardTypeId" });
+            DropIndex("dbo.SidVariant", new[] { "SidClientId" });
+            DropIndex("dbo.EmbedCardRequest", new[] { "CreatedById" });
+            DropIndex("dbo.EmbedCardRequest", new[] { "SidChipTypeId" });
+            DropIndex("dbo.EmbedCardRequest", new[] { "SidVariantId" });
+            DropIndex("dbo.EmbedCardReceipt", new[] { "EmbedCardRequestId" });
+            DropIndex("dbo.EmbedCardReceipt", new[] { "SIDReceiverId" });
+            DropIndex("dbo.EmbedCardReceipt", new[] { "VendorId" });
+            DropIndex("dbo.SidChipType", new[] { "SidCardTypeId" });
+            DropIndex("dbo.ClientCardProduct", new[] { "SidChipTypeId" });
+            DropIndex("dbo.ClientCardProduct", new[] { "SidCardTypeId" });
+            DropIndex("dbo.ClientCardProduct", new[] { "SidClientId" });
+            DropIndex("dbo.SidClient", new[] { "SectorId" });
+            DropIndex("dbo.Job", new[] { "JobStatusId" });
+            DropIndex("dbo.Job", new[] { "PriorityId" });
+            DropIndex("dbo.Job", new[] { "JobTypeId" });
+            DropIndex("dbo.Job", new[] { "RemarkId" });
+            DropIndex("dbo.Job", new[] { "SidClientId" });
+            DropIndex("dbo.Job", new[] { "SidSectorId" });
+            DropIndex("dbo.AspNetUserRoles", new[] { "RoleId" });
+            DropIndex("dbo.AspNetUserRoles", new[] { "UserId" });
+            DropIndex("dbo.AspNetUserLogins", new[] { "UserId" });
+            DropIndex("dbo.AspNetUserClaims", new[] { "UserId" });
+            DropIndex("dbo.AspNetUsers", "UserNameIndex");
+            DropIndex("dbo.CardIssuance", new[] { "CollectorId" });
+            DropIndex("dbo.CardIssuance", new[] { "IssuanceId" });
+            DropIndex("dbo.CardIssuance", new[] { "JobId" });
+            DropIndex("dbo.CardIssuanceLog", new[] { "CollectorId" });
+            DropIndex("dbo.CardIssuanceLog", new[] { "IssuanceId" });
+            DropIndex("dbo.CardIssuanceLog", new[] { "IssuanceTypeId" });
+            DropIndex("dbo.CardIssuanceLog", new[] { "CardIssuanceId" });
+            DropTable("dbo.StockStatus");
+            DropTable("dbo.Status");
+            DropTable("dbo.StationaryInwardGood");
+            DropTable("dbo.Sid09CustomerService");
+            DropTable("dbo.Sid08Dispatch");
+            DropTable("dbo.Sid07Mailing");
+            DropTable("dbo.Sid06QC");
+            DropTable("dbo.Sid05QA");
+            DropTable("dbo.Sid04Printing");
+            DropTable("dbo.Sid03CardEngr");
+            DropTable("dbo.Sid02Inventory");
+            DropTable("dbo.Sid01CardOps");
+            DropTable("dbo.ServerJobQueue");
+            DropTable("dbo.AspNetRoles");
+            DropTable("dbo.RefreshToken");
+            DropTable("dbo.Product");
+            DropTable("dbo.WasteType");
+            DropTable("dbo.JobWaste");
+            DropTable("dbo.JobWasteLog");
+            DropTable("dbo.JobTrackerStatus");
+            DropTable("dbo.JobTracker");
+            DropTable("dbo.JobQueue");
+            DropTable("dbo.JobFlag");
+            DropTable("dbo.IssuanceStatus");
+            DropTable("dbo.FlagType");
+            DropTable("dbo.Vendor");
+            DropTable("dbo.SidVariant");
+            DropTable("dbo.EmbedCardRequest");
+            DropTable("dbo.EmbedCardReceipt");
+            DropTable("dbo.Department");
+            DropTable("dbo.Client");
+            DropTable("dbo.SidChipType");
+            DropTable("dbo.SidCardType");
+            DropTable("dbo.ClientCardProduct");
+            DropTable("dbo.IssuanceType");
+            DropTable("dbo.SidSector");
+            DropTable("dbo.SidClient");
+            DropTable("dbo.Remark");
+            DropTable("dbo.Priority");
+            DropTable("dbo.JobType");
+            DropTable("dbo.JobStatus");
+            DropTable("dbo.Job");
+            DropTable("dbo.AspNetUserRoles");
+            DropTable("dbo.AspNetUserLogins");
+            DropTable("dbo.AspNetUserClaims");
+            DropTable("dbo.AspNetUsers");
+            DropTable("dbo.CardIssuance");
+            DropTable("dbo.CardIssuanceLog");
+            DropTable("dbo.Sector");
+            DropTable("dbo.BioData");
+            DropTable("dbo.Audience");
+        }
+    }
+}

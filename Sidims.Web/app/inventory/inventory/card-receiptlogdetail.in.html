@@ -1,0 +1,202 @@
+﻿<div class="page-title full-width">
+    <div class="title-env">
+        <h1 class="title">Embedded Cards ReceiptLog Details</h1>
+        <p class="description">Descriptions</p>
+    </div>
+
+    <div class="btn-group pull-right" style="padding-right:30px">
+
+        <button ng-click="vm.goBack()" class="btn btn-info btn-icon btn-gap" style="margin-right:2px">
+            <i class="fa-angle-left"></i>
+            <span>Back</span>
+        </button>
+
+        <button class="btn btn-info btn-icon btn-gap" style="margin-right:2px">
+            <i class="fa-refresh"></i>
+            <span>Refresh</span>
+        </button>
+
+        <button ng-click="vm.addCardReceipt()" class="btn btn-info btn-icon btn-gap">
+            <i class="fa-plus"></i>
+            <span>Add New Receipt</span>
+        </button>
+    </div>
+
+</div>
+
+
+<!-- Tables and Panels -->
+<div class="row">
+    <div class="col-md-6">
+
+        <div class="panel panel-default">
+            <div class="panel-heading">
+
+                <div id="main">
+                    <div class="list-your-property-form">
+                        <h2 class="page-header" style="font-size:24px; margin-top:5px">
+                            Receipt Log
+                        </h2>
+
+                        <div class="container">
+
+                            <div class="row">
+                                <div class="col-md-4 col-sm-12">
+
+                                    <div class="span4">
+
+                                        <div class="input-text form-group">
+                                            <label class="control-label" for="inputLoginPassword">
+                                                Lot Number
+                                                <span class="form-required" title="This field is required.">*</span>
+                                            </label>
+
+                                            <input type="text" name="contact_name"
+                                                   ng-model="vm.cardreceipt.lotNumber"
+                                                   class="input-name form-control" placeholder="" />
+
+                                        </div>
+
+                                        <div class="input-text form-group">
+                                            <label class="control-label" for="inputLoginPassword">
+                                                Quantity
+                                                <span class="form-required" title="This field is required.">*</span>
+                                            </label>
+
+                                            <input type="text" name="contact_name"
+                                                   ng-model="vm.cardreceipt.quantity"
+                                                   class="input-name form-control" placeholder="" />
+                                        </div>
+
+                                        <div class="input-text form-group">
+                                            <label class="control-label" for="inputLoginPassword">
+                                                Vendor
+                                                <span class="form-required" title="This field is required.">*</span>
+                                            </label>
+
+                                            <select data-ng-options="r.name for r in vm.vendors"
+                                                    data-ng-model="vm.cardreceipt.vendor" class="form-control"
+                                                    style="padding:5px"></select>
+                                        </div>
+
+                                        <div class="input-text form-group">
+                                            <label class="control-label" for="inputLoginPassword">
+                                                Deliver By
+                                                <span class="form-required" title="This field is required.">*</span>
+                                            </label>
+                                            <input type="text" name="contact_name"
+                                                   ng-model="vm.cardreceipt.deliverBy"
+                                                   class="input-name form-control" placeholder="" />
+
+                                        </div>
+
+                                        <div class="input-text form-group">
+                                            <label class="control-label" for="inputLoginPassword">
+                                                Remark
+                                                <span class="form-required" title="This field is required.">*</span>
+                                            </label>
+                                            <input type="text" name="contact_name"
+                                                   ng-model="vm.cardreceipt.remark"
+                                                   class="input-name form-control" placeholder="" />
+
+                                        </div>
+
+                                        <div class="input-text form-group">
+                                            <input type="submit" data-ng-click="vm.save()"
+                                                   value="Submit Entry" class="btn btn-primary btn-large list-your-property arrow-right" />
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="col-md-6">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+
+                <div id="main">
+                    <div class="list-your-property-form">
+                        <h2 class="page-header" style="font-size:24px; margin-top:5px">
+                            Request Detail
+                        </h2>
+
+                        <div class="container">
+
+                            <div class="row">
+                                <div class="col-md-4 col-sm-12">
+
+                                    <div class="span4">
+
+                                        <div class="input-text form-group">
+                                            <label class="control-label" for="inputLoginPassword">
+                                                OrderNumber <span style="font-size:11px">(eg: FirstBank)</span>
+                                                <span class="form-required" title="This field is required.">*</span>
+                                            </label>
+                                            <input type="text" name="contact_name" readonly
+                                                   ng-model="vm.cardreceipt.id"
+                                                   class="input-name form-control" placeholder="" />
+                                        </div>
+
+                                        <div class="input-text form-group">
+                                            <label class="control-label" for="inputLoginPassword">
+                                                Client Name <span style="font-size:11px">(eg: FirstBank)</span>
+                                                <span class="form-required" title="This field is required.">*</span>
+                                            </label>
+                                            <input type="text" name="contact_name" readonly
+                                                   ng-model="vm.cardreceipt.sidVariant.sidClient.name"
+                                                   class="input-name form-control" placeholder="" />
+                                        </div>
+
+                                        <div class="input-text form-group">
+                                            <label class="control-label" for="inputLoginPassword">
+                                                Variant <span style="font-size:11px">(eg: FirstBank)</span>
+                                                <span class="form-required" title="This field is required.">*</span>
+                                            </label>
+                                            <input type="text" name="contact_name" readonly
+                                                   ng-model="vm.cardreceipt.sidVariant.variantName"
+                                                   class="input-name form-control" placeholder="" />
+                                        </div>
+
+                                        <div class="input-text form-group">
+                                            <label class="control-label" for="inputLoginPassword">
+                                                Chip Type <span style="font-size:11px">(eg: FirstBank)</span>
+                                                <span class="form-required" title="This field is required.">*</span>
+                                            </label>
+                                            <input type="text" name="contact_name" readonly
+                                                   ng-model="vm.cardreceipt.sidVariant.sidCardType.name"
+                                                   class="input-name form-control" placeholder="" />
+                                        </div>
+
+                                      
+                                    </div>
+
+                                 
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>

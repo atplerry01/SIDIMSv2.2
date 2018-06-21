@@ -1,0 +1,330 @@
+﻿<div class="page-title full-width">
+    <div class="title-env">
+        <h1 class="title">Client MIS Details</h1>
+        <p class="description">Descriptions</p>
+    </div>
+
+    <div class="btn-group pull-right" style="padding-right:30px">
+
+        <button ng-click="vm.goBack()" class="btn btn-info btn-icon btn-gap" style="margin-right:2px">
+            <i class="fa-angle-left"></i>
+            <span>Back</span>
+        </button>
+
+        <button class="btn btn-info btn-icon btn-gap" style="margin-right:2px">
+            <i class="fa-refresh"></i>
+            <span>Refresh</span>
+        </button>
+
+        <button ng-click="vm.gotoAddVariant()" class="btn btn-info btn-icon btn-gap">
+            <i class="fa-plus"></i>
+            <span>Add New Variant</span>
+        </button>
+
+    </div>
+
+</div>
+
+<!-- Tables and Panels -->
+<div class="row">
+    <div class="col-md-5">
+
+        <div class="panel panel-default">
+            <div class="panel-heading">
+
+                <div id="main">
+
+                    <div class="list-your-property-form">
+
+                        <h2 class="page-header" style="font-size:24px; margin-top:5px">
+                            Request Log
+                        </h2>
+
+                        <table class="table table-condensed">
+                            <thead>
+                                <tr style="font-size:14px">
+                                    <th>Order No</th>
+                                    <th>Total Quantity</th>
+                                    <th>Quatity Delivered</th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+                                <tr style="font-size:13px" data-ng-repeat="c in vm.cardrequests"
+                                    data-ng-click="vm.displayReceiptLog(c)">
+                                    <td>{{c.orderNumber}}</td>
+                                    <td>{{c.totalBatchQty}}</td>
+                                    <td>{{c.totalDelivered}}</td>
+                                </tr>
+
+                            </tbody>
+                        </table>
+
+                        <div class="input-text form-group">
+                            <input type="submit" data-ng-click="vm.saveRequest()"
+                                   value="Create New Request" class="btn btn-primary btn-large list-your-property arrow-right" />
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="col-md-7">
+
+        <div class="panel panel-flat">
+            <div class="panel-heading">
+
+                <h3 class="panel-title">Vault Details</h3>
+
+                <div class="panel-options">
+                    <a href="">
+                        <i class="linecons-cog"></i>
+                    </a>
+
+                    <a href="" data-toggle="panel">
+                        <span class="collapse-icon">&ndash;</span>
+                        <span class="expand-icon">+</span>
+                    </a>
+
+                    <a href="" data-toggle="reload">
+                        <i class="fa-rotate-right"></i>
+                    </a>
+
+                    <a href="" data-toggle="remove">
+                        &times;
+                    </a>
+                </div>
+            </div>
+
+            <table class="table table-condensed">
+                <tbody>
+                    <tr>
+                        <td>Client:</td>
+                        <td>{{vm.product.sidClient.name}}</td>
+                    </tr>
+                    <tr>
+                        <td>Product</td>
+                        <td>{{vm.product.name}} ({{vm.product.sidCardType.name}})</td>
+                    </tr>
+
+                </tbody>
+            </table>
+        </div>
+
+
+        <div class="panel panel-flat" ng-show="vm.receiptlogView">
+            <div class="panel-heading">
+
+                <h3 class="panel-title">Receipt Logs</h3>
+
+                <div class="panel-options">
+                    <a href="">
+                        <i class="linecons-cog"></i>
+                    </a>
+
+                    <a href="" data-toggle="panel">
+                        <span class="collapse-icon">&ndash;</span>
+                        <span class="expand-icon">+</span>
+                    </a>
+
+                    <a href="" data-toggle="reload">
+                        <i class="fa-rotate-right"></i>
+                    </a>
+
+                    <a href="" data-toggle="remove">
+                        &times;
+                    </a>
+                </div>
+            </div>
+
+            <table class="table table-condensed" >
+                <thead>
+                    <tr>
+                        <th>Lot Number</th>
+                        <th>Quantity</th>
+                        <th>Vendor</th>
+                        <th>ReceivedOn</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <tr data-ng-repeat="c in vm.cardreceiptlogs"
+                        data-ng-click="vm.gotoCardTypes(c)">
+                        <td>{{c.lotNumber}}</td>
+                        <td>{{c.quantity}}</td>
+                        <td>{{c.vendor.name}}</td>
+                        <td>{{c.timeOfReceipt}}</td>
+                    </tr>
+
+                </tbody>
+            </table>
+
+            <div class="input-text form-group">
+                <input type="submit" data-ng-click="vm.saveReceipt()"
+                       value="Create New Receipt" class="btn btn-primary btn-large list-your-property arrow-right" />
+            </div>
+
+        </div>
+
+
+        <div class="panel panel-flat">
+            <div class="panel-heading">
+
+                <h3 class="panel-title">Client Vault Overview Report</h3>
+
+                <div class="panel-options">
+                    <a href="">
+                        <i class="linecons-cog"></i>
+                    </a>
+
+                    <a href="" data-toggle="panel">
+                        <span class="collapse-icon">&ndash;</span>
+                        <span class="expand-icon">+</span>
+                    </a>
+
+                    <a href="" data-toggle="reload">
+                        <i class="fa-rotate-right"></i>
+                    </a>
+
+                    <a href="" data-toggle="remove">
+                        &times;
+                    </a>
+                </div>
+            </div>
+
+            <table class="table table-condensed">
+                <thead>
+                    <tr>
+
+                        <th>Opening Stock</th>
+                        <th>Closing STock</th>
+                        <th>Last Updated</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <tr data-ng-repeat="c in vm.vaultreport"
+                        data-ng-click="vm.gotoCardTypes(c)">
+                        <td>{{c.openingStock}}</td>
+                        <td>{{c.closingStock}}</td>
+                        <td>Wed, 16 Aug, 2017</td>
+                    </tr>
+
+                </tbody>
+            </table>
+        </div>
+
+        
+        <div class="panel panel-flat">
+            <div class="panel-heading">
+
+                <h3 class="panel-title">This Month Daily StockLog</h3>
+
+                <div class="panel-options">
+                    <a href="">
+                        <i class="linecons-cog"></i>
+                    </a>
+
+                    <a href="" data-toggle="panel">
+                        <span class="collapse-icon">&ndash;</span>
+                        <span class="expand-icon">+</span>
+                    </a>
+
+                    <a href="" data-toggle="reload">
+                        <i class="fa-rotate-right"></i>
+                    </a>
+
+                    <a href="" data-toggle="remove">
+                        &times;
+                    </a>
+                </div>
+            </div>
+
+            <table class="table table-condensed">
+                <thead>
+                    <tr>
+                        <th width="1%">#</th>
+                        <th>FileName</th>
+                        <th>QtyIssued</th>
+                        <th>WasteQty</th>
+                        <th>HeldQty</th>
+                        <th>Opening Stock</th>
+                        <th>Closing STock</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <tr data-ng-repeat="c in vm.clientstockreports"
+                        data-ng-click="vm.gotoCardTypes(c)">
+                        <td>({{$index +1}})</td>
+                        <td>{{c.fileName}}</td>
+                        <td>{{c.qtyIssued}}</td>
+                        <td>{{c.wasteQty}}</td>
+                        <td>{{c.returnQty}}</td>
+                        <td>{{c.openingStock}}</td>
+                        <td>{{c.closingStock}}</td>
+                    </tr>
+
+                </tbody>
+            </table>
+        </div>
+
+        <div class="panel panel-flat">
+            <div class="panel-heading">
+
+                <h3 class="panel-title">Client MIS Stock Information</h3>
+
+                <div class="panel-options">
+                    <a href="">
+                        <i class="linecons-cog"></i>
+                    </a>
+
+                    <a href="" data-toggle="panel">
+                        <span class="collapse-icon">&ndash;</span>
+                        <span class="expand-icon">+</span>
+                    </a>
+
+                    <a href="" data-toggle="reload">
+                        <i class="fa-rotate-right"></i>
+                    </a>
+
+                    <a href="" data-toggle="remove">
+                        &times;
+                    </a>
+                </div>
+            </div>
+
+            <table class="table table-condensed">
+                <thead>
+                    <tr>
+                        <th width="1%">#</th>
+                        <th>Opening Stock</th>
+                        <th>Quantity Delivered</th>
+                        <th>Quantity Pending</th>
+                        <th>Total Waste</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <tr data-ng-repeat="c in vm.clients"
+                        data-ng-click="vm.gotoCardTypes(c)">
+                        <td>({{$index +1}})</td>
+                        <td>{{c.sector.name}}</td>
+                        <td>{{c.name}}</td>
+                        <td>{{c.name}}</td>
+                        <td>{{c.name}}</td>
+
+                    </tr>
+
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+</div>
+

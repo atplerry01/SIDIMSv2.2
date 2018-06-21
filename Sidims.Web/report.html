@@ -1,0 +1,408 @@
+﻿
+<!DOCTYPE html>
+<html lang="en" data-ng-app="appreport">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>Delivery Note - SID Inventory Management Solution</title>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular-route.js"></script>
+    <script src="assets/js/jquery-1.11.1.min.js"></script>
+
+    <link href="sidreport/css.css" rel="stylesheet" />
+
+    
+    <script src="sidreport/ngPrint.min.js"></script>
+
+</head>
+<body data-ng-controller="ReportCtrl">
+    <div>
+
+        <button ng-click="printDiv('wrapper')" class="btn btn-info btn-icon btn-gap">
+            <i class="fa-plus"></i>
+            <span>Add New Variant</span>
+        </button>
+
+        <button class="btn btn-primary" ng-print print-element-id="wrapper"><i class="fa fa-print"></i> Print</button>
+
+    </div>
+    <div id="wrapper">
+
+        <div id="page-wrapper">
+           
+            <!-- /.row -->
+            <div class="row">
+                <div class="col-lg-12">
+
+                    <table class="table borderless">
+                        <thead>
+                            <tr>
+                                <th>
+                                    <img src="assets/images/logoSID.png" />
+                                </th>
+                                <th class="center">DELIVERY NOTE ZENITH BANK NIGERIA.</th>
+                                <th class="leftie">16416</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Date: </strong> 8/23/2017</td>
+                                <td></td>
+                                <td>
+                                    <strong>Delivery Note Number: </strong> SID/ZE/2017/8/23 <br />
+
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+
+                                    <strong>Delivery Address:</strong><br />
+                                    <p><b>Address Line 1:</b> {{name}} ZENITH BANK NIGERIA</p>
+                                    <p><b>Address Line 2:</b> HEAD CARD SERVICES UNIT</p>
+                                    <p><b>State:</b> 	VICTORIA ISLND	LAGOS	</p>
+                                    <p><b>Country:</b> NIGERIA</p>
+                                    <p><b>Attention:</b> 	BEN  ANYAWU/ CSD UNIT			</p>
+                                </td>
+                                <td></td>
+                                <td>
+                                    <strong>Billing Address:</strong><br />
+                                    <p><b>Address Line 1:</b> ZENITH BANK NIGERIA</p>
+                                    <p><b>Address Line 2:</b> HEAD CARD SERVICES UNIT</p>
+                                    <p><b>State:</b> 	VICTORIA ISLND	LAGOS	</p>
+                                    <p><b>Country:</b> NIGERIA</p>
+                                    <p><b>Attention:</b> 	BEN  ANYAWU/ CSD UNIT			</p>
+                                </td>
+                            </tr>
+
+                        </tbody>
+                    </table>
+
+                    <table class="table table-bordered test">
+                        <thead>
+                            <tr class="table-active">
+                                <th>SN</th>
+                                <th>Pers</th>
+                                <th>Fulf</th>
+                                <th>Print</th>
+                                <th></th>
+                                <th></th>
+                                <th>Description</th>
+                                <th>Quantity</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>1</td>
+                                <td><input checked="checked" class="check-box" disabled="disabled" type="checkbox" /></td>
+                                <td><input checked="checked" class="check-box" disabled="disabled" type="checkbox" /></td>
+                                <td> <input class="check-box" disabled="disabled" type="checkbox" /></td>
+                                <td></td>
+                                <td></td>
+                                <td>zib_zenith verve 506109 powercard_cps format hex_j264508_n221.dat.zip</td>
+                                <td>221</td>
+                            </tr>
+                            <tr class="table-active">
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td><strong>Total</strong></td>
+                                <td>221</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <table class="table table-bordered test">
+                        <thead>
+                            <tr class="table-active">
+                                <th>Job Name</th>
+                                <th>Quantity Received</th>
+                                <th>Previous Delivery</th>
+                                <th>Quantity Delivered</th>
+                                <th>Omitted</th>
+                                <th>Pending</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>zib_zenith verve 506109 powercard_cps format hex_j264508_n221.dat.zip</td>
+                                <td>221</td>
+                                <td>0</td>
+                                <td>221</td>
+                                <td></td>
+                                <td>0</td>
+                                <td></td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <table class="table table-bordered test">
+
+                        <tbody>
+                            <tr>
+
+                                <td width="20%">
+                                    <p>
+                                        <strong>DECLARATION</strong> <br />
+                                        We declare that the above description and quantity of goods are delivered in good condition
+                                    </p>
+                                </td>
+                                <td width="80%">
+                                    <table class=" table table-bordered testing">
+                                        <tbody>
+                                            <tr>
+                                                <td colspan="2"><strong>Prepared by</strong> <br /> For: SecureID Limited</td>
+                                            </tr>
+                                            <tr>
+                                                <td style="width: 50%; height: 50px;"></td>
+                                                <td style="width: 50%; height: 50px;"></td>
+                                            </tr>
+                                            <tr>
+                                                <td style="width: 50%;">Dispatch Officer</td>
+                                                <td style="width: 50%;">Dispatch Supervisor</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <table class="table table-bordered test">
+
+                        <tbody>
+                            <tr>
+
+                                <td width="20%">
+                                    <p>
+                                        <strong>DECLARATION</strong> <br />
+                                        We declare that the above description and quantity of goods are received in good condition
+                                    </p>
+                                </td>
+                                <td width="80%">
+                                    <table class=" table table-bordered testing">
+                                        <tbody>
+                                            <tr>
+                                                <td colspan="2"><strong>Received by</strong> <br /> For: Customer</td>
+                                            </tr>
+                                            <tr>
+                                                <td style="width: 50%; height: 50px;"></td>
+                                                <td style="width: 50%; height: 50px;"></td>
+                                            </tr>
+                                            <tr>
+                                                <td style="width: 50%;">Name &amp; Designation</td>
+                                                <td style="width: 50%;">Date &amp; Time</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <!-- /#page-wrapper -->
+    </div>
+
+
+    <script>
+        $(document).ready(function () { $("input").attr("autocomplete", "off"); });
+    </script>
+
+    <script>
+        var app = angular.module('appreport', ['ngRoute', 'ngPrint']);
+
+        app.constant('routes', getRoutes());
+
+        // Configure the routes and route resolvers
+        app.config(['$routeProvider', 'routes', routeConfigurator]);
+        function routeConfigurator($routeProvider, routes) {
+
+            routes.forEach(function (r) {
+                //$routeProvider.when(r.url, r.config);
+                setRoute(r.url, r.config);
+            });
+            $routeProvider.otherwise({ redirectTo: '/' });
+
+            function setRoute(url, definition) {
+                // Sets resolvers for all of the routes
+                // by extending any existing resolvers (or creating a new one).
+                definition.resolve = angular.extend(definition.resolve || {}, {
+                    prime: prime
+                });
+                $routeProvider.when(url, definition);
+                return $routeProvider;
+            }
+        }
+
+        prime.$inject = ['datacontext'];
+        function prime(dc) { return dc.prime(); }
+
+        function getRoutes() {
+            return [
+                {
+                    url: '/',
+                    config: {
+                        template: '<div></div>',
+                        controller: 'dashboard',
+                        controllerAs: 'vm',
+                        settings: {
+                            nav: 2,
+                            content: '<i class="fa fa-lock"></i> Admin'
+                        },
+                        resolve: {
+                            resources: function ($ocLazyLoad, ASSETS) {
+                                return $ocLazyLoad.load([
+                                    ASSETS.charts.dxGlobalize,
+                                ]);
+                            },
+                            dxCharts: function ($ocLazyLoad, ASSETS) {
+                                return $ocLazyLoad.load([
+                                    ASSETS.charts.dxCharts,
+                                ]);
+                            },
+                        }
+                    }
+                }, {
+                    url: '/report',
+                    config: {
+                        template: '<div></div>',
+                        controller: 'dashboard',
+                        controllerAs: 'vm',
+                        settings: {
+                            nav: 2,
+                            content: '<i class="fa fa-lock"></i> Admin'
+                        },
+                        resolve: {
+                            resources: function ($ocLazyLoad, ASSETS) {
+                                return $ocLazyLoad.load([
+                                    ASSETS.charts.dxGlobalize,
+                                ]);
+                            },
+                            dxCharts: function ($ocLazyLoad, ASSETS) {
+                                return $ocLazyLoad.load([
+                                    ASSETS.charts.dxCharts,
+                                ]);
+                            },
+                        }
+                    }
+                }, {
+                    url: '/report/:id',
+                    config: {
+                        template: '<div></div>',
+                        controller: 'dashboard',
+                        controllerAs: 'vm',
+                        settings: {
+                            nav: 2,
+                            content: '<i class="fa fa-lock"></i> Admin'
+                        },
+                        resolve: {
+                            resources: function ($ocLazyLoad, ASSETS) {
+                                return $ocLazyLoad.load([
+                                    ASSETS.charts.dxGlobalize,
+                                ]);
+                            },
+                            dxCharts: function ($ocLazyLoad, ASSETS) {
+                                return $ocLazyLoad.load([
+                                    ASSETS.charts.dxCharts,
+                                ]);
+                            },
+                        }
+                    }
+                }
+            ]
+        }
+
+        app.controller('ReportCtrl', function ($scope, $routeParams, $http) {
+            $scope.name = "John Doe";
+            //console.log('Ok');
+
+            var val = $routeParams.id;
+            //console.log(val);
+
+            var serviceBase; // = ngAuthSettings.apiServiceBaseUri;
+
+            $http.get(serviceBase)
+               .then(function (results) {
+                   return results;
+               });
+
+
+            // #region CommentedCode
+            //$scope.printDiv = function (divName) {
+
+            //    var printContents = document.getElementById(divName).innerHTML;
+            //    var originalContents = document.body.innerHTML;
+
+            //    if (navigator.userAgent.toLowerCase().indexOf('chrome') > -1) {
+            //        var popupWin = window.open('', '_blank', 'width=600,height=600,scrollbars=no,menubar=no,toolbar=no,location=no,status=no,titlebar=no');
+            //        popupWin.window.focus();
+            //        popupWin.document.write('<!DOCTYPE html><html><head>' +
+            //            '<link rel="stylesheet" type="text/css" href="style.css" />' +
+            //            '</head><body onload="window.print()"><div class="reward-body">' + printContents + '</div></html>');
+            //        popupWin.onbeforeunload = function (event) {
+            //            popupWin.close();
+            //            return '.\n';
+            //        };
+            //        popupWin.onabort = function (event) {
+            //            popupWin.document.close();
+            //            popupWin.close();
+            //        }
+            //    } else {
+            //        var popupWin = window.open('', '_blank', 'width=800,height=600');
+            //        popupWin.document.open();
+            //        popupWin.document.write('<html><head><link rel="stylesheet" type="text/css" href="style.css" /></head><body onload="window.print()">' + printContents + '</html>');
+            //        popupWin.document.close();
+            //    }
+            //    popupWin.document.close();
+
+            //    return true;
+            //}
+
+
+            // #endregion
+
+
+
+        });
+
+        app.config(function ($routeProvider) {
+            $routeProvider
+            .when("/", {
+                url: '/',
+                config: {
+                    templateUrl: 'app/dashboard/dashboard.html',
+                    controller: 'dashboard',
+                    controllerAs: 'vm',
+                    settings: {
+                        nav: 2,
+                        content: '<i class="fa fa-lock"></i> Admin'
+                    },
+                    resolve: {
+                        resources: function ($ocLazyLoad, ASSETS) {
+                            return $ocLazyLoad.load([
+                                ASSETS.charts.dxGlobalize,
+                            ]);
+                        },
+                        dxCharts: function ($ocLazyLoad, ASSETS) {
+                            return $ocLazyLoad.load([
+                                ASSETS.charts.dxCharts,
+                            ]);
+                        },
+                    }
+                }
+            });
+        });
+
+    </script>
+
+</body>
+</html>

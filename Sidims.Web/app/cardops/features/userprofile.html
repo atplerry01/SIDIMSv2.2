@@ -1,0 +1,135 @@
+﻿<div class="page-title full-width">
+    <div class="title-env">
+        <h1 class="title">Profile Management</h1>
+        <p class="description">Members management page separated with tabs.</p>
+    </div>
+
+    <div class="btn-group pull-right" style="padding-right:30px">
+
+        <button class="btn btn-info btn-icon btn-gap" style="margin-right:2px">
+            <i class="fa-refresh"></i>
+            <span>Refresh</span>
+        </button>
+
+        <button ng-click="vm.addNewAccount()" class="btn btn-info btn-icon btn-gap">
+            <i class="fa-plus"></i>
+            <span>Add New Account</span>
+        </button>
+
+    </div>
+
+</div>
+
+
+<div class="row">
+
+    <div class="col-md-12">
+        <div class="btn-group pull-left form-search" style="margin-bottom:20px">
+            <input type="text" class="input-xlarge search-query"
+                   style="min-height: 2em; min-width: 400px; font-size:14px; padding:5px; padding-left: 5px"
+                   data-ng-model="vm.userSearch"
+                   data-ng-keyup="vm.search($event)"
+                   placeholder="Filter Users" />
+        </div>
+    </div>
+
+    <div class="col-md-12">
+
+        <tabset>
+            <tab heading="All Members">
+
+                <table class="table table-hover members-table middle-align">
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th class="hidden-xs hidden-sm"></th>
+                            <th>Name and Role</th>
+                            <th class="hidden-xs hidden-sm">E-Mail</th>
+                            <th>ID</th>
+                            <th>Settings</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr data-ng-repeat="u in vm.filteredUsers" data-ng-click="vm.gotoProfileDetail(u)">
+                            <td class="user-cb">
+                                <input type="checkbox" class="cbr" name="members-list[]" value="1" checked />
+                            </td>
+                            <td class="user-image hidden-xs hidden-sm">
+                                <a href="">
+                                    <img src="assets/images/user-1.png" class="img-circle" alt="user-pic" />
+                                </a>
+                            </td>
+                            <td class="user-name">
+                                <a href="" class="name">{{u.fullName}}</a>
+                                <span>Administrator</span>
+                            </td>
+                            <td class="hidden-xs hidden-sm">
+                                <span class="email">{{u.email}}</span>
+                            </td>
+                            <td class="user-id">
+                                1232518142
+                            </td>
+                            <td class="action-links">
+                                <a href="" class="edit">
+                                    <i class="linecons-pencil"></i>
+                                    Edit Profile
+                                </a>
+                                <a href="" class="delete">
+                                    <i class="linecons-trash"></i>
+                                    Delete
+                                </a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="members-table-actions">
+                            <div class="selected-items">
+                                <span>2</span>
+                                members selected
+                            </div>
+                            <div class="selected-actions">
+                                <a href="" class="edit">Edit Profile</a>
+                                or
+                                <a href="" class="delete">Delete</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 text-right text-center-sm">
+                        <ul class="pagination pagination-sm no-margin">
+                            <li>
+                                <a href="">
+                                    <i class="fa-angle-left"></i>
+                                </a>
+                            </li>
+                            <li class="active">
+                                <a href="">1</a>
+                            </li>
+                            <li>
+                                <a href="">2</a>
+                            </li>
+                            <li>
+                                <a href="">3</a>
+                            </li>
+                            <li class="disabled">
+                                <a href="">4</a>
+                            </li>
+                            <li>
+                                <a href="">5</a>
+                            </li>
+                            <li>
+                                <a href="">6</a>
+                            </li>
+                            <li>
+                                <a href="">
+                                    <i class="fa-angle-right"></i>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </tab>
+        </tabset>
+    </div>
+</div>

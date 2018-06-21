@@ -1,0 +1,219 @@
+﻿        // JobTracker Setups
+            #region JobTrackerSetup
+
+            if (entity.ServiceTypeId == jobTypePersoOnly.Id)
+            {
+                #region PersoOnly
+
+                var jobTrackerPersoOnly = new JobTracker()
+                {
+                    JobId = lastCreatedJob.Id,
+                    CardOpsId = jobStatusCompleted.Id,
+                    InventoryId = jobStatusQueue.Id,
+                    PrintingId = jobStatusNotRequired.Id,
+                    PrintQAId = jobStatusNotRequired.Id,
+                    PrintQCId = jobStatusNotRequired.Id,
+                    CardEngrId = jobStatusQueue.Id,
+                    QAId = jobStatusPending.Id,
+                    FirstJobRunId = jobStatusQueue.Id,
+                    CardEngrResumeId = jobStatusPending.Id,
+                    QCId = jobStatusPending.Id,
+                    MailingId = jobStatusNotRequired.Id,
+                    DispatchId = jobStatusPending.Id, //Create dispatch setups
+                    CustomerServiceId = jobStatusPending.Id,
+                    MAudId = jobStatusPending.Id,
+                  
+                    CreatedOn = DateTime.Now,
+                    ModifiedOn = DateTime.Now
+                };
+
+                context.JobTrackers.Add(jobTrackerPersoOnly);
+                await context.SaveChangesAsync();
+                #endregion
+
+            }
+            else if (entity.ServiceTypeId == jobTypePrintingOnly.Id)
+            {
+                #region PrintOnly
+                // Non Perso Job
+                var jobTrackerPrintOnly = new JobTracker()
+                {
+                    JobId = lastCreatedJob.Id,
+                    CardOpsId = jobStatusCompleted.Id,
+                    InventoryId = jobStatusQueue.Id,
+                    PrintingId = jobStatusQueue.Id,
+                    PrintQAId = jobStatusPending.Id,
+                    PrintQCId = jobStatusPending.Id,
+                    CardEngrId = jobStatusNotRequired.Id,
+                    QAId = jobStatusNotRequired.Id,
+                    FirstJobRunId = jobStatusNotRequired.Id,
+                    CardEngrResumeId = jobStatusNotRequired.Id,
+                    QCId = jobStatusNotRequired.Id,
+                    MailingId = jobStatusNotRequired.Id,
+                    DispatchId = jobStatusPending.Id, //Create dispatch setups
+                    MAudId = jobStatusPending.Id,
+                    CustomerServiceId = jobStatusPending.Id,
+                
+                    CreatedOn = DateTime.Now,
+                    ModifiedOn = DateTime.Now
+                };
+
+                context.JobTrackers.Add(jobTrackerPrintOnly);
+                await context.SaveChangesAsync();
+                #endregion
+
+            }
+            else if (entity.ServiceTypeId == jobTypeMailingOnly.Id)
+            {
+                #region MailingOnly
+                var jobTrackerMailingOnly = new JobTracker()
+                {
+                    JobId = lastCreatedJob.Id,
+                    CardOpsId = jobStatusCompleted.Id,
+                    InventoryId = jobStatusQueue.Id,
+                    PrintingId = jobStatusNotRequired.Id,
+                    PrintQAId = jobStatusNotRequired.Id,
+                    PrintQCId = jobStatusNotRequired.Id,
+                    CardEngrId = jobStatusNotRequired.Id,
+                    QAId = jobStatusNotRequired.Id,
+                    FirstJobRunId = jobStatusNotRequired.Id,
+                    CardEngrResumeId = jobStatusNotRequired.Id,
+                    QCId = jobStatusNotRequired.Id,
+                    MailingId = jobStatusQueue.Id,
+                    DispatchId = jobStatusPending.Id, //Create dispatch setups
+                    MAudId = jobStatusPending.Id,
+                    CustomerServiceId = jobStatusPending.Id,
+                 
+                    CreatedOn = DateTime.Now,
+                    ModifiedOn = DateTime.Now
+
+                };
+
+                context.JobTrackers.Add(jobTrackerMailingOnly);
+                await context.SaveChangesAsync();
+                #endregion
+
+            }
+            else if (entity.ServiceTypeId == jobTypeDispatchOnly.Id)
+            {
+                #region DispatchOnly
+                var jobTrackerMailingOnly = new JobTracker()
+                {
+                    JobId = lastCreatedJob.Id,
+                    CardOpsId = jobStatusCompleted.Id,
+                    InventoryId = jobStatusQueue.Id,
+                    PrintingId = jobStatusNotRequired.Id,
+                    PrintQAId = jobStatusNotRequired.Id,
+                    PrintQCId = jobStatusNotRequired.Id,
+                    CardEngrId = jobStatusNotRequired.Id,
+                    QAId = jobStatusNotRequired.Id,
+                    FirstJobRunId = jobStatusNotRequired.Id,
+                    CardEngrResumeId = jobStatusNotRequired.Id,
+                    QCId = jobStatusNotRequired.Id,
+                    MailingId = jobStatusNotRequired.Id,
+                    DispatchId = jobStatusQueue.Id, //Create dispatch setups
+                    MAudId = jobStatusPending.Id,
+                    CustomerServiceId = jobStatusPending.Id,
+               
+                    CreatedOn = DateTime.Now,
+                    ModifiedOn = DateTime.Now
+
+                };
+
+                context.JobTrackers.Add(jobTrackerMailingOnly);
+                await context.SaveChangesAsync();
+                #endregion
+
+            }
+            else if (entity.ServiceTypeId == jobTypePrintingAndPerso.Id)
+            {
+                #region PersoPrinting
+                var jobTrackerPersoPrinting = new JobTracker()
+                {
+                    JobId = lastCreatedJob.Id,
+                    CardOpsId = jobStatusCompleted.Id,
+                    InventoryId = jobStatusQueue.Id,
+                    PrintingId = jobStatusQueue.Id,
+                    PrintQAId = jobStatusPending.Id,
+                    PrintQCId = jobStatusPending.Id,
+                    CardEngrId = jobStatusPending.Id,
+                    QAId = jobStatusPending.Id,
+                    FirstJobRunId = jobStatusPending.Id,
+                    CardEngrResumeId = jobStatusPending.Id,
+                    QCId = jobStatusPending.Id,
+                    MailingId = jobStatusNotRequired.Id,
+                    DispatchId = jobStatusPending.Id, //Create dispatch setups
+                    MAudId = jobStatusPending.Id,
+                    CustomerServiceId = jobStatusPending.Id,
+                
+                    CreatedOn = DateTime.Now,
+                    ModifiedOn = DateTime.Now
+                };
+
+                context.JobTrackers.Add(jobTrackerPersoPrinting);
+                await context.SaveChangesAsync();
+                #endregion
+
+            }
+             else if (entity.ServiceTypeId == jobTypePersoAndMailing.Id)
+            {
+                #region PersoAndMailing
+                var jobTrackerPersoOnly = new JobTracker()
+                {
+                    JobId = lastCreatedJob.Id,
+                    CardOpsId = jobStatusCompleted.Id,
+                    InventoryId = jobStatusQueue.Id,
+                    PrintingId = jobStatusNotRequired.Id,
+                    PrintQAId = jobStatusNotRequired.Id,
+                    PrintQCId = jobStatusNotRequired.Id,
+                    CardEngrId = jobStatusQueue.Id,
+                    QAId = jobStatusPending.Id,
+                    FirstJobRunId = jobStatusQueue.Id,
+                    CardEngrResumeId = jobStatusPending.Id,
+                    QCId = jobStatusPending.Id,
+                    MailingId = jobStatusPending.Id,
+                    DispatchId = jobStatusPending.Id,
+                    MAudId = jobStatusPending.Id,
+                    CustomerServiceId = jobStatusPending.Id,
+                 
+                    CreatedOn = DateTime.Now,
+                    ModifiedOn = DateTime.Now
+                };
+
+                context.JobTrackers.Add(jobTrackerPersoOnly);
+                await context.SaveChangesAsync();
+                #endregion
+
+            }
+            else if (entity.ServiceTypeId == jobTypePrintingPersoAndMailing.Id)
+            {
+                #region PersoAndMailing
+
+                var jobTrackerPersoOnly = new JobTracker()
+                {
+                    JobId = lastCreatedJob.Id,
+                    CardOpsId = jobStatusCompleted.Id,
+                    InventoryId = jobStatusQueue.Id,
+                    PrintingId = jobStatusQueue.Id,
+                    PrintQAId = jobStatusPending.Id,
+                    PrintQCId = jobStatusPending.Id,
+                    CardEngrId = jobStatusPending.Id,
+                    QAId = jobStatusPending.Id,
+                    FirstJobRunId = jobStatusPending.Id,
+                    CardEngrResumeId = jobStatusPending.Id,
+                    QCId = jobStatusPending.Id,
+                    MailingId = jobStatusPending.Id,
+                    DispatchId = jobStatusPending.Id,
+                    MAudId = jobStatusPending.Id,
+                    CustomerServiceId = jobStatusPending.Id,
+                    CreatedOn = DateTime.Now,
+                    ModifiedOn = DateTime.Now
+                };
+
+                context.JobTrackers.Add(jobTrackerPersoOnly);
+                await context.SaveChangesAsync();
+                #endregion
+            }
+
+            #endregion
+     

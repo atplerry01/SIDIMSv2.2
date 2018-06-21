@@ -1,0 +1,198 @@
+﻿<div class="page-title full-width">
+    <div class="title-env">
+        <h1 class="title">Create User</h1>
+        <p class="description">Descriptions</p>
+    </div>
+
+    <div class="btn-group pull-right" style="padding-right:30px">
+
+        <button ng-click="vm.goBack()" class="btn btn-info btn-icon btn-gap" style="margin-right:2px">
+            <i class="fa-angle-left"></i>
+            <span>Back</span>
+        </button>
+
+        <button class="btn btn-info btn-icon btn-gap" style="margin-right:2px">
+            <i class="fa-refresh"></i>
+            <span>Refresh</span>
+        </button>
+
+        <button ng-click="vm.gotoAddVariant()" class="btn btn-info btn-icon btn-gap">
+            <i class="fa-plus"></i>
+            <span>Add New Variant</span>
+        </button>
+
+    </div>
+
+</div>
+
+<!-- Tables and Panels -->
+<div class="row">
+    <div class="col-md-5">
+
+        <div class="panel panel-default">
+            <div class="panel-heading">
+
+                <div id="main">
+                    <div class="list-your-property-form">
+                        <h2 class="page-header" style="font-size:24px; margin-top:5px">
+                            Account Details
+                        </h2>
+
+                        <div class="container">
+
+                            <div class="row">
+                                <div class="col-md-4 col-sm-12">
+
+                                    <div class="span4">
+
+                                        <div class="input-text form-group">
+                                            <label class="control-label" for="inputLoginPassword">
+                                                First Name: <span style="font-size:11px"></span>
+                                                <span class="form-required" title="This field is required.">*</span>
+                                            </label>
+                                            <input type="text" name="contact_name"
+                                                   ng-model="vm.user.firstName"
+                                                   class="input-name form-control" placeholder="" />
+                                        </div>
+
+                                        <div class="input-text form-group">
+                                            <label class="control-label" for="inputLoginPassword">
+                                                Last Name: <span style="font-size:11px"></span>
+                                                <span class="form-required" title="This field is required.">*</span>
+                                            </label>
+                                            <input type="text" name="contact_name"
+                                                   ng-model="vm.user.lastName"
+                                                   class="input-name form-control" placeholder="" />
+                                        </div>
+
+                                        <div class="input-text form-group">
+                                            <label class="control-label" for="inputLoginPassword">
+                                                Email Address: <span style="font-size:11px"></span>
+                                                <span class="form-required" title="This field is required.">*</span>
+                                            </label>
+                                            <input type="text" name="contact_name"
+                                                   ng-model="vm.user.email"
+                                                   class="input-name form-control" placeholder="" />
+                                        </div>
+
+                                        <div class="input-text form-group">
+                                            <label class="control-label" for="inputLoginPassword">
+                                                Username: <span style="font-size:11px"></span>
+                                                <span class="form-required" title="This field is required.">*</span>
+                                            </label>
+                                            <input type="text" name="contact_name" readonly
+                                                   ng-model="vm.user.userName"
+                                                   class="input-name form-control" placeholder="" />
+                                        </div>
+
+                                        <div class="input-text form-group">
+                                            <label class="control-label" for="inputLoginPassword">
+                                                Password: <span style="font-size:11px"></span>
+                                                <span class="form-required" title="This field is required.">*</span>
+                                            </label>
+                                            <input type="password" name="contact_name"
+                                                   ng-model="vm.user.password" value="####"
+                                                   class="input-name form-control" placeholder="" />
+
+                                        </div>
+
+                                        <div class="input-text form-group">
+                                            <input type="submit" data-ng-click="vm.save()"
+                                                   value="Submit Entry" class="btn btn-primary btn-large list-your-property arrow-right" />
+                                        </div>
+
+                                        <div data-ng-show="vm.messageVisble" style="color:red">
+                                            <img src="../../../assets/chargement.gif" />
+                                            {{vm.message}}
+                                        </div>
+
+                                        <div style="margin-top:10px; font-size:12px" data-ng-hide="message == ''"
+                                             data-ng-class="(savedSuccessfully) ? 'alert alert-success' : 'alert alert-danger'">
+                                            {{message}}
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="col-md-7">
+
+        <div class="panel panel-flat">
+            <div class="panel-heading">
+
+                <h3 class="panel-title">Account Roles</h3>
+
+                <div class="panel-options">
+                    <a href="">
+                        <i class="linecons-cog"></i>
+                    </a>
+
+                    <a href="" data-toggle="panel">
+                        <span class="collapse-icon">&ndash;</span>
+                        <span class="expand-icon">+</span>
+                    </a>
+
+                    <a href="" data-toggle="reload">
+                        <i class="fa-rotate-right"></i>
+                    </a>
+
+                    <a href="" data-toggle="remove">
+                        &times;
+                    </a>
+                </div>
+
+            </div>
+
+            <table class="table table-condensed">
+
+                <tbody>
+                    <tr data-ng-repeat="c in vm.userRoles">
+                        <td>
+                            ({{$index +1}}) {{c.name}}
+
+                            <span class="text-muted small" style="padding-left:20px">
+                                <span data-ng-click="vm.removeRole(c)" style="margin-left:20px">
+                                    <i class="fa fa-times fa-5x"></i>
+                                </span>
+                            </span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <div class="input-text form-group">
+                            <label class="control-label" for="inputLoginPassword">
+                                Roles:
+                                <span class="form-required" title="This field is required.">*</span>
+                            </label>
+
+                            <select data-ng-options="r.name for r in vm.roles"
+                                    data-ng-model="vm.assign.role" class="form-control"
+                                    style="padding:5px; width:250px"></select>
+
+                        </div>
+
+                        <div class="input-text form-group">
+                            <input type="submit" data-ng-click="vm.saveRole()"
+                                   value="Submit Entry" class="btn btn-primary btn-large list-your-property arrow-right" />
+                        </div>
+
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+</div>
+

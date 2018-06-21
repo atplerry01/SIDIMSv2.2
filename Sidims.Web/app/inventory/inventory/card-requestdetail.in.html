@@ -1,0 +1,115 @@
+﻿<div class="page-title full-width">
+    <div class="title-env">
+        <h1 class="title">SCM Card Request Details</h1>
+        <p class="description">Descriptions</p>
+    </div>
+
+    <div class="btn-group pull-right" style="padding-right:30px">
+
+        <button ng-click="vm.goBack()" class="btn btn-info btn-icon btn-gap" style="margin-right:2px">
+            <i class="fa-angle-left"></i>
+            <span>Back</span>
+        </button>
+
+        <button class="btn btn-info btn-icon btn-gap" style="margin-right:2px">
+            <i class="fa-refresh"></i>
+            <span>Refresh</span>
+        </button>
+
+        <button ng-click="vm.addCardRequest()" class="btn btn-info btn-icon btn-gap">
+            <i class="fa-plus"></i>
+            <span>Add New Request</span>
+        </button>
+
+    </div>
+
+</div>
+
+<!-- Tables and Panels -->
+<div class="row">
+    <div class="col-md-8">
+
+        <div class="panel panel-default">
+            <div class="panel-heading">
+
+                <div id="main">
+                    <div class="list-your-property-form">
+                        <h2 class="page-header" style="font-size:24px; margin-top:5px">
+                            {{'Edit ' + vm.class.className + ' Card Request' || 'Create New Client'}}
+                        </h2>
+
+                        <div class="container">
+
+                            <div class="row">
+                                <div class="col-md-4 col-sm-12">
+
+                                    <div class="span4">
+
+                                        <div class="input-text form-group">
+                                            <label class="control-label" for="inputLoginPassword">
+                                                Client
+                                                <span class="form-required" title="This field is required.">*</span>
+                                            </label>
+
+                                            <select data-ng-options="r.name for r in vm.clients"
+                                                    data-ng-model="vm.cardrequest.client" class="form-control"
+                                                    style="padding:5px"></select>
+                                        </div>
+
+                                        <div class="input-text form-group">
+                                            <label class="control-label" for="inputLoginPassword">
+                                                Variant
+                                                <span class="form-required" title="This field is required.">*</span>
+                                            </label>
+
+                                            <select data-ng-options="r.variantName for r in vm.sidVariants"
+                                                    data-ng-model="vm.cardrequest.variant" class="form-control"
+                                                    style="padding:5px"></select>
+                                        </div>
+
+                                        <div class="input-text form-group">
+                                            <label class="control-label" for="inputLoginPassword">
+                                                Chip Type
+                                                <span class="form-required" title="This field is required.">*</span>
+                                            </label>
+
+                                            <select data-ng-options="r.name for r in vm.sidChipTypes"
+                                                    data-ng-model="vm.cardrequest.chiptype" class="form-control"
+                                                    style="padding:5px"></select>
+                                        </div>
+
+
+                                        <div class="input-text form-group">
+                                            <label class="control-label" for="inputLoginPassword">
+                                                Total Batch Quantity <span style="font-size:11px">(eg: FirstBank)</span>
+                                                <span class="form-required" title="This field is required.">*</span>
+                                            </label>
+                                            <input type="text" name="contact_name"
+                                                   ng-model="vm.cardrequest.quantity"
+                                                   class="input-name form-control" placeholder="" />
+                                        </div>
+
+                                        <div class="input-text form-group">
+                                            <input type="submit" data-ng-click="vm.save()"
+                                                   value="Submit Entry" class="btn btn-primary btn-large list-your-property arrow-right" />
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+

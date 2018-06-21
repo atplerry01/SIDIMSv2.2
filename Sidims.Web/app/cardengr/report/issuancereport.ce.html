@@ -1,0 +1,100 @@
+﻿<div class="page-title full-width">
+    <div class="title-env">
+        <h1 class="title">Card Issuance Reports</h1>
+        <p class="description">Retrive all jobs status.</p>
+    </div>
+
+    <div class="btn-group pull-right" style="padding-right:30px">
+
+        <button ng-click="vm.goBack()" class="btn btn-info btn-icon btn-gap" style="margin-right:2px">
+            <i class="fa-angle-left"></i>
+            <span>Back</span>
+        </button>
+
+        <button ng-click="vm.refresh()" class="btn btn-info btn-icon btn-gap" style="margin-right:2px">
+            <i class="fa-refresh"></i>
+            <span>Refresh</span>
+        </button>
+
+    </div>
+
+</div>
+
+
+<div>
+
+    <div class="table-wrapper widget-content">
+
+        <div class="table-responsive" data-pattern="priority-columns" data-focus-btn-icon="fa-asterisk" data-sticky-table-header="true" data-add-display-all-btn="true" data-add-focus-btn="true">
+
+            <div class="table-responsive" data-pattern="priority-columns" data-focus-btn-icon="fa-asterisk" data-sticky-table-header="true" data-add-display-all-btn="true" data-add-focus-btn="true">
+
+                <table cellspacing="0" class="table table-small-font table-bordered table-striped">
+                    <thead>
+                        <tr>
+                            <th>File Name</th>
+                            <th data-priority="3">Job Qty</th>
+                            <th data-priority="1">Qty Issuanced</th>
+                            <th data-priority="3">Qty Remain</th>
+                            <th data-priority="3">Issuance Agent</th>
+                            <th data-priority="6">Receiver Agent</th>
+                            <th data-priority="1">Transaction Date</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        <tr data-ng-repeat="c in vm.cardIssuancelogs"
+                            data-ng-click="vm.gotoJobDetails(c)">
+                            <th colspan="1" data-columns="id8c140f573a4de-col-0">
+                                ({{$index +1}})
+                                <span class="co-name">
+                                    {{c.cardIssuance.job.jobName }}
+                                </span>
+                            </th>
+                            <td data-priority="3" colspan="1" data-columns="id8c140f573a4de-col-2">
+                                {{c.totalQuantity}}
+                            </td>
+                            <td data-priority="1" colspan="1" data-columns="id8c140f573a4de-col-3">
+                                {{c.quantityIssued}}
+                            </td>
+                            <td data-priority="3" colspan="1" data-columns="id8c140f573a4de-col-4">
+                               {{c.quantityRemain}}  
+                            </td>
+                            <td data-priority="3" colspan="1" data-columns="id8c140f573a4de-col-5">
+                                {{c.issuance.fullName}}
+                            </td>
+                            <td data-priority="6" colspan="1" data-columns="id8c140f573a4de-col-6">
+                                {{c.collector.fullName}}
+                            </td>
+                            <td data-priority="6" colspan="1" data-columns="id8c140f573a4de-col-6">
+                                {{c.formattedDate}}
+                            </td>
+                          
+                        </tr>
+
+
+                    </tbody>
+                </table>
+
+            </div>
+            <div>
+
+                <pagination boundary-links="true"
+                            on-select-page="vm.pageChanged(page)"
+                            total-items="vm.jobTrackerFilteredCount"
+                            items-per-page="vm.paging.pageSize"
+                            page="vm.paging.currentPage"
+                            max-size="vm.paging.maxPagesToShow"
+                            class="pagination-small"
+                            previous-text="Prev"
+                            next-text="Next"
+                            first-text="First"
+                            last-text="Last"></pagination>
+
+            </div>
+
+        </div>
+    </div>
+
+
+</div>

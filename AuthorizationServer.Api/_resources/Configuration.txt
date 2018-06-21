@@ -1,0 +1,124 @@
+﻿namespace AuthorizationServer.Api.Migrations
+{
+    using Helpers;
+    using Infrastructure;
+    using Microsoft.AspNet.Identity;
+    using Microsoft.AspNet.Identity.EntityFramework;
+    using SID.Common.Model.Infrastructure;
+    using SID.Common.Model.Lookups;
+    using System;
+    using System.Collections.Generic;
+    using System.Data.Entity;
+    using System.Data.Entity.Migrations;
+    using System.Linq;
+
+    internal sealed class Configuration : DbMigrationsConfiguration<AuthorizationServer.Api.Infrastructure.ApplicationDbContext>
+    {
+        public Configuration()
+        {
+            AutomaticMigrationsEnabled = false;
+        }
+
+        protected override void Seed(AuthorizationServer.Api.Infrastructure.ApplicationDbContext context)
+        {
+            //  This method will be called after migrating to the latest version.
+
+            var manager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(new ApplicationDbContext()));
+            var roleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(new ApplicationDbContext()));
+
+            var user = new ApplicationUser() { UserName = "atplerry", Email = "atplerry@gmail.com", EmailConfirmed = true, FirstName = "Akinsanya", LastName = "Olanrewaju", Level = 1, JoinDate = DateTime.Now.AddYears(-3) };
+            var user01 = new ApplicationUser() { UserName = "akinCardOps", Email = "akinCardOps@gmail.com", EmailConfirmed = true, FirstName = "Akinsanya", LastName = "akinCardOps", Level = 1, JoinDate = DateTime.Now.AddYears(-3) };
+
+            manager.Create(user, "akinlanre@01");
+            manager.Create(user01, "akinlanre@01");
+
+            if (roleManager.Roles.Count() == 0)
+            {
+                roleManager.Create(new IdentityRole { Name = "SuperAdmin" });
+                roleManager.Create(new IdentityRole { Name = "Admin" });
+                roleManager.Create(new IdentityRole { Name = "Supervisor" });
+                roleManager.Create(new IdentityRole { Name = "User" });
+                roleManager.Create(new IdentityRole { Name = "CardOps" });
+                roleManager.Create(new IdentityRole { Name = "CardEngr" });
+                roleManager.Create(new IdentityRole { Name = "Inventory" });
+                roleManager.Create(new IdentityRole { Name = "QA" });
+                roleManager.Create(new IdentityRole { Name = "QC" });
+                roleManager.Create(new IdentityRole { Name = "Mailing" });
+                roleManager.Create(new IdentityRole { Name = "RM" });
+                roleManager.Create(new IdentityRole { Name = "CS" });
+                roleManager.Create(new IdentityRole { Name = "Bank" });
+                roleManager.Create(new IdentityRole { Name = "Customer" });
+                
+            }
+
+            var adminUser = manager.FindByName("atplerry");
+            var adminUser01 = manager.FindByName("akinCardOps");
+
+            manager.AddToRoles(adminUser.Id, new string[] { "SuperAdmin", "Admin" });
+            manager.AddToRoles(adminUser01.Id, new string[] { "CardOps" });
+
+            // Client Seeds
+            if (context.Clients.Count() > 0)
+            {
+                return;
+            }
+
+            context.Clients.AddRange(BuildClientsList());
+            context.SaveChanges();
+
+            #region Lookups
+
+
+            var CardType = new CardType { Name = "Magstripe" };
+            context.CardTypes.Add(CardType);
+
+            var FlagType = new FlagType { Name = "Partial Upload" };
+            context.FlagTypes.Add(FlagType);
+
+            var JobStage = new JobStage { Name = "Perso" };
+            context.JobStages.Add(JobStage);
+
+            var JobStatus = new JobStatus { Name = "WIP" };
+            context.JobStatus.Add(JobStatus);
+
+            var JobType = new JobType { Name = "Perso Only" };
+            context.JobTypes.Add(JobType);
+
+
+            context.SaveChanges();
+
+            #endregion
+
+        }
+
+
+        private static List<Client> BuildClientsList()
+        {
+
+            List<Client> ClientsList = new List<Client>
+            {
+                new Client
+                { Id = "ngAuthApp",
+                    Secret= Helper.GetHash("abc@123"),
+                    Name="AngularJS front-end Application",
+                    ApplicationType =  ApplicationTypes.JavaScript,
+                    Active = true,
+                    RefreshTokenLifeTime = 7200,
+                    AllowedOrigin = "http://ngauthenticationweb.azurewebsites.net"
+                },
+                new Client
+                { Id = "consoleApp",
+                    Secret=Helper.GetHash("123@abc"),
+                    Name="Console Application",
+                    ApplicationType = ApplicationTypes.NativeConfidential,
+                    Active = true,
+                    RefreshTokenLifeTime = 14400,
+                    AllowedOrigin = "*"
+                }
+            };
+
+            return ClientsList;
+        }
+
+    }
+}
